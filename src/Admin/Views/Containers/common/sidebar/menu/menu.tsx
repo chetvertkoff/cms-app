@@ -6,16 +6,19 @@ import { IProps,Menus } from './../../../../Types/index.d';
 
 import MenuItem from './menuItems/menuItem/menuItem';
 import { fetchMenu,fetchMenuItemsById } from './../../../../Store/Action/fetchMenu';
-import e from 'express';
+
 
 
 class Menu extends Component<IProps, Menus>{
     pages:IProps
     constructor(props:IProps){
         super(props)
+
+        this.state={
+            memory: [],
+            arr:null
+        }
         this.menuToggler= this.menuToggler.bind(this)
-        this.pages=this.props.menu.pages
-        this.arr=null
     }
 
     componentDidMount(){ 
@@ -26,13 +29,23 @@ class Menu extends Component<IProps, Menus>{
     }
 
     componentDidUpdate(prevProps){
+        
         if(prevProps.menu.pages[0]._id != this.props.menu.pages[0]._id){
-            this.pages= this.props.menu.pages
-            if(this.arr==null){
-                this.arr = this.pages
+
+            if(this.state.arr==null){
+                setTimeout(()=>{
+                    this.setState({
+                        arr: this.props.menu.pages
+                    })
+                },0)     
             }
-            this.arr = this.filterOb(this.arr, this.pages[0].parent, this.pages) 
-            this.forceUpdate()
+            setTimeout(() => {
+                this.setState({
+                    arr: this.filterOb(this.state.arr, this.props.menu.pages[0].parent, this.props.menu.pages) 
+                })
+                
+                this.forceUpdate()
+            }, 0);
             return true
         }
         return false
@@ -54,36 +67,17 @@ class Menu extends Component<IProps, Menus>{
         return arr
     }
 
-    findEl=(arr, id)=>{
-        var find = ''
-        if(find == ''){
-            arr.map(item=>{
-                if(item.isFolder && item.items!==undefined){
-                    if(item.parent == id){                  
-                        find = item.parent
-                    }else{
-                        this.findEl(item.items, id)
-                    }
-                }else{
-                    if(item.parent == id){
-                        find = item.parent
-                    }
-                }
-            })
-        }
-        // return find
-    }
-
     menuToggler(){
         this.props.toggleMenuItem(this.props.toggleMenu)
     }
 
     getPageMenu=(id)=>{
-        console.log(this.arr);
-        
-        
-        this.props.fetchMenuItemsById(id)
-        
+        if( !this.state.memory.find((item)=>item==id)){
+            this.setState({
+                memory: [...this.state.memory, id]
+            })
+            this.props.fetchMenuItemsById(id)
+        }
     }
 
     render() {   
@@ -107,8 +101,8 @@ class Menu extends Component<IProps, Menus>{
                                         ></i>
                                     </NavLink>
                                     <ul className="treeview-menu" style={{paddingLeft:"0px"}}>
-                                        {   this.props.toggleMenu && this.arr[0].alias ? 
-                                            this.arr.map((page)=>(
+                                        {   this.props.toggleMenu && this.state.arr[0].alias ? 
+                                            this.state.arr.map((page)=>(
                                                 <MenuItem page={page} key={page.id} getPageMenu={this.getPageMenu}/>
                                             )) : null
                                         }

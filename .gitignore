@@ -3,3 +3,6 @@ node_modules
 
 # bundle
 /public
+
+#dev
+.vscode
