@@ -9,10 +9,12 @@ class MenuItem extends React.Component<Tree,IProps>{
         this.state = {collapsed: false};
     }
     
-    onClick(){
+    onClick(id){
         this.setState({
-              collapsed: !this.state.collapsed
-          });
+            collapsed: !this.state.collapsed
+        })
+        
+        this.props.getPageMenu(id)
     }
 
     item=(item)=>{
@@ -24,7 +26,6 @@ class MenuItem extends React.Component<Tree,IProps>{
     }
 
     render() {
-
         var subtree = null
         var arrowClassName = 'treeview'
         if (this.state.collapsed) {
@@ -42,13 +43,13 @@ class MenuItem extends React.Component<Tree,IProps>{
                         </NavLink>
                         <i 
                             className={"treeview-indicator fa fa-angle-right"}
-                            onClick={this.onClick.bind(this)}
+                            onClick={this.onClick.bind(this,this.props.page.id)}
                         ></i>
                     </span>
                     <ul className="treeview-menu ">
                         { 
                             this.item(this.props.page.items).map(child=>{
-                                return  <MenuItem page={child} key={child.id} />
+                                return  <MenuItem page={child} key={child.id}  getPageMenu={this.props.getPageMenu}/>
                             })
                         }          
                     </ul>

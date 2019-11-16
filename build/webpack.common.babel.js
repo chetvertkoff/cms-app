@@ -22,7 +22,7 @@ export default {
     app: PATHS.src,
     // module: `${PATHS.src}/your-module.js`,
   },
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   output: {
     filename: `${PATHS.assets}js/[name].[hash].js`,
     path: PATHS.dist,

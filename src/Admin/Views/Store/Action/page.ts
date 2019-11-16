@@ -9,18 +9,15 @@ export const fetchPages =()=>dispatch=>{
 
 
 export const fetchPagesById =(idn:number)=>dispatch=>{
-    xhr('GET','https://test-4a782.firebaseio.com/pages.json')
-     .then(data=>{
-        arr=[]
-
-        return filterOb(data,idn)
-     })
-     .then(data=>dispatch(dfetchPageById(data)))
+    xhr('GET',`http://localhost:5000/page/${idn}`)
+        .then(data=>{
+        dispatch(dfetchPageById(data))
+        })
 }
 
 export const fetchPageById =(id)=>dispatch=>{
     xhr('GET',`https://test-4a782.firebaseio.com/pages/${id}.json`)
-     .then(data=>{console.log(data);dispatch(dfetchPageById(data))})
+     .then(data=>{dispatch(dfetchPageById(data))})
 }
 
 const dfetchPages=(pages)=>({
@@ -32,21 +29,4 @@ const dfetchPageById=(pages)=>({
 })
 
 
-var arr = []
-const filterOb =(obj,id:number | string)=>{       
-    obj.map(item=>{
-        if(item.isFolder){
-            if(item.parent == id){
-                arr.push(item)
-            }
-            const items = Object.keys(item.items).map(i=>item.items[i])
-            filterOb(items, id)
-        }else{
-            if(item.parent == id){
-                arr.push(item)
-            }
-        }
-    })    
-    return arr
-}
 

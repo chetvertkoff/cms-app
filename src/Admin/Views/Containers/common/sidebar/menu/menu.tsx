@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleMenuItem } from '../../../../Store/Action/commonAction';
-import { IProps,Menus } from 'Admin/Views/Types';
-import { fetchPages } from './../../../../Store/Action/page';
+import { IProps,Menus } from './../../../../Types/index.d';
 
 import MenuItem from './menuItems/menuItem/menuItem';
-import { fetchMenu } from './../../../../Store/Action/fetchMenu';
+import { fetchMenu,fetchMenuItemsById } from './../../../../Store/Action/fetchMenu';
+import e from 'express';
 
 
 class Menu extends Component<IProps, Menus>{
@@ -14,24 +14,79 @@ class Menu extends Component<IProps, Menus>{
     constructor(props:IProps){
         super(props)
         this.menuToggler= this.menuToggler.bind(this)
-        this.pages=this.props.pages.pages
+        this.pages=this.props.menu.pages
+        this.arr=null
     }
 
-    componentDidMount(){
+    componentDidMount(){ 
         setImmediate(()=>{
             this.props.fetchMenu()
         })
-        this.props.fetchPages()
+        this.props.fetchMenuItemsById(0)  
     }
-    componentDidUpdate(){
-        this.pages= this.props.pages.pages
+
+    componentDidUpdate(prevProps){
+        if(prevProps.menu.pages[0]._id != this.props.menu.pages[0]._id){
+            this.pages= this.props.menu.pages
+            if(this.arr==null){
+                this.arr = this.pages
+            }
+            this.arr = this.filterOb(this.arr, this.pages[0].parent, this.pages) 
+            this.forceUpdate()
+            return true
+        }
+        return false
+    }
+
+    filterOb =(arr,id:number | string, putted)=>{    
+        arr.map(item=>{
+            if(item.id != item.parent){
+                if(item.isFolder && item.items!==undefined){
+                    this.filterOb(item.items, id, putted)
+                }else{
+                    if(item.id == putted[0].parent){
+                        item.items = putted
+                    }
+                }
+            }
+        })    
+        
+        return arr
+    }
+
+    findEl=(arr, id)=>{
+        var find = ''
+        if(find == ''){
+            arr.map(item=>{
+                if(item.isFolder && item.items!==undefined){
+                    if(item.parent == id){                  
+                        find = item.parent
+                    }else{
+                        this.findEl(item.items, id)
+                    }
+                }else{
+                    if(item.parent == id){
+                        find = item.parent
+                    }
+                }
+            })
+        }
+        // return find
     }
 
     menuToggler(){
         this.props.toggleMenuItem(this.props.toggleMenu)
     }
 
-    render() {     
+    getPageMenu=(id)=>{
+        console.log(this.arr);
+        
+        
+        this.props.fetchMenuItemsById(id)
+        
+    }
+
+    render() {   
         const classes=["treeview"]
         if(this.props.toggleMenu){
             classes.push('is-expanded')
@@ -52,9 +107,9 @@ class Menu extends Component<IProps, Menus>{
                                         ></i>
                                     </NavLink>
                                     <ul className="treeview-menu" style={{paddingLeft:"0px"}}>
-                                        {   this.props.toggleMenu && this.pages[0].alias ? 
-                                            this.pages.map((page)=>(
-                                                <MenuItem page={page} key={page.id} />
+                                        {   this.props.toggleMenu && this.arr[0].alias ? 
+                                            this.arr.map((page)=>(
+                                                <MenuItem page={page} key={page.id} getPageMenu={this.getPageMenu}/>
                                             )) : null
                                         }
                                     </ul>
@@ -78,14 +133,14 @@ class Menu extends Component<IProps, Menus>{
 }
 
 const mapStateToProps=(state)=>({
-    pages: state.fetchPages,
+    pages: state.fetchMenuItemsById,
     toggleMenu: state.commonReducer.toggleMenu,
     menu: state.fetchMenu
 })
 
 const mapDispatchToProps = (dispatch)=>({
     toggleMenuItem: bool=>dispatch(toggleMenuItem(bool)),
-    fetchPages: ()=>dispatch(fetchPages()),
+    fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
     fetchMenu: ()=>dispatch(fetchMenu())
 })
 

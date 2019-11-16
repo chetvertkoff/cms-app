@@ -14,7 +14,7 @@ const initialState:Pages={
     ]
 }
 
-export const fetchPages=(state=initialState,action)=>{
+const fetchPages=(state=initialState,action)=>{
     switch (action.type) {
         case FETCH_PAGES:
             return{
@@ -30,3 +30,5 @@ export const fetchPages=(state=initialState,action)=>{
             return state
     }
 }
+
+export default fetchPages

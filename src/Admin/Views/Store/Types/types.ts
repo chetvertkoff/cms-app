@@ -5,4 +5,4 @@ export const MENU_TOGGLE = 'MENU_TOGGLE'
 export const FETCH_PAGES='FETCH_PAGES'
 export const FETCH_PAGE='FETCH_PAGE'
 export const FETCH_MENU='FETCH_MENU'
-
+export const FETCH_MENU_ITEMS = 'FETCH_MENU_ITEMS'

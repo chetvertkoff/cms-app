@@ -25,9 +25,7 @@ class Page extends Component<IProps>{
         return false
     }
 
-    render(){  
-        console.log(this.props);
-        
+    render(){    
         return (
             <React.Fragment>
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>
@@ -64,9 +62,11 @@ class Page extends Component<IProps>{
 
 }
 
-const mapStateToProps=(state:IProps)=>({
-    pages: state.fetchPages
-})
+const mapStateToProps=(state:IProps)=>{
+    
+    return{
+    pages: state.fetchPages.pages
+}}
 
 const mapDispatchToProps=(dispatch)=>({
     fetchPagesById: id=>dispatch(fetchPagesById(id))
