@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { IProps, Tree } from './../../../../../../Types/index.d';
+import { IProps,IState } from './../../../../../../Types/index.d';
 
-class MenuItem extends React.Component<Tree,IProps>{
+class MenuItem extends React.Component<IProps, IState>{
 
     constructor(props:IProps) {
         super(props);

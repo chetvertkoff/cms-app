@@ -14,11 +14,13 @@ class Page extends Component<IProps>{
     }
 
     componentDidMount(){
+        // Get root pages from API for first loading
         this.props.fetchPagesById(this.props.match.params.ids)
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.match.params.ids != this.props.match.params.ids){
+            // Get new pages from server
             this.props.fetchPagesById(this.props.match.params.ids)
             return true
         }
@@ -45,8 +47,8 @@ class Page extends Component<IProps>{
                                     </div>
                                     <div className="row">
                                     {   
-                                        this.props.pages.page &&
-                                        this.props.pages.page.map(item=>{
+                                        this.props.pages &&
+                                        this.props.pages.map(item=>{
                                             return <PageItem item={item} key={item.id} /> 
                                         })
                                     }
@@ -63,9 +65,10 @@ class Page extends Component<IProps>{
 }
 
 const mapStateToProps=(state:IProps)=>{
-    
+
     return{
-    pages: state.fetchPages.pages
+    // Get pages from server
+    pages: state.fetchPages.page
 }}
 
 const mapDispatchToProps=(dispatch)=>({

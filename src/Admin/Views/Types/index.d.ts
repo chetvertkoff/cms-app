@@ -27,7 +27,7 @@ export interface IProps{
     collapsed?:boolean,
     fetchPageById?:(e:number)=>Tree,
     match?:any,
-    page?:Pages,
+    page?:Tree,
     label?: string,
     value?: string,
     title?:string,
@@ -36,7 +36,15 @@ export interface IProps{
     fetchMenu?:()=>Menus,
     menu?: Menus,
     fetchPagesById?:(e:number)=>Page,
-    classN?: string
+    classN?: string,
+    fetchMenuItemsById?:(e:number)=>void,
+    getPageMenu?:(e:number)=>void
+}
+
+export interface IState{
+    memory?: Array<number>,
+    arr?: Tree,
+    collapsed?: boolean
 }
 
 // reducer states
@@ -72,12 +80,13 @@ export interface Page{
 
 export interface Menus{
     menu:[{
-        alias:string,
-        class:string,
-        hasPages: boolean,
-        id: number,
-        title: string
-    }]
+        alias?:string,
+        class?:string,
+        hasPages?: boolean,
+        id?: number,
+        title?: string,
+    }],
+    pages: Tree
 }
 
 export interface Tree{

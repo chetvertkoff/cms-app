@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleMenuItem } from '../../../../Store/Action/commonAction';
-import { IProps,Menus } from './../../../../Types/index.d';
+import { IProps, IState } from './../../../../Types/index.d';
 
 import MenuItem from './menuItems/menuItem/menuItem';
 import { fetchMenu,fetchMenuItemsById } from './../../../../Store/Action/fetchMenu';
 
 
+class Menu extends Component<IProps, IState>{
 
-class Menu extends Component<IProps, Menus>{
-    pages:IProps
     constructor(props:IProps){
         super(props)
 
@@ -29,6 +28,7 @@ class Menu extends Component<IProps, Menus>{
     }
 
     componentDidUpdate(prevProps){
+        console.log(this.props.menu.pages);
         
         if(prevProps.menu.pages[0]._id != this.props.menu.pages[0]._id){
 
