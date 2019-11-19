@@ -17,8 +17,6 @@ class UpdatePage extends React.Component<IProps>{
     }
 
     render() {   
-        console.log(this.props.match.params.id);
-        
         return (
             <div className="row">
                 <div className="col-md-12">

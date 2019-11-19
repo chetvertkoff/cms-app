@@ -5,29 +5,35 @@ import Search from './parts/search';
 import PageItem from './parts/pageItem';
 import Title from './../common/title/title';
 import { connect } from 'react-redux';
-import { IProps } from './../../Types/index.d';
+import { IProps, IState } from './../../Types/index.d';
 import { fetchPagesById } from './../../Store/Action/page';
 
-class Page extends Component<IProps>{
+class Page extends Component<IProps, IState>{
     constructor(props){
         super(props)
+
     }
 
     componentDidMount(){
         // Get root pages from API for first loading
-        this.props.fetchPagesById(this.props.match.params.ids)
+        this.props.fetchPagesById(this.props.match.params.ids)    
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.match.params.ids != this.props.match.params.ids){
+        if(prevProps.match.params.ids != this.props.match.params.ids ){ 
             // Get new pages from server
-            this.props.fetchPagesById(this.props.match.params.ids)
+            if(!this.props.pages.length){
+                this.props.fetchPagesById(0)
+            }else{
+                this.props.fetchPagesById(this.props.match.params.ids)
+            }
+            
             return true
         }
         return false
     }
 
-    render(){    
+    render(){ 
         return (
             <React.Fragment>
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>
@@ -47,10 +53,10 @@ class Page extends Component<IProps>{
                                     </div>
                                     <div className="row">
                                     {   
-                                        this.props.pages &&
+                                        this.props.pages && this.props.pages.length >= 1 ?
                                         this.props.pages.map(item=>{
                                             return <PageItem item={item} key={item.id} /> 
-                                        })
+                                        }): null
                                     }
                                     </div>
                                 </div>
@@ -64,12 +70,10 @@ class Page extends Component<IProps>{
 
 }
 
-const mapStateToProps=(state:IProps)=>{
-
-    return{
+const mapStateToProps=(state:IProps)=>({
     // Get pages from server
     pages: state.fetchPages.page
-}}
+})
 
 const mapDispatchToProps=(dispatch)=>({
     fetchPagesById: id=>dispatch(fetchPagesById(id))

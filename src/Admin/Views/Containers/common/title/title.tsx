@@ -8,6 +8,7 @@ class Title extends Component<IProps> {
     }
     
     render() {
+        
         return (
             <div className="app-title">
                 <div>

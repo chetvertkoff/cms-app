@@ -6,4 +6,4 @@ const CrumbItem = () => {
     );
 }
 
-export default CrumbItem;
+export default CrumbItem

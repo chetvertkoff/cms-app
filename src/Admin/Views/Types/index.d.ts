@@ -18,7 +18,7 @@ export interface IProps{
     isLoaded?:boolean,
     load?:()=>void,
     children?:any,
-    fetchPages?:()=>Pages,
+    fetchPages?:any,
     pages?:Tree | any,
     item?:any,
     tree?:Tree,
@@ -56,14 +56,12 @@ export interface Common{
 }
 
 export interface Pages{
-    pages:[{
+    pages?:[{
         userId?: number,
         id?: number,   
         title?: string,
         body?: string
-    }],
-    title?:string,
-    alias?:string
+    }]
 }
 
 export interface Page{
@@ -99,7 +97,8 @@ export interface Tree{
     page?:Tree,
     items?:Tree,
     map?:any,
-    length?:number
+    length?:number,
+    _id?:string
 }
 
 

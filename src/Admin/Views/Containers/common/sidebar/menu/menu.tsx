@@ -28,8 +28,7 @@ class Menu extends Component<IProps, IState>{
     }
 
     componentDidUpdate(prevProps){
-        console.log(this.props.menu.pages);
-        
+
         if(prevProps.menu.pages[0]._id != this.props.menu.pages[0]._id){
 
             if(this.state.arr==null){

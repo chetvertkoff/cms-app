@@ -5,7 +5,6 @@ import { IProps } from './../../../../Types/index.d';
 
 
 const Caption = (props:IProps) => {
-    console.log(props);
     
     if(props.data){
         return (
