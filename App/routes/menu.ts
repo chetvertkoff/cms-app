@@ -13,12 +13,14 @@ MongoClient(process.env.URL,{ useUnifiedTopology: true })
      db = client.db(dbName)
  })
 
-menu.get('/',(req,res)=>{
+menu.get('*',(req,res)=>{
     db
      .collection('menu')
-     .find()
+     .find({})
     //  .limit()
      .toArray((err, data)=>{   
+         console.log(data);
+         
          res.json(data)
      })
 })

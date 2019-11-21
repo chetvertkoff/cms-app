@@ -7,8 +7,7 @@ class Title extends Component<IProps> {
         super(props)
     }
     
-    render() {
-        
+    render() {        
         return (
             <div className="app-title">
                 <div>
