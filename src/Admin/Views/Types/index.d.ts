@@ -38,13 +38,38 @@ export interface IProps{
     fetchPagesById?:(e:number)=>Page,
     classN?: string,
     fetchMenuItemsById?:(e:number)=>void,
-    getPageMenu?:(e:number)=>void
+    getPageMenu?:(e:number)=>void,
+    options?: Options,
+    required?: boolean,
+    url?: string,
+    blur?:(e:React.ChangeEvent<HTMLInputElement>)=>void,
+    path?: string,
+    sendOptions?: (e:Options)=>void,
+    isInvalid?: boolean,
+    toggleCheck?: (e:boolean | string)=>void | boolean,
+    changeInput?:(a: string, b: string)=>void,
+    getData?: (a: string, b: string | boolean)=>void,
+    checked?: boolean
 }
 
 export interface IState{
     memory?: Array<number>,
     arr?: Tree,
-    collapsed?: boolean
+    collapsed?: boolean,
+    search?: Tree,
+    url?: string,
+    active?: boolean,
+    isContainer?: boolean,
+    container?: boolean,
+    options?: Options,
+    isContaner?: boolean,
+    title?: string,
+    alias?: string,
+    body?: string,
+    metaTitle?: string,
+    metaKeywords?: string,
+    metaDescription?: string,
+    isInvalid?: boolean
 }
 
 // reducer states
@@ -52,7 +77,8 @@ export interface Common{
     dropDownShow?:boolean,
     sideBarShow?: boolean,
     isLoaded?:boolean,
-    toggleMenu?: boolean
+    toggleMenu?: boolean,
+    options?: Options
 }
 
 export interface Pages{
@@ -61,7 +87,9 @@ export interface Pages{
         id?: number,   
         title?: string,
         body?: string
-    }]
+    }],
+    title?: string,
+    alias: string
 }
 
 export interface Page{
@@ -98,7 +126,13 @@ export interface Tree{
     items?:Tree,
     map?:any,
     length?:number,
-    _id?:string
+    _id?:string,
+    filter?: (e:any)=>Tree
+}
+
+interface Options{
+    id?: number,
+    path?: string
 }
 
 

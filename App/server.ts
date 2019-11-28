@@ -18,6 +18,7 @@ app.use(cors())
 
 // app.use('/getMenu', menu)
 app.use('/page/', pages)
+app.use('/menu', menu)
 
 // app.get ('*', (req, res) => { 
 //     res.sendFile('index.html', { root: 'public' }); 

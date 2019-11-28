@@ -4908,7 +4908,9 @@ input[type="button"].btn-block {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
+.control-label{
+  font-weight: bold;
+}
 .breadcrumb {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -2,7 +2,7 @@ import { FETCH_MENU,FETCH_MENU_ITEMS } from './../Types/types';
 import xhr from './../../lib/xhr';
 
 export const fetchMenu = ()=>dispatch=>(
-    xhr('GET', 'https://test-4a782.firebaseio.com/adminMenu.json')
+    xhr('GET', `http://localhost:5000/menu`)
      .then(data=>dispatch(dfetchMenu(data)))
 )
 
