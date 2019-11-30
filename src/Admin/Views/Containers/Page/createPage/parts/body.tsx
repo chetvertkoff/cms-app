@@ -7,8 +7,7 @@ import { IProps } from './../../../../Types/index.d';
 const Body = (props:IProps) => {
 
     const sendContent = (value)=>{
-        console.log(value);
-        
+        props.getFromTextEditor(value)
     }
 
     return (
@@ -18,7 +17,7 @@ const Body = (props:IProps) => {
             	// editorRef={this.setRef}
                 // value={this.state.content}
                 // config={this.config}
-                onBlur={sendContent}
+                onChange={sendContent}
             />
             <br/>
         </div>

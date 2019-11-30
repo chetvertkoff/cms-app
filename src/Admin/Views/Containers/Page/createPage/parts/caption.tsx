@@ -43,7 +43,7 @@ class Caption extends React.Component<IProps, IState>{
                     isContainer: !this.state.isContainer
                 })
                 setTimeout(() => {
-                    this.props.getData(e,!this.state.isContainer)
+                    this.props.getData(e,this.state.isContainer)
                 }, 0);
                 break;
             case 'Активность':
@@ -51,7 +51,7 @@ class Caption extends React.Component<IProps, IState>{
                     active: !this.state.active
                 })
                 setTimeout(() => {
-                    this.props.getData(e,!this.state.active)
+                    this.props.getData(e,this.state.active)
                 }, 0);
                 break;
             default:

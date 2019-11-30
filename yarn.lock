@@ -4194,9 +4194,9 @@ jodit-react@^1.0.26:
     jodit "^3.2.44"
 
 jodit@^3.2.44:
-  version "3.2.62"
-  resolved "https://registry.yarnpkg.com/jodit/-/jodit-3.2.62.tgz#c00c86d48c2a628a7fe20ced9175d1e47c334df5"
-  integrity sha512-5arxweVNqHxevv7fCNQj9U/M0iEvtVJdsqJALHqUbZusZ15lD9mcR6POfHNiOPuaP5A5/+2EMf0Rb8n20dSMUA==
+  version "3.2.65"
+  resolved "https://registry.yarnpkg.com/jodit/-/jodit-3.2.65.tgz#10ad166a734f3a958624489feddd65cb6739c65f"
+  integrity sha512-Vp7iDprN8V9IQYEJTAMswGaASAvsSaivGztS7kR0x1TSTJqHx9JW1ggdDFGP8Acm7fBm2eu359g8Mi39u2zXRA==
 
 js-levenshtein@^1.1.3:
   version "1.1.6"

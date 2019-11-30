@@ -91,13 +91,16 @@ class Page extends Component<IProps, IState>{
     onClick =()=>{
         var options 
         if(this.props.pages && this.props.pages.length >= 1){
-            options = {id: this.props.match.params.ids, path: this.props.pages[0].path}
+            options = {
+                id: this.props.match.params.ids, 
+                path: this.props.pages[0].path,
+                parentName: this.props.pages[0].parentName
+            }
         }
         this.props.sendOptions(options)
     }
 
     render(){ 
-        
         return (
             <React.Fragment>
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>

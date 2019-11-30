@@ -5,6 +5,7 @@ import Meta from './parts/meta';
 import Body from './parts/body';
 import Title from './../../common/title/title';
 import { connect } from 'react-redux';
+import xhr from './../../../lib/xhr';
 
 class CreatePage  extends React.Component<IProps, IState>{
     constructor(props){
@@ -13,7 +14,7 @@ class CreatePage  extends React.Component<IProps, IState>{
         this.state={
             options: this.getOptions(),
             active: true,
-            isContaner: false,
+            isContainer: false,
             title: null,
             alias: null,
             body: null,
@@ -24,6 +25,17 @@ class CreatePage  extends React.Component<IProps, IState>{
         }
 
         this.getOptions = this.getOptions.bind(this)
+    }
+
+    shouldComponentUpdate(nexProps, nextState){
+        if(nextState.active !== this.state.active
+        || nextState.alias !== this.state.alias  
+        || nextState.isContainer !== this.state.isContainer  
+        || nextState.isInvalid !== this.state.isInvalid  
+        ){
+            return true
+        }
+        return false
     }
 
     getOptions=()=>{
@@ -52,7 +64,7 @@ class CreatePage  extends React.Component<IProps, IState>{
                 break;
             case 'Контейнер':
                 this.setState({
-                    isContaner: value
+                    isContainer: value
                 })
                 break;
             case 'Title':
@@ -70,8 +82,6 @@ class CreatePage  extends React.Component<IProps, IState>{
                     metaDescription: value
                 })
                 break;
-            default:
-                break;
         }
     }
 
@@ -83,20 +93,27 @@ class CreatePage  extends React.Component<IProps, IState>{
             return false
         }
 
+        xhr('POST','http://localhost:5000/page',this.state)
         console.log(this.state);
         
+    }
+
+    getFromTextEditor = (text:string)=>{
+        this.setState({
+            body: text
+        })
     }
 
     render(){
         return (
             <React.Fragment>
-                <Title title={'Создать новую'} classN={"fa-file-text"}/>
+                <Title title={'Создать новую'} classN={"fa-file-text"} path={this.state.options.path}/>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="tile row">
                             <div className="col-md-12 row">
                                 <Caption getData={this.getData} isInvalid={this.state.isInvalid} />
-                                <Body getData={this.getData} />
+                                <Body getFromTextEditor={this.getFromTextEditor} />
                                 <Meta getData={this.getData} />
                                 <div className="col-md-12">
                                     <button onClick={this.sendData} className="btn btn-primary pull-right">

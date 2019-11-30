@@ -49,7 +49,8 @@ export interface IProps{
     toggleCheck?: (e:boolean | string)=>void | boolean,
     changeInput?:(a: string, b: string)=>void,
     getData?: (a: string, b: string | boolean)=>void,
-    checked?: boolean
+    checked?: boolean,
+    getFromTextEditor?:(e:string)=>void
 }
 
 export interface IState{
@@ -62,7 +63,6 @@ export interface IState{
     isContainer?: boolean,
     container?: boolean,
     options?: Options,
-    isContaner?: boolean,
     title?: string,
     alias?: string,
     body?: string,
