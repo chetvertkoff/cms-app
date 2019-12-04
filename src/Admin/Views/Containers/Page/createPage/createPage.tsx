@@ -4,7 +4,6 @@ import Caption from './parts/caption';
 import Meta from './parts/meta';
 import Body from './parts/body';
 import Title from './../../common/title/title';
-import { connect } from 'react-redux';
 import xhr from './../../../lib/xhr';
 
 class CreatePage  extends React.Component<IProps, IState>{
@@ -38,12 +37,9 @@ class CreatePage  extends React.Component<IProps, IState>{
         return false
     }
 
-    getOptions=()=>{
-        if(this.props.options){
-            localStorage.setItem('options', JSON.stringify(this.props.options));
-        }
-        return JSON.parse(localStorage.getItem('options'))
-    }
+    getOptions=()=>(
+        JSON.parse(localStorage.getItem('options'))
+    )
     
     getData=(label,value)=>{
         switch (label) {
@@ -92,9 +88,14 @@ class CreatePage  extends React.Component<IProps, IState>{
             })
             return false
         }
-
-        xhr('POST','http://localhost:5000/page',this.state)
-        console.log(this.state);
+        try {
+            xhr('POST','http://localhost:5000/parentPage',this.state)  
+             .then(data=>{
+                this.props.history.push(`/update/${JSON.parse(data).id}`);
+             }) 
+        } catch (error) {
+            return error
+        }
         
     }
 
@@ -105,6 +106,7 @@ class CreatePage  extends React.Component<IProps, IState>{
     }
 
     render(){
+        
         return (
             <React.Fragment>
                 <Title title={'Создать новую'} classN={"fa-file-text"} path={this.state.options.path}/>
@@ -129,9 +131,5 @@ class CreatePage  extends React.Component<IProps, IState>{
     }
 }
 
-const mapStateToProps=(state:IProps)=>{
-    return{
-    options: state.commonReducer.options
-}}
 
-export default connect(mapStateToProps)(CreatePage)
+export default CreatePage

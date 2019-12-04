@@ -16,11 +16,6 @@ const initialState:Pages={
 
 const fetchPages=(state=initialState,action)=>{
     switch (action.type) {
-        case FETCH_PAGES:
-            return{
-                ...state,
-                pages: action.payload
-            }
         case FETCH_PAGE:
             return{
                 ...state,

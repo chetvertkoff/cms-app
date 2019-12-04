@@ -6,8 +6,7 @@ import PageItem from './parts/pageItem';
 import Title from './../common/title/title';
 import { connect } from 'react-redux';
 import { IProps, IState } from './../../Types/index.d';
-import { fetchPagesById } from './../../Store/Action/page';
-import { sendOptions } from './../../Store/Action/commonAction';
+import { fetchParentPageById } from './../../Store/Action/page';
 
 class Page extends Component<IProps, IState>{
     constructor(props){
@@ -24,16 +23,16 @@ class Page extends Component<IProps, IState>{
 
     componentDidMount(){
         // Get root pages from API for first loading
-        this.props.fetchPagesById(this.props.match.params.ids)    
+        this.props.fetchParentPageById(this.props.match.params.ids)    
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.match.params.ids != this.props.match.params.ids ){ 
             // Get new pages from server
             if(!this.props.pages.length){
-                this.props.fetchPagesById(0)
+                this.props.fetchParentPageById(0)
             }else{
-                this.props.fetchPagesById(this.props.match.params.ids)
+                this.props.fetchParentPageById(this.props.match.params.ids)
             }
         
             setTimeout(() => {
@@ -96,8 +95,9 @@ class Page extends Component<IProps, IState>{
                 path: this.props.pages[0].path,
                 parentName: this.props.pages[0].parentName
             }
+            localStorage.setItem('options', JSON.stringify(options));
         }
-        this.props.sendOptions(options)
+
     }
 
     render(){ 
@@ -155,8 +155,7 @@ const mapStateToProps=(state:IProps)=>({
 })
 
 const mapDispatchToProps=(dispatch)=>({
-    fetchPagesById: id=>dispatch(fetchPagesById(id)),
-    sendOptions:options=>dispatch(sendOptions(options))
+    fetchParentPageById: id=>dispatch(fetchParentPageById(id))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Page)

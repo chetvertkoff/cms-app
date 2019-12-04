@@ -2,6 +2,8 @@ import { getPagesByParentId, getMaxID, insertPage } from './../model/pages';
 
 export const getSomePagesById = (req,res)=>{
     const parId:number= +req.params.id
+    console.log(parId);
+    
     setImmediate(()=>{
         getPagesByParentId(parId, (err, data)=>{
             try {
@@ -38,6 +40,9 @@ export const addNewPage = (req,res)=>{
     })
      .then(data=>{
         console.log(data);
+        res.setHeader('Content-Type', 'application/json');
+        res.send({id: data.id});
+        // res.redirect('/update/0')
         // insertPage(data)
      })
 

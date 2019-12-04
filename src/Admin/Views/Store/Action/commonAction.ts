@@ -21,8 +21,4 @@ export const toggleMenuItem = (bool:boolean)=>({
     payload:bool
 })
 
-export const sendOptions = (options)=>({
-    type: NEW_PAGE_OPTIONS,
-    payload:options
-})
 

@@ -27,7 +27,7 @@ const xhr = (reqType:string, url:string, data:any)=>{
                 xhr.onload = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
-                            resolve(xhr.statusText)
+                            resolve(xhr.response)
                         } else {
                             reject(xhr.statusText);
                         }

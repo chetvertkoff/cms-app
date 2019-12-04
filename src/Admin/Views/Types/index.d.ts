@@ -35,7 +35,7 @@ export interface IProps{
     data?:Pages,
     fetchMenu?:()=>Menus,
     menu?: Menus,
-    fetchPagesById?:(e:number)=>Page,
+    fetchParentPageById?:(e:number)=>Page,
     classN?: string,
     fetchMenuItemsById?:(e:number)=>void,
     getPageMenu?:(e:number)=>void,

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({"extended":true}));
 // app.use(bodyParser.json()); 
 
 // app.use('/getMenu', menu)
-app.use('/page/', pages)
+app.use('/parentPage/', pages)
 app.use('/menu', menu)
 
 // app.get ('*', (req, res) => { 
