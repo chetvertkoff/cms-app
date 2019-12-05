@@ -10,12 +10,26 @@ class Caption extends React.Component<IProps, IState>{
 
         this.state = {
             url:null,
-            active: true, 
+            active: this.getStateActive(), 
             isContainer: false
         }
 
         this.toggleCheck = this.toggleCheck.bind(this)
     }
+
+    getStateActive = ()=>(
+        this.props.data ?
+        this.props.data.isActive
+        :
+        false
+    )
+
+    getStateContainer = ()=>(
+        this.props.data ?
+        this.props.data.isContainer
+        :
+        false
+    )
 
     blur = (text)=>{
         if(text.target.value != ''){
@@ -42,17 +56,17 @@ class Caption extends React.Component<IProps, IState>{
                 this.setState({
                     isContainer: !this.state.isContainer
                 })
-                setTimeout(() => {
-                    this.props.getData(e,this.state.isContainer)
-                }, 0);
+                // setTimeout(() => {
+                //     this.props.getData(e,this.state.isContainer)
+                // }, 0);
                 break;
             case 'Активность':
                 this.setState({
                     active: !this.state.active
                 })
-                setTimeout(() => {
-                    this.props.getData(e,this.state.active)
-                }, 0);
+                // setTimeout(() => {
+                //     this.props.getData(e,this.state.active)
+                // }, 0);
                 break;
             default:
                 break;
@@ -64,6 +78,7 @@ class Caption extends React.Component<IProps, IState>{
     }
     
     render(){
+        console.log(this.props.data);
         return (
             <React.Fragment >
                 <div className="col-md-2">

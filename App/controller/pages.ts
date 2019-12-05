@@ -1,9 +1,7 @@
-import { getPagesByParentId, getMaxID, insertPage } from './../model/pages';
+import { getPagesByParentId, getMaxID, getPageById, insertPage } from './../model/pages';
 
-export const getSomePagesById = (req,res)=>{
+export const getSomeParentPageById = (req,res)=>{
     const parId:number= +req.params.id
-    console.log(parId);
-    
     setImmediate(()=>{
         getPagesByParentId(parId, (err, data)=>{
             try {
@@ -15,8 +13,26 @@ export const getSomePagesById = (req,res)=>{
     })
 }
 
+export const getSomePagesById = (req, res)=>{
+     const id:number = +req.params.id
+     console.log(id);
+     
+     setImmediate(()=>{
+        getPageById(id,(err, data)=>{
+            try {
+                console.log(data);
+                
+                res.send(data)  
+            } catch (error) {
+                res.status(500)
+            }
+        })
+     })
+}
+
 export const addNewPage = (req,res)=>{
     const page = req.body
+
     new Promise((resolve, reject)=>{
         getMaxID((data)=>{
             resolve(data[0].id)

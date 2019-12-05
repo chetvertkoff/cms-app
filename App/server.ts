@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import menu from './routes/menu';
+import parentPages from './routes/parentPages';
 import pages from './routes/pages';
 import cors from 'cors'
 
@@ -18,7 +19,8 @@ app.use(bodyParser.urlencoded({"extended":true}));
 // app.use(bodyParser.json()); 
 
 // app.use('/getMenu', menu)
-app.use('/parentPage/', pages)
+app.use('/parentPage/', parentPages)
+app.use('/page/', pages)
 app.use('/menu', menu)
 
 // app.get ('*', (req, res) => { 

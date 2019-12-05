@@ -16,7 +16,16 @@ export const getPagesByParentId = (id:number, callback)=>{
     db
      .collection('pages')
      .find({parent:id})
-    //  .limit()
+     .toArray((err, data)=>{   
+        callback(err,data)
+     })
+}
+
+export const getPageById = (id:number, callback)=>{
+    db
+     .collection('pages')
+     .find({id:id})
+     .limit(1)
      .toArray((err, data)=>{   
         callback(err,data)
      })

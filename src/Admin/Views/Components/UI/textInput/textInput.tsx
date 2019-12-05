@@ -15,7 +15,7 @@ const TextInput = (props:IProps) => {
     const sendInputValue = (e)=>{
         props.changeInput(props.label, e.target.value)
     }
-
+    
     return (
         <React.Fragment>
             <div className="form-group">
@@ -25,7 +25,7 @@ const TextInput = (props:IProps) => {
                         props.url !== null ?
                             <input 
                                 type="text" 
-                                defaultValue={props.url} 
+                                defaultValue={props.value} 
                                 className={classes.join(' ')}
                                 onBlur={sendInputValue.bind(this)}
                             />
