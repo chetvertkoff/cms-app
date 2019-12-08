@@ -88,11 +88,13 @@ class CreatePage  extends React.Component<IProps, IState>{
             })
             return false
         }
+        console.log(this.state);
+        
         try {
-            xhr('POST','http://localhost:5000/parentPage',this.state)  
-             .then(data=>{
-                this.props.history.push(`/update/${JSON.parse(data).id}/?create=success`);
-             }) 
+            // xhr('POST','http://localhost:5000/parentPage',this.state)  
+            //  .then(data=>{
+            //     this.props.history.push(`/update/${JSON.parse(data).id}/?create=success`);
+            //  }) 
         } catch (error) {
             return error
         }

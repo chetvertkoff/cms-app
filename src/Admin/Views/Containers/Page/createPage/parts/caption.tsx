@@ -9,30 +9,46 @@ class Caption extends React.Component<IProps, IState>{
         super(props)
 
         this.state = {
+            fields: this.getFields(),
             url:null,
-            active: this.getStateActive(), 
-            isContainer: false
+            // title:null,
+            // alias:null
         }
 
         this.toggleCheck = this.toggleCheck.bind(this)
     }
 
-    getStateActive = ()=>(
-        this.props.data ?
-        this.props.data.isActive
-        :
-        false
-    )
 
-    getStateContainer = ()=>(
-        this.props.data ?
-        this.props.data.isContainer
-        :
-        false
-    )
+    
+    componentDidUpdate(prevProps, prevState){
+        if(this.props.data && this.props.data._id != prevProps.data._id 
+        ){
+            if(this.props.data){
+                this.setState({
+                    fields: this.props.data
+                })
+                return true
+            }
+        }
+        return false
+    }
+
+    getFields=()=>{
+        if(this.props.data){
+            return this.props.data
+        }
+        return {
+            title: '',
+            alias: '',
+            isFolde: false,
+            isActive: false
+        }
+    }
 
     blur = (text)=>{
-        if(text.target.value != ''){
+        console.log(text.target.value);
+        
+        if(text.target.value  && text.target.value !== ''){
             const alias = new cyrillicToTranslit().transform(text.target.value)
             this.setState({
                 url:'/'+alias.replace(/ /g, "-").toLowerCase()
@@ -54,7 +70,10 @@ class Caption extends React.Component<IProps, IState>{
         switch (e) {
             case 'Контейнер':
                 this.setState({
-                    isContainer: !this.state.isContainer
+                    fields:{
+                        ...this.state.fields,
+                        isFolder: !this.state.fields.isFolder
+                    }
                 })
                 // setTimeout(() => {
                 //     this.props.getData(e,this.state.isContainer)
@@ -62,7 +81,10 @@ class Caption extends React.Component<IProps, IState>{
                 break;
             case 'Активность':
                 this.setState({
-                    active: !this.state.active
+                    fields:{
+                        ...this.state.fields,
+                        isActive: !this.state.fields.isActive
+                    }
                 })
                 // setTimeout(() => {
                 //     this.props.getData(e,this.state.active)
@@ -74,34 +96,65 @@ class Caption extends React.Component<IProps, IState>{
     }
 
     changeInput=(label,value)=>{
-        this.props.getData(label,value)
+        switch (label) {
+            case 'Заголовок':
+                this.setState({
+                    fields:{
+                        ...this.state.fields,
+                        title: value
+                    }
+                })
+                setTimeout(() => {
+                    this.props.getData(label,this.state.fields.title)
+                }, 0);
+            break;
+            case 'Алиас':
+                    console.log(value, label);
+                this.setState({
+                    fields:{
+                        ...this.state.fields,
+                        alias: value
+                    }
+                })
+                break;
+            default:
+                break;
+        }
+        // this.props.getData(label,value)
     }
     
     render(){
-        console.log(this.props.data);
+console.log(this.state);
+
         return (
             <React.Fragment >
                 <div className="col-md-2">
                     {
-                        this.state.active ? 
+                        this.state.fields.isActive ? 
                         <Checkbox key={0} checked={true} toggleCheck={this.toggleCheck} label={"Активность"} />  
                         :
                         <Checkbox key={0} toggleCheck={this.toggleCheck} label={"Активность"} />  
                     }  
                 </div>
                 <div className="col-md-2">
-                    <Checkbox key={1} toggleCheck={this.toggleCheck} label={"Контейнер"} />    
+                    {
+                        this.state.fields.isFolder ? 
+                        <Checkbox key={1} checked={true} toggleCheck={this.toggleCheck} label={"Контейнер"} />    
+                        :
+                        <Checkbox key={1} toggleCheck={this.toggleCheck} label={"Контейнер"} />   
+                    }
                 </div>
                 <div className="col-md-4">
                 {
-                    this.props.data ? 
+                    this.state.fields.title? 
                         <TextInput 
                             key={2}
                             required={true} 
                             changeInput={this.changeInput} 
                             label={"Заголовок"} 
-                            value={this.props.data.title}
+                            value={this.state.fields.title}
                             isInvalid={this.props.isInvalid} 
+                            blur={this.blur}  
                         />
                     : 
                         <TextInput 
@@ -111,17 +164,18 @@ class Caption extends React.Component<IProps, IState>{
                             blur={this.blur}  
                             label={"Заголовок"} 
                             isInvalid={this.props.isInvalid} 
+                            value={this.state.fields.title}
                         />
                 }
                 </div>
                 <div className="col-md-4">
                 {
-                    this.props.data ? 
+                    this.state.fields.alias? 
                         <TextInput 
                             key={3} 
                             label={"Алиас"} 
                             changeInput={this.changeInput} 
-                            value={this.props.data.alias} 
+                            value={this.state.fields.alias} 
                         />
                     : 
                         <TextInput 

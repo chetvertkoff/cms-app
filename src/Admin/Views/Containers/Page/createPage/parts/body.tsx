@@ -13,12 +13,17 @@ const Body = (props:IProps) => {
     return (
         <div className="col-md-12">
             <label className="control-label">Описание</label>
-             <JoditEditor
-            	// editorRef={this.setRef}
-                // value={this.state.content}
-                // config={this.config}
-                onChange={sendContent}
-            />
+            {
+                props.defaultValue ? 
+                <JoditEditor
+                    value={props.defaultValue}
+                    onChange={sendContent}
+                />
+                :
+                <JoditEditor
+                    onChange={sendContent}
+                />
+            }
             <br/>
         </div>
     );

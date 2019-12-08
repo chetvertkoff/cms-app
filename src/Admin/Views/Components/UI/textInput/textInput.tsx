@@ -25,32 +25,35 @@ const TextInput = (props:IProps) => {
                         props.url !== null ?
                             <input 
                                 type="text" 
-                                defaultValue={props.value} 
+                                value={props.value} 
                                 className={classes.join(' ')}
-                                onBlur={sendInputValue.bind(this)}
+                                // onBlur={sendInputValue.bind(this)}
+                                onChange={(e)=>{}}
                             />
                         :
                             <input 
                                 type="text" 
-                                defaultValue={props.value} 
+                                value={props.value} 
                                 className={classes.join(' ')}
-                                onBlur={sendInputValue.bind(this)}
+                                // onBlur={sendInputValue.bind(this)}
+                                onChange={(e)=>{}}
                             />
                     :
                         props.label === 'Заголовок' ?
                             <input 
                                 type="text" 
                                 onBlur={props.blur} 
-                                defaultValue={props.value} 
+                                value={props.value} 
                                 className={classes.join(' ')}
                                 onChange={sendInputValue.bind(this)}
                             />
                         :   
                             <input 
                                 type="text" 
-                                defaultValue={props.value} 
+                                value={props.value} 
                                 className={classes.join(' ')}
                                 onBlur={sendInputValue.bind(this)}
+                                onChange={(e)=>{}}
                             />
                 }
                 {

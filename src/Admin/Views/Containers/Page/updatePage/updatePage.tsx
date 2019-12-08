@@ -12,6 +12,18 @@ import Title from './../../common/title/title';
 class UpdatePage extends React.Component<IProps>{
     constructor(props){
         super(props)
+
+        this.state={
+            active: true,
+            isContainer: false,
+            title: null,
+            alias: null,
+            body: null,
+            metaTitle: null,
+            metaKeywords: null,
+            metaDescription: null,
+            isInvalid: false
+        }
     }
     componentDidMount(){
         this.props.fetchPageById(this.props.match.params.id)
@@ -22,19 +34,67 @@ class UpdatePage extends React.Component<IProps>{
             if(this.props.match.params.id){
                 this.props.fetchPageById(this.props.match.params.id)
                 this.forceUpdate()
+                return true
             }
-            return true
         }
-        return true
+        return false
     }
 
-    
+    getData=(label,value)=>{
+        switch (label) {
+            case 'Заголовок':
+                this.setState({
+                    title: value
+                })
+                break;
+            case 'Алиас':
+                this.setState({
+                    alias: value
+                })
+                break;
+            case 'Активность':
+                this.setState({
+                    active: value
+                })
+                break;
+            case 'Контейнер':
+                this.setState({
+                    isContainer: value
+                })
+                break;
+            case 'Title':
+                this.setState({
+                    metaTitle: value
+                })
+                break;
+            case 'Keywords':
+                this.setState({
+                    metaKeywords: value
+                })
+                break;
+            case 'Description':
+                this.setState({
+                    metaDescription: value
+                })
+                break;
+        }
+    }
+
+    getFromTextEditor = (text:string)=>{
+        console.log(text);
+        
+        // this.setState({
+        //     body: text
+        // })
+    }
 
     render() {   
+        
         var page
         if(this.props.page){
             page = this.props.page[0]
         }
+        
         return (
                 page ? 
                 <React.Fragment>
@@ -43,8 +103,8 @@ class UpdatePage extends React.Component<IProps>{
                         <div className="col-md-12">
                             <div className="tile row">
                                 <div className="col-md-12 row">
-                                    <Caption data={page}/>
-                                    <Body />
+                                    <Caption getData={this.getData} data={page}/>
+                                    <Body getFromTextEditor={this.getFromTextEditor} defaultValue={page.body} />
                                     <Meta />
                                     <div className="col-md-12">
                                         <button className="btn btn-primary pull-right">

@@ -2,7 +2,6 @@ import React from 'react';
 import { IProps } from './../../../Types/index.d';
 
 const Checkbox = (props:IProps) => {
-    
     return (
         <div className="toggle">
             <label className="control-label">
@@ -10,14 +9,14 @@ const Checkbox = (props:IProps) => {
                 {
                     props.toggleCheck ? 
                         props.checked ? 
-                        <input defaultChecked onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
+                        <input checked={true} onChange={(e)=>{}} onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
                         :
-                        <input onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
+                        <input checked={false} onChange={(e)=>{}} onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
                     :
                         props.checked ? 
-                        <input defaultChecked onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
+                        <input checked={true} onChange={(e)=>{}} onClick={()=>{props.toggleCheck(props.label)}} type="checkbox"/>
                         :
-                        <input type="checkbox"/>
+                        <input checked={false} onChange={(e)=>{}} type="checkbox"/>
                 }
                 <span className="button-indecator"></span>
             </label>
