@@ -22,35 +22,26 @@ const TextInput = (props:IProps) => {
                 <label className="control-label">{props.label} {props.required && '*'}</label>
                 {
                     props.label === 'Алиас' ?
-                        props.url !== null ?
                             <input 
                                 type="text" 
-                                value={props.value} 
+                                value={props.value || ''} 
                                 className={classes.join(' ')}
                                 // onBlur={sendInputValue.bind(this)}
-                                onChange={(e)=>{}}
-                            />
-                        :
-                            <input 
-                                type="text" 
-                                value={props.value} 
-                                className={classes.join(' ')}
-                                // onBlur={sendInputValue.bind(this)}
-                                onChange={(e)=>{}}
+                                onChange={sendInputValue.bind(this)}
                             />
                     :
                         props.label === 'Заголовок' ?
                             <input 
                                 type="text" 
                                 onBlur={props.blur} 
-                                value={props.value} 
+                                value={props.value || ''} 
                                 className={classes.join(' ')}
                                 onChange={sendInputValue.bind(this)}
                             />
                         :   
                             <input 
                                 type="text" 
-                                value={props.value} 
+                                value={props.value || ''} 
                                 className={classes.join(' ')}
                                 onBlur={sendInputValue.bind(this)}
                                 onChange={(e)=>{}}

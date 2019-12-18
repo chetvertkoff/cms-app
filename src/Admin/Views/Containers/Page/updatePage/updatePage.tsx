@@ -89,7 +89,8 @@ class UpdatePage extends React.Component<IProps>{
     }
 
     render() {   
-        
+
+
         var page
         if(this.props.page){
             page = this.props.page[0]

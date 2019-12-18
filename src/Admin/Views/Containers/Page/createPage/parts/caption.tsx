@@ -9,10 +9,7 @@ class Caption extends React.Component<IProps, IState>{
         super(props)
 
         this.state = {
-            fields: this.getFields(),
-            url:null,
-            // title:null,
-            // alias:null
+            fields: this.getFields()
         }
 
         this.toggleCheck = this.toggleCheck.bind(this)
@@ -40,18 +37,21 @@ class Caption extends React.Component<IProps, IState>{
         return {
             title: '',
             alias: '',
-            isFolde: false,
+            isFolder: false,
             isActive: false
         }
     }
 
     blur = (text)=>{
-        console.log(text.target.value);
         
         if(text.target.value  && text.target.value !== ''){
             const alias = new cyrillicToTranslit().transform(text.target.value)
+
             this.setState({
-                url:'/'+alias.replace(/ /g, "-").toLowerCase()
+                fields:{
+                    ...this.state.fields,
+                    alias: '/'+alias.replace(/ /g, "-").toLowerCase()
+                }
             })
             setTimeout(() => {
                 this.props.getData('Алиас','/'+alias.replace(/ /g, "-").toLowerCase())
@@ -59,9 +59,12 @@ class Caption extends React.Component<IProps, IState>{
 
         }else{
             if(this.state != null){
-                this.setState({
-                    url:null
-                })
+                            this.setState({
+                fields:{
+                    ...this.state.fields,
+                    alias: null
+                }
+            })
             }
         }
     }
@@ -75,9 +78,9 @@ class Caption extends React.Component<IProps, IState>{
                         isFolder: !this.state.fields.isFolder
                     }
                 })
-                // setTimeout(() => {
-                //     this.props.getData(e,this.state.isContainer)
-                // }, 0);
+                setTimeout(() => {
+                    this.props.getData(e,this.state.fields.isFolder)
+                }, 0);
                 break;
             case 'Активность':
                 this.setState({
@@ -86,9 +89,9 @@ class Caption extends React.Component<IProps, IState>{
                         isActive: !this.state.fields.isActive
                     }
                 })
-                // setTimeout(() => {
-                //     this.props.getData(e,this.state.active)
-                // }, 0);
+                setTimeout(() => {
+                    this.props.getData(e,this.state.fields.isActive)
+                }, 0);
                 break;
             default:
                 break;
@@ -109,13 +112,15 @@ class Caption extends React.Component<IProps, IState>{
                 }, 0);
             break;
             case 'Алиас':
-                    console.log(value, label);
                 this.setState({
                     fields:{
                         ...this.state.fields,
                         alias: value
                     }
                 })
+                setTimeout(() => {
+                    this.props.getData(label,this.state.fields.alias)
+                }, 0);
                 break;
             default:
                 break;
@@ -184,6 +189,7 @@ console.log(this.state);
                             changeInput={this.changeInput} 
                             url={this.state.url}
                         />
+                    
                 }
                 </div>
             </React.Fragment>
