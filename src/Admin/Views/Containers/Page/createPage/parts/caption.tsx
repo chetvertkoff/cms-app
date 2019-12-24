@@ -15,7 +15,6 @@ class Caption extends React.Component<IProps, IState>{
         this.toggleCheck = this.toggleCheck.bind(this)
     }
 
-
     
     componentDidUpdate(prevProps, prevState){
         if(this.props.data && this.props.data._id != prevProps.data._id 
@@ -129,8 +128,6 @@ class Caption extends React.Component<IProps, IState>{
     }
     
     render(){
-console.log(this.state);
-
         return (
             <React.Fragment >
                 <div className="col-md-2">

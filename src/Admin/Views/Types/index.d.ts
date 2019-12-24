@@ -50,7 +50,8 @@ export interface IProps{
     changeInput?:(a: string, b: string)=>void,
     getData?: (a: string, b: string | boolean)=>void,
     checked?: boolean,
-    getFromTextEditor?:(e:string)=>void
+    getFromTextEditor?:(e:string)=>void,
+    defaultValue?: string
 }
 
 export interface IState{
@@ -69,7 +70,8 @@ export interface IState{
     metaTitle?: string,
     metaKeywords?: string,
     metaDescription?: string,
-    isInvalid?: boolean
+    isInvalid?: boolean,
+    fields?: Fields
 }
 
 // reducer states
@@ -89,7 +91,11 @@ export interface Pages{
         body?: string
     }],
     title?: string,
-    alias: string
+    alias: string,
+    _id?: number,
+    metaTitle?: string,
+    metaKeywords?: string,
+    metaDescription?: string
 }
 
 export interface Page{
@@ -102,6 +108,7 @@ export interface Page{
         items?:Tree,
     }],
     filterOb?:(e:Page, id:number | string)=>Page
+
 }
 
 export interface Menus{
@@ -130,9 +137,25 @@ export interface Tree{
     filter?: (e:any)=>Tree
 }
 
-interface Options{
+type Options={
     id?: number,
     path?: string
+}
+
+type Fields={
+    _id?: number,
+    alias?: string,
+    isFolder?: boolean,
+    id?: number,
+    title?: string,
+    parent?: number
+    parentName?: string,
+    path?: string,
+    isActive?: boolean,
+    body?: string
+    metaTitle?: string,
+    metaKeywords?: string,
+    metaDescription?: string
 }
 
 

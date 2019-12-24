@@ -50,3 +50,16 @@ export const insertPage=(page)=>{
          .insertOne(page)
     }
 }
+
+export const update=(page)=>{
+    
+    if(page){
+        console.log(page);
+        db
+        .collection('pages')
+        .updateOne(
+            {id: page.id},
+            {$set:{...page}}
+        )
+    }
+}

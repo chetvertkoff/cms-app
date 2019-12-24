@@ -15,7 +15,6 @@ const TextInput = (props:IProps) => {
     const sendInputValue = (e)=>{
         props.changeInput(props.label, e.target.value)
     }
-    
     return (
         <React.Fragment>
             <div className="form-group">
@@ -43,8 +42,8 @@ const TextInput = (props:IProps) => {
                                 type="text" 
                                 value={props.value || ''} 
                                 className={classes.join(' ')}
-                                onBlur={sendInputValue.bind(this)}
-                                onChange={(e)=>{}}
+                                // onBlur={sendInputValue.bind(this)}
+                                onChange={sendInputValue.bind(this)}
                             />
                 }
                 {

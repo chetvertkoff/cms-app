@@ -1,4 +1,4 @@
-import { getPagesByParentId, getMaxID, getPageById, insertPage } from './../model/pages';
+import { getPagesByParentId, getMaxID, getPageById, insertPage, update } from './../model/pages';
 
 export const getSomeParentPageById = (req,res)=>{
     const parId:number= +req.params.id
@@ -59,7 +59,13 @@ export const addNewPage = (req,res)=>{
         res.setHeader('Content-Type', 'application/json');
         res.send({id: data.id});
         // res.redirect('/update/0')
-        // insertPage(data)
+        insertPage(data)
      })
 
+}
+
+export const updatePage=(req,res)=>{
+    const page = req.body
+    delete page._id
+    update(page)   
 }
