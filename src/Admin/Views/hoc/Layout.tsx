@@ -5,6 +5,8 @@ import { IProps } from '../Types';
 import SideBar from './../Containers/common/sidebar/sideBar';
 import { connect } from 'react-redux';
 import { toggleSideBarAction, load } from './../Store/Action/commonAction';
+import Alert from '../Components/UI/alert/alert';
+import AlertProvider from './../Context/alert-context';
 
 class Layout extends React.Component<IProps>{
     constructor(props:IProps){
@@ -29,9 +31,12 @@ class Layout extends React.Component<IProps>{
                 {/* <Preloader loading={this.props.loading}/> */}
                 <Header toggleSide={this.toogleSidebar} />
                 <SideBar />
-                <main className="app-content">
-                    {this.props.children}
-                </main>
+                <AlertProvider>
+                    <main className="app-content">
+                        {this.props.children}
+                    </main>
+                    <Alert />
+                </AlertProvider>
             </div>
         )
     }

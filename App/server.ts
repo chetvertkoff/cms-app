@@ -19,9 +19,9 @@ app.use(bodyParser.urlencoded({"extended":true}));
 // app.use(bodyParser.json()); 
 
 // app.use('/getMenu', menu)
-app.use('/parentPage/', parentPages)
-app.use('/page/', pages)
-app.use('/menu', menu)
+app.use('/api/parentPage/', parentPages)
+app.use('/api/page/', pages)
+app.use('/api/menu', menu)
 
 // app.get ('*', (req, res) => { 
 //     res.sendFile('index.html', { root: 'public' }); 

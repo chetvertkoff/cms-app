@@ -1,16 +1,21 @@
-import { FETCH_MENU,FETCH_MENU_ITEMS } from './../Types/types';
+import { FETCH_MENU,FETCH_MENU_ITEMS, UPDATE_MENU } from './../Types/types';
 import xhr from './../../lib/xhr';
 
 export const fetchMenu = ()=>dispatch=>(
-    xhr('GET', `http://localhost:5000/menu`, null)
+    xhr('GET', `/api/menu`, null)
      .then(data=>dispatch(dfetchMenu(data)))
 )
 
-export const fetchMenuItemsById =(idn:number)=>dispatch=>{
-    xhr('GET',`http://localhost:5000/parentPage/${idn}`, null)
+export const fetchMenuItemsById =(idn:number)=>(dispatch):void=>{
+    xhr('GET',`/api/parentPage/${idn}`, null)
      .then(data=>{
      dispatch(dfetchMenuItemsById(data))
     })
+}
+
+export const updateMenu = (toggler: boolean)=>(dispatch):void=>{
+    
+    dispatch(dUpdateMenu(toggler))
 }
 
 const dfetchMenu=(data)=>({
@@ -20,5 +25,10 @@ const dfetchMenu=(data)=>({
 
 const dfetchMenuItemsById=(data)=>({
     type:FETCH_MENU_ITEMS,
+    payload: data
+})
+
+const dUpdateMenu = (data)=>({
+    type:UPDATE_MENU,
     payload: data
 })

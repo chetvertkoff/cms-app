@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-// import PurgecssPlugin from 'purgecss-webpack-plugin'
+import PurgecssPlugin from 'purgecss-webpack-plugin'
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -74,7 +74,7 @@ export default {
       use: {
         loader: "file-loader",
         options: {
-          name: `[name].[ext]`,
+          name: `${PATHS.src}/Admin/static/fonts/[name].[ext]`,
         }
       }
     }]
@@ -94,11 +94,11 @@ export default {
     }),
     new ManifestPlugin(),
     new CopyWebpackPlugin([
-      { from: `${PATHS.src}/Admin/static/css/fonts/`, to: `${PATHS.assets}css/fonts` },
-    ]),
+      { from: `${PATHS.src}/Admin/static/`, to: `` }
+    ])
     // new PurgecssPlugin({
-    //   paths: glob.sync(`${path.join(__dirname, 'src')}/**/*`,  { nodir: true }),
-    // }),
+    //   paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    // })
     // new ImageminPlugin({
     //   pngquant: ({quality: 50}),
     //   plugins: [imageminMozjpeg({quality: 50})]

@@ -13,12 +13,14 @@ MongoClient(process.env.URL,{ useUnifiedTopology: true })
 
 
 export const getPagesByParentId = (id:number, callback)=>{
-    db
-     .collection('pages')
-     .find({parent:id})
-     .toArray((err, data)=>{   
-        callback(err,data)
-     })
+    try {
+        db
+        .collection('pages')
+        .find({parent:id})
+        .toArray((err, data)=>{   
+           callback(err,data)
+        })   
+    } catch (error) {}
 }
 
 export const getPageById = (id:number, callback)=>{
@@ -61,5 +63,15 @@ export const update=(page)=>{
             {id: page.id},
             {$set:{...page}}
         )
+    }
+}
+
+export const deletePage=(id: number)=>{
+    if(id){
+        db
+         .collection('pages')
+         .deleteOne(
+             {id: id}
+         )
     }
 }

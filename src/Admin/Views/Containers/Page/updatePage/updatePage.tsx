@@ -8,6 +8,8 @@ import Body from './../createPage/parts/body';
 import {fetchPageById} from '../../../Store/Action/page'
 import Title from './../../common/title/title';
 import xhr from './../../../lib/xhr';
+import { fetchMenuItemsById } from '../../../Store/Action/fetchMenu';
+import { updateMenu } from './../../../Store/Action/fetchMenu';
 
 
 class UpdatePage extends React.Component<IProps, IState>{
@@ -30,6 +32,8 @@ class UpdatePage extends React.Component<IProps, IState>{
         })
         
         if(this.props.match.params.id != prevProps.match.params.id){
+            console.log(this.props.match.params.id);
+            
             if(this.props.match.params.id){
                 this.props.fetchPageById(this.props.match.params.id)
                 this.forceUpdate()
@@ -37,6 +41,16 @@ class UpdatePage extends React.Component<IProps, IState>{
             }
         }
         return false
+    }
+
+    static getDerivedStateFromProps(props, state){
+        if(props.page && 
+        props.page[0] &&
+        state.fields &&
+        props.page[0]._id !== state.fields._id){
+            return {fields: props.page[0]}
+        }
+        return null
     }
 
     getData=(label,value)=>{
@@ -115,11 +129,17 @@ class UpdatePage extends React.Component<IProps, IState>{
                 isInvalid: true
             })
             return false
-        }
-        console.log(this.state);
-        
+        }     
         try {
-            xhr('PUT','http://localhost:5000/parentPage',this.state.fields) 
+            xhr('PUT','/api/parentPage',this.state.fields) 
+             .then(data=>{
+                 if(data.status == 200){                 
+                    setTimeout(() => {
+                        this.props.fetchMenuItemsById(0)  
+                        this.props.updateMenu(true)
+                    },0);
+                 }
+             })
         } catch (error) {
             return error
         }
@@ -130,7 +150,7 @@ class UpdatePage extends React.Component<IProps, IState>{
         if(this.state.fields){
             page = this.state.fields
         }
-
+        
         return (
                 page ? 
                 <React.Fragment>
@@ -163,7 +183,9 @@ const mapStateToProps=state=>({
 })
 
 const mapDispatchToProps=dispatch=>({
-    fetchPageById: id=>dispatch(fetchPageById(id))
+    fetchPageById: id=>dispatch(fetchPageById(id)),
+    fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
+    updateMenu: toggler=>dispatch(updateMenu(toggler))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdatePage)

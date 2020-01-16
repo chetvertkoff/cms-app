@@ -1,4 +1,4 @@
-import { FETCH_MENU,FETCH_MENU_ITEMS } from './../Types/types';
+import { FETCH_MENU,FETCH_MENU_ITEMS, UPDATE_MENU } from './../Types/types';
 
 const initialState:Pages={
     pages:[
@@ -24,6 +24,11 @@ const fetchMenu=(state=initialState, action)=>{
             return{
                 ...state,
                 pages: action.payload
+            }
+        case UPDATE_MENU:
+            return{
+                ...state,
+                toggler: action.payload
             }
         default:
             return state

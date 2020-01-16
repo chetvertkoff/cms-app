@@ -1,5 +1,6 @@
 // APP props
 export interface IProps{
+    history?: any,
     loading?:boolean,
     toggled?:boolean,
     toggle?:boolean,
@@ -51,7 +52,9 @@ export interface IProps{
     getData?: (a: string, b: string | boolean)=>void,
     checked?: boolean,
     getFromTextEditor?:(e:string)=>void,
-    defaultValue?: string
+    defaultValue?: string,
+    updateMenu?:(e:boolean)=>void,
+    deletePage?: (e: number)=>void
 }
 
 export interface IState{

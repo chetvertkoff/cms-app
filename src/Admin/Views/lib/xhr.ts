@@ -21,43 +21,34 @@ const xhr = (reqType:string, url:string, data:any)=>{
             }) 
              .then(data=>JSON.parse(data))
         case 'POST':
-            return  new Promise<string>((resolve,reject)=>{
-                xhr.open(reqType, url, true)
-                xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-                xhr.onload = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            resolve(xhr.response)
-                        } else {
-                            reject(xhr.statusText);
-                        }
-                    }
-                };
-                xhr.onerror = function () {
-                    reject(xhr.statusText);
-                };
-                xhr.send(JSON.stringify(data));
-            })
-        break;
         case 'PUT':
-            return  new Promise<string>((resolve,reject)=>{
-                xhr.open(reqType, url, true)
+            return new Promise<string>((resolve,reject)=>{
+                
+                xhr.open(reqType, url)
                 xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-                xhr.onload = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            resolve(xhr.response)
-                        } else {
-                            reject(xhr.statusText);
-                        }
-                    }
-                };
                 xhr.onerror = function () {
                     reject(xhr.statusText);
                 };
+                
+                xhr.onload =()=>{
+                    resolve(xhr)
+                }
                 xhr.send(JSON.stringify(data));
-            })
-        break;
+            }).then(data=>data)
+        case 'DELETE':
+            return new Promise<string>((resolve,reject)=>{
+                
+                xhr.open(reqType, url)
+                xhr.onerror = function () {
+                    reject(xhr.statusText);
+                };
+                
+                xhr.onload =()=>{
+                    resolve(xhr)
+                }
+                
+                xhr.send(xhr);
+            }).then(data=>data)
         default:
         return new Promise<string>((resolve,reject)=>{
                 xhr.open(reqType, url, true)

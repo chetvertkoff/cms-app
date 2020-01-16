@@ -13,7 +13,8 @@ const devWebpackConfig = merge(common, {
     overlay: {
       warnings: true,
       errors: true
-    }
+    },
+    proxy: { "/api/**": { target: 'http://localhost:5000', secure: false }  }
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({

@@ -1,15 +1,15 @@
-import { getPagesByParentId, getMaxID, getPageById, insertPage, update } from './../model/pages';
+import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePage } from './../model/pages';
 
 export const getSomeParentPageById = (req,res)=>{
     const parId:number= +req.params.id
-    setImmediate(()=>{
+  
         getPagesByParentId(parId, (err, data)=>{
             try {
                 res.send(data)   
             } catch (err) {
                 res.status(500)
             }
-        })
+   
     })
 }
 
@@ -55,7 +55,6 @@ export const addNewPage = (req,res)=>{
         }
     })
      .then(data=>{
-        console.log(data);
         res.setHeader('Content-Type', 'application/json');
         res.send({id: data.id});
         // res.redirect('/update/0')
@@ -68,4 +67,22 @@ export const updatePage=(req,res)=>{
     const page = req.body
     delete page._id
     update(page)   
+    setImmediate(()=>{
+        res.setHeader('Content-Type', 'application/json');
+        res.send({id: req.body._id});
+    })
+}
+
+export const deleteSomePageById=(req,res)=>{
+    console.log(req.params.id);
+    const id:number = +req.params.id
+
+    setImmediate(()=>{
+        try {
+            deletePage(id)            
+            res.send({id: id})
+        } catch (error) {
+            res.status(500)
+        }
+    })
 }

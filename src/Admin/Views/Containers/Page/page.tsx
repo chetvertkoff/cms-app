@@ -7,6 +7,10 @@ import Title from './../common/title/title';
 import { connect } from 'react-redux';
 import { IProps, IState } from './../../Types/index.d';
 import { fetchParentPageById } from './../../Store/Action/page';
+import xhr from './../../lib/xhr';
+import { fetchMenuItemsById } from '../../Store/Action/fetchMenu';
+import { updateMenu } from './../../Store/Action/fetchMenu';
+import { AlertContext } from './../../Context/alert-context';
 
 class Page extends Component<IProps, IState>{
     constructor(props){
@@ -55,7 +59,6 @@ class Page extends Component<IProps, IState>{
                 this.setState({
                     search: null
                 })
-                this.forceUpdate()
             }
         }, 0);   
     }
@@ -81,9 +84,6 @@ class Page extends Component<IProps, IState>{
                 search: data
             })
          })
-         .then((data)=>{
-            this.forceUpdate()
-         })
         
     }
 
@@ -99,6 +99,26 @@ class Page extends Component<IProps, IState>{
         }
 
     }
+
+    deletePage = async (id:number):Promise<any>=>{
+        const status = await xhr('DELETE',`/api/page/${id}`, null)
+         .then(data=>data.status)
+
+        if(status == 200){
+            
+            this.props.fetchParentPageById(this.props.match.params.ids)
+        
+            setTimeout(() => {
+                this.setState({
+                    arr: this.props.pages
+                })
+                setTimeout(() => {
+                    this.props.fetchMenuItemsById(0)  
+                    this.props.updateMenu(true)
+                }, 0);
+            }, 0);
+        }
+    } 
 
     render(){ 
         return (
@@ -133,7 +153,7 @@ class Page extends Component<IProps, IState>{
                                         
                                             this.props.pages && this.props.pages.length >= 1 ?
                                             this.props.pages.map(item=>{
-                                                return <PageItem item={item} key={item.id} /> 
+                                                return <PageItem deletePage={this.deletePage} item={item} key={item.id} /> 
                                             }): null
                                         
                                     }
@@ -155,7 +175,9 @@ const mapStateToProps=(state:IProps)=>({
 })
 
 const mapDispatchToProps=(dispatch)=>({
-    fetchParentPageById: id=>dispatch(fetchParentPageById(id))
+    fetchParentPageById: id=>dispatch(fetchParentPageById(id)),
+    fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
+    updateMenu: toggler=>dispatch(updateMenu(toggler))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Page)

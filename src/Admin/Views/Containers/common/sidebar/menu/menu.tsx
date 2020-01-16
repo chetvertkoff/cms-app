@@ -5,7 +5,7 @@ import { toggleMenuItem } from '../../../../Store/Action/commonAction';
 import { IProps, IState } from './../../../../Types/index.d';
 
 import MenuItem from './menuItems/menuItem/menuItem';
-import { fetchMenu,fetchMenuItemsById } from './../../../../Store/Action/fetchMenu';
+import { fetchMenu, fetchMenuItemsById, updateMenu } from './../../../../Store/Action/fetchMenu';
 
 
 class Menu extends Component<IProps, IState>{
@@ -15,7 +15,8 @@ class Menu extends Component<IProps, IState>{
 
         this.state={
             memory: [],
-            arr:null
+            arr:null, 
+            unClicked: false
         }
         this.menuToggler= this.menuToggler.bind(this)
     }
@@ -25,30 +26,42 @@ class Menu extends Component<IProps, IState>{
             this.props.fetchMenu()
         })
         this.props.fetchMenuItemsById(0)  
+        
     }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps){    
+        if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages)){ 
 
-        if(prevProps.menu.pages[0]._id != this.props.menu.pages[0]._id){
+            if (this.props.update) {
+                this.setState({
+                    arr: this.props.menu.pages,
+                    memory:[],
+                    unClicked: true
+                }) 
+                this.props.updateMenu(false)
+            }
 
             if(this.state.arr==null){
                 setTimeout(()=>{
                     this.setState({
                         arr: this.props.menu.pages
                     })
+                    
                 },0)     
             }
             setTimeout(() => {
+  
                 this.setState({
-                    arr: this.filterOb(this.state.arr, this.props.menu.pages[0].parent, this.props.menu.pages) 
+                    arr: this.filterOb(this.state.arr, this.props.menu.pages[0].parent, this.props.menu.pages),
+                    unClicked: false
                 })
-                
-                this.forceUpdate()
+
             }, 0);
             return true
         }
         return false
     }
+
 
     filterOb =(arr,id:number | string, putted)=>{    
         arr.map(item=>{
@@ -71,6 +84,7 @@ class Menu extends Component<IProps, IState>{
     }
 
     getPageMenu=(id)=>{
+        
         if( !this.state.memory.find((item)=>item==id)){
             this.setState({
                 memory: [...this.state.memory, id]
@@ -84,6 +98,7 @@ class Menu extends Component<IProps, IState>{
         if(this.props.toggleMenu){
             classes.push('is-expanded')
         }
+        
         return (
             <ul className="app-menu">
                 {
@@ -100,9 +115,9 @@ class Menu extends Component<IProps, IState>{
                                         ></i>
                                     </NavLink>
                                     <ul className="treeview-menu" style={{paddingLeft:"0px"}}>
-                                        {   this.props.toggleMenu && this.state.arr[0].alias ? 
+                                        {   this.props.toggleMenu && this.state.arr[0].alias && !this.state.unClicked ? 
                                             this.state.arr.map((page)=>(
-                                                <MenuItem page={page} key={page.id} getPageMenu={this.getPageMenu}/>
+                                                <MenuItem page={page} collapsed={this.state.unClicked} key={page.id} getPageMenu={this.getPageMenu}/>
                                             )) : null
                                         }
                                     </ul>
@@ -125,16 +140,19 @@ class Menu extends Component<IProps, IState>{
     }
 }
 
-const mapStateToProps=(state)=>({
-    pages: state.fetchMenuItemsById,
-    toggleMenu: state.commonReducer.toggleMenu,
-    menu: state.fetchMenu
-})
+const mapStateToProps=(state)=>{
+    return {
+        pages: state.fetchMenuItemsById,
+        toggleMenu: state.commonReducer.toggleMenu,
+        menu: state.fetchMenu,
+        update: state.fetchMenu.toggler
+}}
 
 const mapDispatchToProps = (dispatch)=>({
     toggleMenuItem: bool=>dispatch(toggleMenuItem(bool)),
     fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
-    fetchMenu: ()=>dispatch(fetchMenu())
+    fetchMenu: ()=>dispatch(fetchMenu()),
+    updateMenu: toggler=>dispatch(updateMenu(toggler))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Menu);

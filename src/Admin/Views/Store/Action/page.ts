@@ -4,12 +4,12 @@ import Page from '../../Types/index'
 
 
 export const fetchParentPageById =(id:number)=>dispatch=>{
-    xhr('GET',`http://localhost:5000/parentPage/${id}`, null)
+    xhr('GET',`/api/parentPage/${id}`, null)
      .then(data=>{dispatch(dfetchPageById(data))})
 }
 
 export const fetchPageById =(id)=>dispatch=>{
-    xhr('GET',`http://localhost:5000/page/${id}`,null)
+    xhr('GET',`/api/page/${id}`,null)
      .then(data=>{dispatch(dfetchPageById(data))})
 }
 

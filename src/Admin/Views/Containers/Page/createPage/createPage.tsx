@@ -5,6 +5,8 @@ import Meta from './parts/meta';
 import Body from './parts/body';
 import Title from './../../common/title/title';
 import xhr from './../../../lib/xhr';
+import { connect } from 'react-redux';
+import { fetchMenuItemsById,updateMenu } from '../../../Store/Action/fetchMenu';
 
 class CreatePage  extends React.Component<IProps, IState>{
     constructor(props){
@@ -88,13 +90,20 @@ class CreatePage  extends React.Component<IProps, IState>{
             })
             return false
         }
-        console.log(this.state);
         
         try {
-            xhr('POST','http://localhost:5000/parentPage',this.state)  
-             .then(data=>{
-                this.props.history.push(`/update/${JSON.parse(data).id}/?create=success`);
-             }) 
+            xhr('POST','/api/parentPage',this.state)  
+             .then(data=>{                 
+                if(data.status == 200){             
+                    setTimeout(() => {
+                        this.props.fetchMenuItemsById(0)  
+                        this.props.updateMenu(true)
+                    },0);
+                }
+               
+                this.props.history.push(`/update/${JSON.parse(data.response).id}/?create=success`);
+    
+             })
         } catch (error) {
             return error
         }
@@ -133,5 +142,9 @@ class CreatePage  extends React.Component<IProps, IState>{
     }
 }
 
+const mapDispatchToProps=dispatch=>({
+    fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
+    updateMenu: toggler=>dispatch(updateMenu(toggler))
+})
 
-export default CreatePage
+export default connect(null, mapDispatchToProps)(CreatePage)
