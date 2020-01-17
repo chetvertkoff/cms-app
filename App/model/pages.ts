@@ -16,7 +16,12 @@ export const getPagesByParentId = (id:number, callback)=>{
     try {
         db
         .collection('pages')
-        .find({parent:id})
+        // .find({parent:id},{
+        //     $or:[{id:id}]
+        // })
+        .find(
+            {$or: [ { parent:id }, { id: id } ]}
+        )
         .toArray((err, data)=>{   
            callback(err,data)
         })   

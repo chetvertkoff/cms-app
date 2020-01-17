@@ -26,7 +26,6 @@ const MenuItem=(props)=>{
     if (collapsed && ! props.collapsed) {       
         arrowClassName += ' is-expanded'
     }else{
-
         arrowClassName = 'treeview'
     }
     if(props.page.isFolder){
@@ -38,10 +37,12 @@ const MenuItem=(props)=>{
                     <NavLink className="treeview-item" to={'/page/'+props.page.id}>
                         <i className="icon fa fa-folder-o"></i>{props.page.title}
                     </NavLink>
-                    <i 
+                    {
+                        props.page.hasChild && <i 
                         className={"treeview-indicator fa fa-angle-right"}
                         onClick={onClick.bind(this,props.page.id)}
                     ></i>
+                    }
                 </span>
                 <ul className="treeview-menu ">
                     { 

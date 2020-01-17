@@ -11,6 +11,7 @@ const Crumbs=(props:IProps)=>{
     if(props.path){
         path = props.path.replace(/\//g, " / ")
     }
+
      
     return (
         <ul className="app-breadcrumb breadcrumb">
@@ -22,9 +23,12 @@ const Crumbs=(props:IProps)=>{
                     :
                         <li className="breadcrumb-item">{`/ Страницы / ${props.title}`}</li> 
                 :
-                    props.pages && props.pages.length >=1 && props.pages[0].path !='null' ?  
-                        <li className="breadcrumb-item">{`/ ${props.title} / ${path}`}</li> 
+                    props.pages && props.pages.length >1 && props.pages[0].path !='null' ?  
+                    <li className="breadcrumb-item">{`/ ${props.title} / ${path}`}</li> 
                     :
+                        props.pages ?
+                        <li className="breadcrumb-item">{`/ ${props.title} / ${props.pages[0].path} / ${props.pages[0].title}`}</li>
+                        :
                         <li className="breadcrumb-item">{`/ ${props.title}`}</li>
             }
         </ul>

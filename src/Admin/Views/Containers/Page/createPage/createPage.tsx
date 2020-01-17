@@ -117,6 +117,7 @@ class CreatePage  extends React.Component<IProps, IState>{
     }
 
     render(){
+        console.log(this.state.options);
         
         return (
             <React.Fragment>

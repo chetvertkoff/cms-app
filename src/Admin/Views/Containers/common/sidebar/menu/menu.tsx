@@ -31,10 +31,14 @@ class Menu extends Component<IProps, IState>{
 
     componentDidUpdate(prevProps){    
         if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages)){ 
-
+            const parent = this.props.menu.pages[0].id
+            const pages = this.props.menu.pages.filter(e=>{
+                return e.parent === parent
+            })
+            
             if (this.props.update) {
                 this.setState({
-                    arr: this.props.menu.pages,
+                    arr: pages,
                     memory:[],
                     unClicked: true
                 }) 
@@ -44,15 +48,14 @@ class Menu extends Component<IProps, IState>{
             if(this.state.arr==null){
                 setTimeout(()=>{
                     this.setState({
-                        arr: this.props.menu.pages
+                        arr: pages
                     })
                     
                 },0)     
             }
             setTimeout(() => {
-  
                 this.setState({
-                    arr: this.filterOb(this.state.arr, this.props.menu.pages[0].parent, this.props.menu.pages),
+                    arr: this.filterOb(this.state.arr, pages[0].parent, pages),
                     unClicked: false
                 })
 
@@ -98,6 +101,9 @@ class Menu extends Component<IProps, IState>{
         if(this.props.toggleMenu){
             classes.push('is-expanded')
         }
+        console.log(this.props);
+        
+        console.log(this.state.arr);
         
         return (
             <ul className="app-menu">

@@ -5,6 +5,8 @@ export const getSomeParentPageById = (req,res)=>{
   
         getPagesByParentId(parId, (err, data)=>{
             try {
+                console.log(data);
+                
                 res.send(data)   
             } catch (err) {
                 res.status(500)
@@ -51,7 +53,8 @@ export const addNewPage = (req,res)=>{
             body: page.body,
             metaDescription: page.metaDescription,
             metaKeywords: page.metaKeywords,
-            metaTitle: page.metaTitle
+            metaTitle: page.metaTitle,
+            hasChild: false
         }
     })
      .then(data=>{

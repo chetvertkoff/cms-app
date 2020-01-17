@@ -17,7 +17,7 @@ const PageItem = (props:IProps) => {
         alert.alert.toggleAlert(false)
         alert.id.setId(null)
     }
-
+    
     const memo = useMemo(() => {
         if(props.item && props.item != undefined){
             return (

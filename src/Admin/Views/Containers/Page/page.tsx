@@ -95,6 +95,7 @@ class Page extends Component<IProps, IState>{
                 path: this.props.pages[0].path,
                 parentName: this.props.pages[0].parentName
             }
+            
             localStorage.setItem('options', JSON.stringify(options));
         }
 
@@ -121,6 +122,14 @@ class Page extends Component<IProps, IState>{
     } 
 
     render(){ 
+        var pages
+        if (this.props.pages) {
+            const parent = this.props.pages[0].id
+            pages = this.props.pages.filter(e=>{
+                return e.parent === parent
+            })
+        }
+        
         return (
             <React.Fragment>
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>
@@ -151,8 +160,9 @@ class Page extends Component<IProps, IState>{
                                             </div>
                                         :
                                         
-                                            this.props.pages && this.props.pages.length >= 1 ?
-                                            this.props.pages.map(item=>{
+                                            pages && 
+                                            pages.length >= 1 ?
+                                            pages.map(item=>{
                                                 return <PageItem deletePage={this.deletePage} item={item} key={item.id} /> 
                                             }): null
                                         
