@@ -101,8 +101,6 @@ class Menu extends Component<IProps, IState>{
         if(this.props.toggleMenu){
             classes.push('is-expanded')
         }
-        console.log(this.props);
-        
         console.log(this.state.arr);
         
         return (

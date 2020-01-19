@@ -40,7 +40,7 @@ const MenuItem=(props)=>{
                     {
                         props.page.hasChild && <i 
                         className={"treeview-indicator fa fa-angle-right"}
-                        onClick={onClick.bind(this,props.page.id)}
+                        onClick={onClick.bind(this, props.page.id)}
                     ></i>
                     }
                 </span>

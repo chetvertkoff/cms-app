@@ -16,9 +16,6 @@ export const getPagesByParentId = (id:number, callback)=>{
     try {
         db
         .collection('pages')
-        // .find({parent:id},{
-        //     $or:[{id:id}]
-        // })
         .find(
             {$or: [ { parent:id }, { id: id } ]}
         )
@@ -38,6 +35,53 @@ export const getPageById = (id:number, callback)=>{
      })
 }
 
+
+export const insertPage=(page)=>{
+    if(page){
+        db
+         .collection('pages')
+         .insertOne(page)
+    }
+}
+
+export const update=(page)=>{
+    if(page){
+        db
+        .collection('pages')
+        .updateOne(
+            {id: page.id},
+            {$set:{...page}}
+        )
+    }
+}
+
+export const deletePage=(id: number | any)=>{
+    if(id){
+        db
+         .collection('pages')
+         .deleteOne(
+             {id: id}
+         )
+    }
+}
+
+// ? tools
+export const findChild=(id:number, callback)=>{
+    try {
+        db
+         .collection('pages')
+         .find({parent: id})  
+         .limit(1) 
+         .project({id:1, _id: 0})
+         .toArray((err,data)=>{
+             if(err) throw new Error
+             callback(data)
+         })
+    } catch (error) {
+        
+    }
+}
+
 export const getMaxID=(callback)=>(
     db
      .collection('pages')
@@ -50,33 +94,29 @@ export const getMaxID=(callback)=>(
      })
 )
 
-export const insertPage=(page)=>{
-    if(page){
-        db
-         .collection('pages')
-         .insertOne(page)
-    }
-}
-
-export const update=(page)=>{
-    
-    if(page){
-        console.log(page);
+export const updateElemProp=(id, props)=>{
+    if(id && props){
         db
         .collection('pages')
         .updateOne(
-            {id: page.id},
-            {$set:{...page}}
+            {id: id},
+            {$set:{...props}}
         )
     }
 }
 
-export const deletePage=(id: number)=>{
-    if(id){
+export const findElemsByProps=(props,callback, limit)=>{
+    try {
         db
          .collection('pages')
-         .deleteOne(
-             {id: id}
-         )
+         .find(props)  
+         .limit(limit) 
+         .toArray((err,data)=>{
+             if(err) throw new Error
+             callback(data)
+         })
+    } catch (error) {
+        
     }
 }
+

@@ -1,12 +1,10 @@
-import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePage } from './../model/pages';
+import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePage, findChild, updateElemProp, findElemsByProps } from './../model/pages';
 
 export const getSomeParentPageById = (req,res)=>{
     const parId:number= +req.params.id
   
         getPagesByParentId(parId, (err, data)=>{
             try {
-                console.log(data);
-                
                 res.send(data)   
             } catch (err) {
                 res.status(500)
@@ -17,13 +15,9 @@ export const getSomeParentPageById = (req,res)=>{
 
 export const getSomePagesById = (req, res)=>{
      const id:number = +req.params.id
-     console.log(id);
-     
      setImmediate(()=>{
         getPageById(id,(err, data)=>{
             try {
-                console.log(data);
-                
                 res.send(data)  
             } catch (error) {
                 res.status(500)
@@ -57,11 +51,14 @@ export const addNewPage = (req,res)=>{
             hasChild: false
         }
     })
-     .then(data=>{
+     .then(async data=>{
         res.setHeader('Content-Type', 'application/json');
         res.send({id: data.id});
-        // res.redirect('/update/0')
-        insertPage(data)
+
+        await insertPage(data)
+        if(data.parent){
+            await updateElemProp(data.parent, {hasChild: true})
+        }
      })
 
 }
@@ -69,6 +66,10 @@ export const addNewPage = (req,res)=>{
 export const updatePage=(req,res)=>{
     const page = req.body
     delete page._id
+    // if(page.isFolder){
+    //     findChild(page.id, data=>{
+    //     })
+    // }
     update(page)   
     setImmediate(()=>{
         res.setHeader('Content-Type', 'application/json');
@@ -77,15 +78,33 @@ export const updatePage=(req,res)=>{
 }
 
 export const deleteSomePageById=(req,res)=>{
-    console.log(req.params.id);
-    const id:number = +req.params.id
+    try {
+        new Promise((resolve, reject)=>{
+            const id:number = +req.params.id
+            if(id){
+                //search for details of this item  
+                findElemsByProps({id:id},data=>{
+                    if(data[0].id){
+                        findElemsByProps({parent: data[0].parent}, data=>{
+                            // if element counts is equal 1 then this element parent hasnt childs
+                            if(data[0].parent && data.length == 1){
+                                updateElemProp(data[0].parent,{hasChild: false} )   
+                            }
+                            resolve(id)
+                        }, 2)
+                    }
+                } ,1)    
+            }
+        })
+         .then(id=>{
+            if(id){
+                deletePage(id)  
+                res.send({id: id})
+            }
+         }) 
 
-    setImmediate(()=>{
-        try {
-            deletePage(id)            
-            res.send({id: id})
-        } catch (error) {
-            res.status(500)
-        }
-    })
+    } catch (error) {
+        res.status(500)
+    }
+
 }
