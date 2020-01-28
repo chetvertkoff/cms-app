@@ -65,6 +65,18 @@ export const deletePage=(id: number | any)=>{
     }
 }
 
+export const deletePageWithChild=(id: number | any, title)=>{
+    try {
+        db
+         .collection('pages')
+         .deleteMany(
+            {$or: [ { path: {$regex: ".*"+title+".*"}}, { id: id } ]}
+         )
+    } catch (error) {
+        
+    }
+}
+
 // ? tools
 export const findChild=(id:number, callback)=>{
     try {

@@ -24,18 +24,18 @@ const PageItem = (props:IProps) => {
                 <div style={{marginBottom:"10px"}} className="col-md-12 row tile-title-w-btn text-black bg-light page-item">
                     {
                         props.item.isFolder ? (
-                            <NavLink exact to={'/page/'+props.item.id}>
+                            <NavLink  to={'/page/'+props.item.id}>
                                 <i className="icon fa fa-folder-o"></i><span>{props.item.id}</span>
                             </NavLink>
                         ) : (
-                            <NavLink exact to={'/update/'+props.item.id}>
+                            <NavLink  to={'/update/'+props.item.id}>
                                 <i className="icon fa fa-file-text-o"></i><span>{props.item.id}</span>
                             </NavLink>
                         ) 
                     }
                     <div className="col-md-4 title-wrap">
                         {props.item.isFolder ? (
-                            <NavLink exact to={'/page/'+props.item.id}>
+                            <NavLink  to={'/page/'+props.item.id}>
                                 {props.item.title}
                             </NavLink>
                         ) : (
@@ -57,7 +57,7 @@ const PageItem = (props:IProps) => {
                             <NavLink className="btn btn-primary" to={'/update/'+props.item.id}>
                                 <i className="fa fa-lg fa-edit"></i>
                             </NavLink>
-                            <a  onClick={e=>{e.preventDefault; getPageId(props.item.id)}} className="btn btn-primary"><i className="fa fa-lg fa-trash"></i></a>
+                            <button  onClick={e=>{e.preventDefault; getPageId(props.item.id)}} className="btn btn-danger"><i className="fa fa-lg fa-trash"></i></button>
                         </div>
                     </div>
                 </div>

@@ -117,8 +117,7 @@ class CreatePage  extends React.Component<IProps, IState>{
     }
 
     render(){
-        console.log(this.state.options);
-        
+
         return (
             <React.Fragment>
                 <Title title={'Создать новую'} classN={"fa-file-text"} path={this.state.options.path}/>

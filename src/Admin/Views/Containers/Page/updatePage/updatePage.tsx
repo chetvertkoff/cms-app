@@ -31,8 +31,8 @@ class UpdatePage extends React.Component<IProps, IState>{
             fields: this.props.page[0]
         })
         
-        if(this.props.match.params.id != prevProps.match.params.id){
-            console.log(this.props.match.params.id);
+        if(this.props.match.params.id != prevProps.match.params.id
+            ){
             
             if(this.props.match.params.id){
                 this.props.fetchPageById(this.props.match.params.id)
@@ -134,10 +134,11 @@ class UpdatePage extends React.Component<IProps, IState>{
             xhr('PUT','/api/parentPage',this.state.fields) 
              .then(data=>{
                  if(data.status == 200){                 
+                    this.props.fetchMenuItemsById(0)  
+                    this.props.updateMenu(true)
                     setTimeout(() => {
-                        this.props.fetchMenuItemsById(0)  
-                        this.props.updateMenu(true)
-                    },0);
+                        this.props.fetchPageById(this.props.match.params.id)
+                    }, 0);
                  }
              })
         } catch (error) {

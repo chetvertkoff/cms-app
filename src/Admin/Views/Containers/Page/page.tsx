@@ -90,14 +90,45 @@ class Page extends Component<IProps, IState>{
     onClick =()=>{
         var options 
         if(this.props.pages && this.props.pages.length >= 1){
+
+            if (!this.props.pages) {
+                options = {
+                    id: this.props.match.params.ids, 
+                    path: 'null',
+                    parentName: 'null'
+                }
+            }else{
+                if (this.props.pages[0] && this.props.pages[0].path != 'null') {
+                    options = {
+                        id: this.props.match.params.ids, 
+                        path: `${this.props.pages[0].path} / ${this.props.pages[0].title}`,
+                        parentName: this.props.pages[0].title
+                    }   
+                }else{
+                    if (this.props.pages[0] && this.props.match.params.ids == 0) {
+                        options = {
+                            id: this.props.match.params.ids, 
+                            path: 'null',
+                            parentName: 'null'
+                        }
+                    }else{
+                        options = {
+                            id: this.props.match.params.ids, 
+                            path: `${this.props.pages[0].title}`,
+                            parentName: this.props.pages[0].title
+                        }  
+                    }
+                }
+            }
+        }else{
             options = {
                 id: this.props.match.params.ids, 
-                path: this.props.pages[0].path,
-                parentName: this.props.pages[0].parentName
+                path: 'null',
+                parentName: 'null'
             }
-            
-            localStorage.setItem('options', JSON.stringify(options));
         }
+        console.log(options);
+        localStorage.setItem('options', JSON.stringify(options));
 
     }
 

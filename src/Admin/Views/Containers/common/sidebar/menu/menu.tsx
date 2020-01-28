@@ -30,13 +30,15 @@ class Menu extends Component<IProps, IState>{
     }
 
     componentDidUpdate(prevProps){    
-        if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages)){ 
+        if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages) 
+        && this.props.menu.pages[0]){ 
             const parent = this.props.menu.pages[0].id
             const pages = this.props.menu.pages.filter(e=>{
                 return e.parent === parent
             })
             
             if (this.props.update) {
+                
                 this.setState({
                     arr: pages,
                     memory:[],
@@ -46,6 +48,7 @@ class Menu extends Component<IProps, IState>{
             }
 
             if(this.state.arr==null){
+                
                 setTimeout(()=>{
                     this.setState({
                         arr: pages
@@ -54,6 +57,7 @@ class Menu extends Component<IProps, IState>{
                 },0)     
             }
             setTimeout(() => {
+                
                 this.setState({
                     arr: this.filterOb(this.state.arr, pages[0].parent, pages),
                     unClicked: false
@@ -89,10 +93,14 @@ class Menu extends Component<IProps, IState>{
     getPageMenu=(id)=>{
         
         if( !this.state.memory.find((item)=>item==id)){
+            console.log('вызван');
+            
             this.setState({
                 memory: [...this.state.memory, id]
             })
-            this.props.fetchMenuItemsById(id)
+            setTimeout(() => {
+                this.props.fetchMenuItemsById(id)
+            }, 0);
         }
     }
 
@@ -101,7 +109,6 @@ class Menu extends Component<IProps, IState>{
         if(this.props.toggleMenu){
             classes.push('is-expanded')
         }
-        console.log(this.state.arr);
         
         return (
             <ul className="app-menu">
@@ -111,7 +118,7 @@ class Menu extends Component<IProps, IState>{
                         if(item.hasPages){
                             return(
                                 <li className={classes.join(' ')} key={item.id}>
-                                    <NavLink to={item.alias} exact activeClassName="active" className="app-menu__item">
+                                    <NavLink to={item.alias}  activeClassName="active" className="app-menu__item">
                                         <i className={`app-menu__icon fa ${item.class}`}></i>
                                         <span className="app-menu__label">{item.title}</span>
                                         <i className="treeview-indicator fa fa-angle-right"
@@ -130,7 +137,7 @@ class Menu extends Component<IProps, IState>{
                         }
                         return(
                             <li key={item.id}>
-                                <NavLink to={item.alias} exact activeClassName="active" className="app-menu__item">
+                                <NavLink to={item.alias} activeClassName="active" className="app-menu__item">
                                     <i className={`app-menu__icon fa ${item.class}`}></i>
                                     <span className="app-menu__label">{item.title}</span>
                                 </NavLink>
@@ -145,6 +152,7 @@ class Menu extends Component<IProps, IState>{
 }
 
 const mapStateToProps=(state)=>{
+
     return {
         pages: state.fetchMenuItemsById,
         toggleMenu: state.commonReducer.toggleMenu,

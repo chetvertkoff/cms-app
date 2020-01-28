@@ -1,4 +1,4 @@
-import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePage, findChild, updateElemProp, findElemsByProps } from './../model/pages';
+import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePage, findChild, updateElemProp, findElemsByProps, deletePageWithChild } from './../model/pages';
 
 export const getSomeParentPageById = (req,res)=>{
     const parId:number= +req.params.id
@@ -79,11 +79,13 @@ export const updatePage=(req,res)=>{
 
 export const deleteSomePageById=(req,res)=>{
     try {
+        var currentPage
         new Promise((resolve, reject)=>{
             const id:number = +req.params.id
             if(id){
                 //search for details of this item  
                 findElemsByProps({id:id},data=>{
+                    currentPage = data[0]
                     if(data[0].id){
                         findElemsByProps({parent: data[0].parent}, data=>{
                             // if element counts is equal 1 then this element parent hasnt childs
@@ -98,11 +100,15 @@ export const deleteSomePageById=(req,res)=>{
         })
          .then(id=>{
             if(id){
-                deletePage(id)  
-                res.send({id: id})
+                if (currentPage.isFolder) {
+                    deletePageWithChild(id, currentPage.title)
+                    res.send({id: id})
+                }else{
+                    deletePage(id)  
+                    res.send({id: id})
+                }
             }
          }) 
-
     } catch (error) {
         res.status(500)
     }
