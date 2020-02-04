@@ -16,6 +16,6 @@ MongoClient(process.env.URL,{ useUnifiedTopology: true })
     .collection('menu')
     .find({})
     .toArray((err, data)=>{  
-        callback(data) 
+        callback(data, err) 
     })
  }
