@@ -65,7 +65,9 @@
     "@babel/register": "^7.6.2",
     "express": "^4.17.1",
     "jodit-react": "^1.0.26",
-    "webpack-dev-server": "^3.8.1"
+    "react-froala-wysiwyg": "^3.1.0",
+    "webpack-dev-server": "^3.8.1",
+    "wysiwyg-editor-node-sdk": "^3.1.0"
   },
   "proxy": "http://localhost:5000"
 }

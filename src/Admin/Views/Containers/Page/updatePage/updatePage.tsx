@@ -115,6 +115,8 @@ class UpdatePage extends React.Component<IProps, IState>{
     }
 
     getFromTextEditor = (text:string)=>{
+        console.log(text);
+        
         this.setState({
             fields:{
                 ...this.state.fields,

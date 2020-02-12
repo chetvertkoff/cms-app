@@ -5,6 +5,7 @@ import menu from './routes/menu';
 import parentPages from './routes/parentPages';
 import pages from './routes/pages';
 import cors from 'cors'
+import upload from './routes/upload'
 
 dotenv.config()
 const app:any = express()
@@ -14,14 +15,15 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended":true}));
 
-
+// app.use("/uploads",express.static("uploads"));
 // app.use(express.static('public'))
 // app.use(bodyParser.json()); 
-
 // app.use('/getMenu', menu)
 app.use('/api/parentPage/', parentPages)
 app.use('/api/page/', pages)
-app.use('/api/menu', menu)
+app.use('/api/menu/', menu)
+app.use('/api/upload_image/', upload);
+
 
 // app.get ('*', (req, res) => { 
 //     res.sendFile('index.html', { root: 'public' }); 

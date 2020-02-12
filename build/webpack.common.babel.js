@@ -8,8 +8,9 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import PurgecssPlugin from 'purgecss-webpack-plugin'
 
 const PATHS = {
+  public: path.join(__dirname, '../public'),
   src: path.join(__dirname, '../src'),
-  dist: path.join(__dirname, '../public'),
+  dist: path.join(__dirname, '../public/assets/'),
   assets: 'assets/'
 }
 
@@ -26,7 +27,6 @@ export default {
   output: {
     filename: `${PATHS.assets}js/[name].[hash].js`,
     path: PATHS.dist,
-    publicPath: '/',
     sourceMapFilename: 'bundle.map'
   },
   optimization: {
@@ -86,13 +86,15 @@ export default {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
-      filename: './index.html',
+      filename: `${PATHS.public}/index.html`,
       inject: true
     }),
     new MiniCssExtractPlugin({
-      filename: `${PATHS.assets}css/[name].css`,
+      filename: `css/[name].css`,
     }),
-    new ManifestPlugin(),
+    new ManifestPlugin({
+      fileName: `${PATHS.public}/manifest.json`
+    }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/Admin/static/`, to: `` }
     ])
