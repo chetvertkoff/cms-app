@@ -30,6 +30,8 @@ class Caption extends React.Component<IProps, IState>{
     }
 
     getFields=()=>{
+        console.log(this.props.data.title);
+        
         if(this.props.data){
             return this.props.data
         }
@@ -128,6 +130,7 @@ class Caption extends React.Component<IProps, IState>{
     }
     
     render(){
+
         return (
             <React.Fragment >
                 <div className="col-md-2">

@@ -3,7 +3,7 @@ node_modules
 
 # bundle
 /public
-/dist
+/uploads
 
 #dev
 .vscode

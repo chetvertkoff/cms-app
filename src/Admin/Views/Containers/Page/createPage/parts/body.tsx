@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { IProps } from './../../../../Types/index.d';
 // import "froala-editor/js/froala_editor.pkgd.min.js";
@@ -14,43 +14,22 @@ import FroalaEditor from 'react-froala-wysiwyg';
 
 
 const Body = (props:IProps) => {
+    const [model, setModel] = useState<string>(props.defaultValue)
 
-    const sendContent = (text:string)=>{
-      console.log(text);
-      
+    const handleModel=(text:string):void=>{
+      setModel(text)
       props.getFromTextEditor(text)
-    }
+    } 
 
     return (
-        <div className="col-md-12">
+        <div className="col-md-12" id="editor">
             <label className="control-label">Описание</label>
             <FroalaEditor
+                model = {model}
                 tag='textarea'
+                onModelChange = {(text)=>{handleModel(text)}}
                 config={{
-                    events: {
-                        'blur': function () {
-                          console.log('1');
-                          
-                          sendContent(document.querySelector('.fr-view').innerHTML)
-                        }
-                      },
-                    imageUploadURL: '/api/upload_image',
-                      toolbarButtons:{
-                        moreRich: {
-                            buttons: [
-                              "insertLink",
-                              "insertImage",
-                              "insertVideo",
-                              "insertTable",
-                              "emoticons",
-                              "fontAwesome",
-                              "specialCharacters",
-                              "embedly",
-                              "insertFile",
-                              "insertHR"
-                            ]
-                          }
-                      }
+                    imageUploadURL: '/api/upload_image'
                   }}
             />
             <br/>

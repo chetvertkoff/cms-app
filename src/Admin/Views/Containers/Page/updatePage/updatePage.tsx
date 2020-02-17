@@ -115,8 +115,6 @@ class UpdatePage extends React.Component<IProps, IState>{
     }
 
     getFromTextEditor = (text:string)=>{
-        console.log(text);
-        
         this.setState({
             fields:{
                 ...this.state.fields,
@@ -152,6 +150,7 @@ class UpdatePage extends React.Component<IProps, IState>{
         var page
         if(this.state.fields){
             page = this.state.fields
+            console.log(page);
         }
         
         return (

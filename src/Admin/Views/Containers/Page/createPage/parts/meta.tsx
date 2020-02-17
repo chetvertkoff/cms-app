@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import TextInput from './../../../../Components/UI/textInput/textInput';
 import { IProps } from './../../../../Types/index.d';
 
@@ -8,8 +8,11 @@ const Meta = (props:IProps) => {
     const [keywords, setKeywords] = useState(props.data? props.data.metaKeywords : '')
     const [description, setDescription] = useState(props.data? props.data.metaDescription : '')
 
-    const changeInput=(label,value)=>{
+    useEffect(() => {
         
+    })
+
+    const changeInput=(label,value)=>{    
         switch (label) {
             case 'Title':
                 setTitle(value)
