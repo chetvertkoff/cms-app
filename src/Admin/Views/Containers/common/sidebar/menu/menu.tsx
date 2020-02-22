@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleMenuItem } from '../../../../Store/Action/commonAction';
 import { IProps, IState } from './../../../../Types/index.d';
+import Preloader from '../../../../Components/UI/preloader/preloader'
 
 import MenuItem from './menuItems/menuItem/menuItem';
 import { fetchMenu, fetchMenuItemsById, updateMenu } from './../../../../Store/Action/fetchMenu';
-
 
 class Menu extends Component<IProps, IState>{
 
@@ -22,11 +22,10 @@ class Menu extends Component<IProps, IState>{
     }
 
     componentDidMount(){ 
+        this.props.fetchMenuItemsById(0)  
         setImmediate(()=>{
             this.props.fetchMenu()
         })
-        this.props.fetchMenuItemsById(0)  
-        
     }
 
     componentDidUpdate(prevProps){    
@@ -109,11 +108,10 @@ class Menu extends Component<IProps, IState>{
         if(this.props.toggleMenu){
             classes.push('is-expanded')
         }
-        
         return (
             <ul className="app-menu">
                 {
-                    this.props.menu.menu ? 
+                    !this.props.loading && this.props.menu.menu ? 
                     this.props.menu.menu.map(item=>{
                         if(item.hasPages){
                             return(
@@ -143,7 +141,7 @@ class Menu extends Component<IProps, IState>{
                                 </NavLink>
                             </li>
                         )
-                    }) : null
+                    }) : <Preloader />
                 }
                 
             </ul>
@@ -152,8 +150,8 @@ class Menu extends Component<IProps, IState>{
 }
 
 const mapStateToProps=(state)=>{
-
     return {
+        loading: state.fetchMenu.loading,
         pages: state.fetchMenuItemsById,
         toggleMenu: state.commonReducer.toggleMenu,
         menu: state.fetchMenu,
@@ -167,4 +165,4 @@ const mapDispatchToProps = (dispatch)=>({
     updateMenu: toggler=>dispatch(updateMenu(toggler))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(Menu);
+export default connect(mapStateToProps,mapDispatchToProps)(Menu)

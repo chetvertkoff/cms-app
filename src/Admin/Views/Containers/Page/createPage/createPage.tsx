@@ -101,7 +101,7 @@ class CreatePage  extends React.Component<IProps, IState>{
                     },0);
                 }
                
-                this.props.history.push(`/update/${JSON.parse(data.response).id}/?create=success`);
+                this.props.history.push(`/update/${JSON.parse(data.response).id}/?create=success`)
     
              })
         } catch (error) {

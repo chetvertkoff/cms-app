@@ -11,6 +11,7 @@ import xhr from './../../lib/xhr';
 import { fetchMenuItemsById } from '../../Store/Action/fetchMenu';
 import { updateMenu } from './../../Store/Action/fetchMenu';
 import { AlertContext } from './../../Context/alert-context';
+import Preloader from '../../Components/UI/preloader/preloader';
 
 class Page extends Component<IProps, IState>{
     constructor(props){
@@ -127,7 +128,6 @@ class Page extends Component<IProps, IState>{
                 parentName: 'null'
             }
         }
-        console.log(options);
         localStorage.setItem('options', JSON.stringify(options));
 
     }
@@ -160,8 +160,11 @@ class Page extends Component<IProps, IState>{
                 return e.parent === parent
             })
         }
-        
+
         return (
+            this.props.loading ?
+            <Preloader />
+            :
             <React.Fragment>
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>
                 <div className="row">
@@ -212,6 +215,7 @@ class Page extends Component<IProps, IState>{
 
 const mapStateToProps=(state:IProps)=>({
     // Get pages from server
+    loading: state.fetchPages.loading,
     pages: state.fetchPages.page
 })
 

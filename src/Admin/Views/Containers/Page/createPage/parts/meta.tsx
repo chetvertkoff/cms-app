@@ -9,7 +9,11 @@ const Meta = (props:IProps) => {
     const [description, setDescription] = useState(props.data? props.data.metaDescription : '')
 
     useEffect(() => {
-        
+        if(props.data){
+            props.data.metaTitle && setTitle(props.data.metaTitle)
+            props.data.metaKeywords && setKeywords(props.data.metaKeywords)
+            props.data.metaDescription && setDescription(props.data.metaDescription)
+        }
     })
 
     const changeInput=(label,value)=>{    

@@ -2472,3 +2472,52 @@ be a descendant of the grid when it is being dragged.
     background-color: #dc3545;
     border-color: #dc3545;
 }
+
+.update-page_buttons{
+  margin-left: auto;
+}
+.update-page_buttons > button:first-child{
+  margin-right: 10px;
+}
+
+.app-breadcrumb.breadcrumb .breadcrumb-item{
+  font-size: 14px;
+}
+
+.m-loader {
+  position: relative;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.m-loader:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.m-circular {
+  -webkit-animation: rotate 1.5s linear infinite;
+          animation: rotate 1.5s linear infinite;
+  height: 100%;
+  -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+          transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1,200;
+  stroke-dashoffset: 0;
+  stroke: #009688;
+  -webkit-animation: dash 1.5s ease-in-out infinite;
+          animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+}

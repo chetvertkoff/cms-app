@@ -29,9 +29,7 @@ class Caption extends React.Component<IProps, IState>{
         return false
     }
 
-    getFields=()=>{
-        console.log(this.props.data.title);
-        
+    getFields=()=>{        
         if(this.props.data){
             return this.props.data
         }

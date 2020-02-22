@@ -20,6 +20,7 @@ class Layout extends React.Component<IProps>{
         // },2000)
     }
 
+
     toogleSidebar(e:any){
         e.preventDefault()   
         this.props.toggleSideBarAction(this.props.sideBarShow)    

@@ -54,7 +54,8 @@ export interface IProps{
     getFromTextEditor?:(e:string)=>void,
     defaultValue?: string,
     updateMenu?:(e:boolean)=>void,
-    deletePage?: (e: number)=>void
+    deletePage?: (e: number)=>void,
+    id?: number | any
 }
 
 export interface IState{

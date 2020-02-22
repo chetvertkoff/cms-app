@@ -1,12 +1,23 @@
-import { FETCH_MENU,FETCH_MENU_ITEMS, UPDATE_MENU } from './../Types/types';
+import { FETCH_MENU,FETCH_MENU_ITEMS, UPDATE_MENU, FETCH_MENU_START } from './../Types/types';
 
-const initialState:Pages={
+const initialState={
+    loading: false,
     pages:[
         {
-            userId: 1,
-            id: 1,
-            title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-            body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+            _id: "",
+            id: '',
+            title: "",
+            alias: "",
+            isFolder: false,
+            parent: '',
+            parentName: '',
+            path: '',
+            isActive: true,
+            body: "",
+            metaDescription: "",
+            metaKeywords: "",
+            metaTitle: "",
+            hasChild: false
         }
         
     ]
@@ -15,9 +26,15 @@ const initialState:Pages={
 const fetchMenu=(state=initialState, action)=>{  
       
     switch (action.type) {
+        case FETCH_MENU_START:
+            return{
+                ...state,
+                loading: true
+            }
         case FETCH_MENU:
             return{
                 ...state,
+                loading: false,
                 menu: action.payload
             }
         case FETCH_MENU_ITEMS:

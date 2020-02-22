@@ -35,7 +35,7 @@ const Crumbs=(props:IProps)=>{
             {
                 props.path ? 
                     props.path !='null' ?
-                        <li className="breadcrumb-item">{`/ ${path} / ${props.title}`}</li> 
+                        <li className="breadcrumb-item">{`/ Страницы  / ${path} / ${props.title}`}</li> 
                     :
                         <li className="breadcrumb-item">{`/ Страницы / ${props.title}`}</li> 
                 :

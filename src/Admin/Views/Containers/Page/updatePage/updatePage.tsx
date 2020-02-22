@@ -10,9 +10,13 @@ import Title from './../../common/title/title';
 import xhr from './../../../lib/xhr';
 import { fetchMenuItemsById } from '../../../Store/Action/fetchMenu';
 import { updateMenu } from './../../../Store/Action/fetchMenu';
+import { AlertContext } from './../../../Context/alert-context';
+import { load } from './../../../Store/Action/commonAction';
+import Preloader from './../../../Components/UI/preloader/preloader';
 
 
 class UpdatePage extends React.Component<IProps, IState>{
+    static contextType = AlertContext
     constructor(props){
         super(props)
 
@@ -25,9 +29,19 @@ class UpdatePage extends React.Component<IProps, IState>{
         this.props.fetchPageById(this.props.match.params.id)
     }
 
-
     componentDidUpdate(prevProps){
-        !this.state.fields && this.setState({
+        let pageId:number = this.props.match.params.id
+        let alert = this.context
+        if(alert.delete.isDelete && alert.id.id === pageId){
+            this.deletePage(pageId)
+            setTimeout(() => {
+                alert.delete.deletePage(false)
+                alert.alert.toggleAlert(false)
+                alert.id.setId(null)
+            }, 0)
+        }
+        
+        !this.state.fields && this.props.page && this.setState({
             fields: this.props.page[0]
         })
         
@@ -146,15 +160,35 @@ class UpdatePage extends React.Component<IProps, IState>{
         }
     }
 
-    render() {   
+    showAlert=():void=>{
+        let pageId:number = this.props.match.params.id
+        let alert = this.context
+        alert.alert.toggleAlert(true)
+        alert.id.setId(pageId)
+    }
+
+    deletePage = async (id:number):Promise<any>=>{
+        const status = await xhr('DELETE',`/api/page/${id}`, null)
+         .then(data=>data.status)
+
+        if(status == 200){
+            this.props.history.push(`/page/0`);
+            setTimeout(() => {
+                this.props.fetchMenuItemsById(0)  
+                this.props.updateMenu(true)
+            }, 0)
+        }
+    } 
+    
+    render() {           
         var page
         if(this.state.fields){
             page = this.state.fields
-            console.log(page);
         }
-        
+
+
         return (
-                page ? 
+                !this.props.loading && page ? 
                 <React.Fragment>
                     <Title title={this.props.page[0].title} classN={"fa-file-text"} path={this.props.page[0].path}/>
                     <div className="row">
@@ -162,9 +196,12 @@ class UpdatePage extends React.Component<IProps, IState>{
                             <div className="tile row">
                                 <div className="col-md-12 row">
                                     <Caption getData={this.getData} isInvalid={this.state.isInvalid} data={page}/>
-                                    <Body getFromTextEditor={this.getFromTextEditor} defaultValue={page.body} />
+                                    <Body getFromTextEditor={this.getFromTextEditor} id={page.id} defaultValue={page.body} />
                                     <Meta data={page} getData={this.getData} />
-                                    <div className="col-md-12">
+                                    <div className="update-page_buttons">
+                                        <button onClick={this.showAlert} className="btn btn-danger">
+                                            Удалить
+                                        </button>
                                         <button onClick={this.updateData} className="btn btn-primary pull-right">
                                             Обновить
                                         </button>
@@ -175,14 +212,18 @@ class UpdatePage extends React.Component<IProps, IState>{
                     </div>
                 </React.Fragment>
                 :
-                null  
+                <Preloader />
         );
     }
 }
 
-const mapStateToProps=state=>({
-    page:state.fetchPages.page
-})
+const mapStateToProps=state=>{ 
+console.log(state.fetchPages.loading);
+
+    return{
+    page: state.fetchPages.page,
+    loading: state.fetchPages.loading
+}}
 
 const mapDispatchToProps=dispatch=>({
     fetchPageById: id=>dispatch(fetchPageById(id)),

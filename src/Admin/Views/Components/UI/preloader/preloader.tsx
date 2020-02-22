@@ -1,47 +1,13 @@
 import React from 'react';
-import { IProps } from 'Admin/Views/Types';
 
-export default class Preloader extends React.Component<IProps>{
-    state={
-        count:0.0,
-        className:''
-    }
-    
-    componentDidMount(){
-        const classes = ['pace']
-        const timer = setInterval(()=>{
-            if(this.state.count==100 || !this.props.loading){
-                clearInterval(timer)
-                this.setState({
-                    count: 100
-                })
-                return setTimeout(() => {
-                    delete classes[1]
-                    classes.push('pace-inactive')
-                    this.setState({
-                        className: classes.join(' ')
-                    })
-                    return false
-                }, 500);
-            }
-            this.setState({
-                count: this.state.count+0.1
-            })
-            if(classes.find(item=>item=='pace-active') != 'pace-active'){
-                classes.push('pace-active')
-            }
-            this.setState({
-                className: classes.join(' ')
-            })
-        },10)
-    }   
+const Preloader =()=>(
+    <div className="overlay preloader">
+        <div className="m-loader mr-4">
+            <svg className="m-circular" viewBox="25 25 50 50">
+                <circle className="path" cx="50" cy="50" r="10" fill="none" strokeWidth="2" strokeMiterlimit="10"></circle>
+            </svg>
+        </div>    
+    </div>
+) 
 
-    render(){
-        return (
-            <div className={this.state.className}>
-                <div className="pace-progress" style={{"transform": `translate3d(${this.state.count}%, 0px, 0px)`}}></div>
-                <div className="pace-activity"></div>
-            </div>
-        );
-    }
-}
+export default Preloader
