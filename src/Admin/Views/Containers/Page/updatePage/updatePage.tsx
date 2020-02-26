@@ -40,9 +40,9 @@ class UpdatePage extends React.Component<IProps, IState>{
                 alert.id.setId(null)
             }, 0)
         }
-        
-        !this.state.fields && this.props.page && this.setState({
-            fields: this.props.page[0]
+
+        !this.state.fields && this.props.page.data && this.setState({
+            fields: this.props.page.data[0]
         })
         
         if(this.props.match.params.id != prevProps.match.params.id
@@ -172,7 +172,7 @@ class UpdatePage extends React.Component<IProps, IState>{
          .then(data=>data.status)
 
         if(status == 200){
-            this.props.history.push(`/page/0`);
+            this.props.history.push(`/admin/page/0`);
             setTimeout(() => {
                 this.props.fetchMenuItemsById(0)  
                 this.props.updateMenu(true)
@@ -185,8 +185,6 @@ class UpdatePage extends React.Component<IProps, IState>{
         if(this.state.fields){
             page = this.state.fields
         }
-
-
         return (
                 !this.props.loading && page ? 
                 <React.Fragment>
@@ -217,13 +215,10 @@ class UpdatePage extends React.Component<IProps, IState>{
     }
 }
 
-const mapStateToProps=state=>{ 
-console.log(state.fetchPages.loading);
-
-    return{
+const mapStateToProps=state=>({
     page: state.fetchPages.page,
     loading: state.fetchPages.loading
-}}
+})
 
 const mapDispatchToProps=dispatch=>({
     fetchPageById: id=>dispatch(fetchPageById(id)),

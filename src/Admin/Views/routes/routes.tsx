@@ -10,12 +10,12 @@ import UpdatePage from './../Containers/Page/updatePage/updatePage';
 
 const routes=(
     <Switch>
-        <Route path="/" exact component={Main} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/create" component={CreatePage} /> 
-        <Route path="/update/:id/" component={UpdatePage} /> 
+        <Route path="/admin/" exact component={Main} />
+        <Route path="/admin/blog" component={Blog} />
+        <Route path="/admin/create" component={CreatePage} /> 
+        <Route path="/admin/update/:id/" component={UpdatePage} /> 
         {/* <Route path="/pages/" component={Page} /> */}
-        <Route path="/page/:ids" component={Page} />
+        <Route path="/admin/page/:ids" component={Page} />
     </Switch>
 )
 

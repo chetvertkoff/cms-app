@@ -3,9 +3,17 @@ import { getPagesByParentId, getMaxID, getPageById, insertPage, update, deletePa
 export const getSomeParentPageById = async (req,res)=>{
     try {
         const parId:number= +req.params.id
-        await getPagesByParentId(parId, (err, data)=>{
+        var limit:number | any
+
+        if(req.query.limit) limit = +req.query.limit
+        else limit = 0
+
+        await getPagesByParentId(parId, limit, (err, data, count)=>{            
+            const newData:any = {}
+            newData.length = count
+            newData.data = data
             if (!data && !data.length) res.status(404).send('Can not find page')
-            return res.send(data)   
+            return res.send(newData)   
         })
     } catch (error) {
         res.status(400).send('Incorrect query')
@@ -23,6 +31,7 @@ export const getSomePagesById = async (req, res)=>{
         res.status(400).send('Incorrect query')
     }
 }
+
 
 export const addNewPage = async (req,res)=>{
     try {

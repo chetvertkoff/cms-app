@@ -24,22 +24,22 @@ const PageItem = (props:IProps) => {
                 <div style={{marginBottom:"10px"}} className="col-md-12 row tile-title-w-btn text-black bg-light page-item">
                     {
                         props.item.isFolder ? (
-                            <NavLink  to={'/page/'+props.item.id}>
+                            <NavLink  to={'/admin/page/'+props.item.id}>
                                 <i className="icon fa fa-folder-o"></i><span>{props.item.id}</span>
                             </NavLink>
                         ) : (
-                            <NavLink  to={'/update/'+props.item.id}>
+                            <NavLink  to={'/admin/update/'+props.item.id}>
                                 <i className="icon fa fa-file-text-o"></i><span>{props.item.id}</span>
                             </NavLink>
                         ) 
                     }
                     <div className="col-md-4 title-wrap">
                         {props.item.isFolder ? (
-                            <NavLink  to={'/page/'+props.item.id}>
+                            <NavLink  to={'/admin/page/'+props.item.id}>
                                 {props.item.title}
                             </NavLink>
                         ) : (
-                            <NavLink to={'/update/'+props.item.id}>
+                            <NavLink to={'/admin/update/'+props.item.id}>
                                 {props.item.title}
                             </NavLink>
                         ) }
@@ -54,7 +54,7 @@ const PageItem = (props:IProps) => {
                     </div>
                     <div className="col-md-3">
                         <div className="btn-group pull-right">
-                            <NavLink className="btn btn-primary" to={'/update/'+props.item.id}>
+                            <NavLink className="btn btn-primary" to={'/admin/update/'+props.item.id}>
                                 <i className="fa fa-lg fa-edit"></i>
                             </NavLink>
                             <button  onClick={e=>{e.preventDefault; getPageId(props.item.id)}} className="btn btn-danger"><i className="fa fa-lg fa-trash"></i></button>

@@ -135,7 +135,7 @@ class Menu extends Component<IProps, IState>{
                         }
                         return(
                             <li key={item.id}>
-                                <NavLink to={item.alias} activeClassName="active" className="app-menu__item">
+                                <NavLink to={item.alias} exact  activeClassName="active" className="app-menu__item">
                                     <i className={`app-menu__icon fa ${item.class}`}></i>
                                     <span className="app-menu__label">{item.title}</span>
                                 </NavLink>
@@ -149,14 +149,13 @@ class Menu extends Component<IProps, IState>{
     }
 }
 
-const mapStateToProps=(state)=>{
-    return {
+const mapStateToProps=(state)=>({
         loading: state.fetchMenu.loading,
         pages: state.fetchMenuItemsById,
         toggleMenu: state.commonReducer.toggleMenu,
         menu: state.fetchMenu,
         update: state.fetchMenu.toggler
-}}
+})
 
 const mapDispatchToProps = (dispatch)=>({
     toggleMenuItem: bool=>dispatch(toggleMenuItem(bool)),

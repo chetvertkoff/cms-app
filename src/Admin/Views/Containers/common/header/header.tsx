@@ -16,7 +16,7 @@ const Header = (props:IProps)=>{
 
     return (
         <header className="app-header">
-            <NavLink className="app-header__logo" to={"/"}>Vali</NavLink>
+            <NavLink className="app-header__logo" to={"/admin"}>Vali</NavLink>
             <a className="app-sidebar__toggle" href="#" onClick={props.toggleSide}></a>
             <ul className="app-nav">
                 <HeaderInput />

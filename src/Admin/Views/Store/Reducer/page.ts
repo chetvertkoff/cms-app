@@ -3,14 +3,15 @@ import { Pages } from 'Admin/Views/Types';
 
 const initialState:Pages={
     loading: false,
-    pages:[
-        {
+    page:{
+        data: [{
             id: 0,
             title: "",
             body: ""
-        }
+        }],
+        length: 0
         
-    ]
+    }
 }
 
 const fetchPages=(state=initialState,action)=>{

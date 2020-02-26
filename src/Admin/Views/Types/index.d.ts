@@ -36,7 +36,7 @@ export interface IProps{
     data?:Pages,
     fetchMenu?:()=>Menus,
     menu?: Menus,
-    fetchParentPageById?:(e:number)=>Page,
+    fetchParentPageById?:(e:number, l?:number)=>Page,
     classN?: string,
     fetchMenuItemsById?:(e:number)=>void,
     getPageMenu?:(e:number)=>void,
@@ -61,6 +61,7 @@ export interface IProps{
 export interface IState{
     memory?: Array<number>,
     arr?: Tree,
+    pageLimit: number,
     collapsed?: boolean,
     search?: Tree,
     url?: string,

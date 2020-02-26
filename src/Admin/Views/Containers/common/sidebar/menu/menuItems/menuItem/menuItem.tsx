@@ -34,7 +34,7 @@ const MenuItem=(props)=>{
                 className={arrowClassName} 
             >
                 <span className="tree-arrow">
-                    <NavLink className="treeview-item" to={'/page/'+props.page.id}>
+                    <NavLink className="treeview-item" to={'/admin/page/'+props.page.id}>
                         <i className="icon fa fa-folder-o"></i>{props.page.title}
                     </NavLink>
                     {
@@ -61,7 +61,7 @@ const MenuItem=(props)=>{
     else{
         return (
             <li key={props.page.id}>
-                <NavLink className="treeview-item" to={'/update/'+props.page.id}>
+                <NavLink className="treeview-item" to={'/admin/update/'+props.page.id}>
                     <i className="icon fa fa-file-text-o"></i>{props.page.title}
                 </NavLink>
             </li>

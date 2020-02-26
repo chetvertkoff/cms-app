@@ -12,16 +12,41 @@ MongoClient(process.env.URL,{ useUnifiedTopology: true })
  })
 
 
-export const getPagesByParentId = (id:number, callback)=>{
+export const getPagesByParentId = (id:number, limit: number, callback)=>{
     try {
-        db
-        .collection('pages')
-        .find(
-            {$or: [ { parent:id }, { id: id } ]}
-        )
-        .toArray((err, data)=>{   
-           callback(err,data)
-        })   
+        var pages
+        var count:number
+        Promise.all([
+            new Promise((resolve)=>{
+                db
+                .collection('pages')
+                .find(
+                    {$or: [ { parent:id }, { id: id } ]}
+                )
+                .limit(limit+1)
+                .toArray((err, data)=>{   
+                    pages = data
+                    resolve()
+                })
+            }),
+            new Promise((resolve)=>{
+                db
+                .collection('pages')
+                .find(
+                    {$or: [ { parent:id }, { id: id } ]}
+                )
+                .count()
+                .then(newCount=>{
+                    count = newCount
+                    resolve()
+                })
+            })
+        ])
+         .then(()=>{
+            callback(null,pages,count)
+         })
+         .catch(err=>callback(err))
+
     } catch (error) {}
 }
 
@@ -30,14 +55,15 @@ export const getPageById = (id:number, callback)=>{
      .collection('pages')
      .find({id:id})
      .limit(1)
-     .toArray((err, data)=>{   
+     .toArray((err, data)=>{          
         callback(err,data)
      })
 }
 
 
-export const insertPage=(page)=>{
+export const insertPage=(page)=>{    
     if(page){
+        console.log(page);
         db
          .collection('pages')
          .insertOne(page)

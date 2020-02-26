@@ -12,6 +12,7 @@ import { fetchMenuItemsById } from '../../Store/Action/fetchMenu';
 import { updateMenu } from './../../Store/Action/fetchMenu';
 import { AlertContext } from './../../Context/alert-context';
 import Preloader from '../../Components/UI/preloader/preloader';
+import PageLoadPreloader from './../../Components/UI/preloader/pageLoadPreloader';
 
 class Page extends Component<IProps, IState>{
     constructor(props){
@@ -19,14 +20,17 @@ class Page extends Component<IProps, IState>{
 
         this.state={
             search: null,
-            arr: null
+            arr: null,
+            pageLimit: 15
         }
 
         this.handleChange = this.handleChange.bind(this) 
         this.onClick = this.onClick.bind(this)
+        this.handleScroll = this.handleScroll.bind(this)
     }
 
     componentDidMount(){
+        window.addEventListener("scroll", this.handleScroll);
         // Get root pages from API for first loading
         this.props.fetchParentPageById(this.props.match.params.ids)    
     }
@@ -50,7 +54,7 @@ class Page extends Component<IProps, IState>{
         return false
     }
 
-    handleChange =(e:React.ChangeEvent<HTMLInputElement>)=>{
+    handleChange =(e:React.ChangeEvent<HTMLInputElement>):void=>{
         const val = e.target.value        
         setTimeout(() => {
             if(val != '' || val != val){
@@ -64,11 +68,12 @@ class Page extends Component<IProps, IState>{
         }, 0);   
     }
 
-    searchPages = (val:string)=>{
+    searchPages = (val:string):void=>{
         
         if(!this.state.arr || this.state.arr[0]._id != this.props.pages[0]._id){
             this.setState({
-                arr : this.props.pages
+                arr : this.props.pages,
+                limit: this.props.pagesLength
             })
         }
         
@@ -88,7 +93,7 @@ class Page extends Component<IProps, IState>{
         
     }
 
-    onClick =()=>{
+    onClick =():void=>{
         var options 
         if(this.props.pages && this.props.pages.length >= 1){
 
@@ -152,6 +157,31 @@ class Page extends Component<IProps, IState>{
         }
     } 
 
+    handleScroll():void{
+        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        const windowBottom = windowHeight + window.pageYOffset;
+        const diff = docHeight-windowBottom 
+        if(diff <=120 && diff < 50){
+            const currentLimit:number = this.state.pageLimit
+            const pageCount:number = this.props.pagesLength
+            console.log(currentLimit+15);
+            
+            if(currentLimit < pageCount || currentLimit == pageCount){
+                this.setState({
+                    pageLimit: currentLimit+15
+                })
+                this.props.fetchParentPageById(this.props.match.params.ids, currentLimit+15)
+            }
+        }   
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    }    
+
     render(){ 
         var pages
         if (this.props.pages) {
@@ -160,18 +190,16 @@ class Page extends Component<IProps, IState>{
                 return e.parent === parent
             })
         }
-
+        console.log(pages.length);
+        
         return (
-            this.props.loading ?
-            <Preloader />
-            :
-            <React.Fragment>
+            <React.Fragment >
                 <Title title={'Страницы'} classN={"fa-file-text"} {...this.props}/>
-                <div className="row">
+                <div className="row f" onScroll={this.handleScroll}>
                     <div className="col-md-12">
                         <div className="tile row">
                             <div className="col-md-12 line-head">
-                                <NavLink to={"/create"} onClick={this.onClick} className="btn btn-primary icon-btn" >
+                                <NavLink to={"/admin/create"} onClick={this.onClick} className="btn btn-primary icon-btn" >
                                     <i className="fa fa-plus"></i>Добавить страницу	
                                 </NavLink>
                             </div>  
@@ -207,6 +235,11 @@ class Page extends Component<IProps, IState>{
                         </div>
                     </div>
                 </div>
+                {
+                this.props.loading ?
+                    <PageLoadPreloader />
+                : null
+                }
             </React.Fragment>
         )
     }
@@ -216,11 +249,12 @@ class Page extends Component<IProps, IState>{
 const mapStateToProps=(state:IProps)=>({
     // Get pages from server
     loading: state.fetchPages.loading,
-    pages: state.fetchPages.page
+    pages: state.fetchPages.page.data,
+    pagesLength: state.fetchPages.page.length
 })
 
 const mapDispatchToProps=(dispatch)=>({
-    fetchParentPageById: id=>dispatch(fetchParentPageById(id)),
+    fetchParentPageById: (id, limit)=>dispatch(fetchParentPageById(id, limit)),
     fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
     updateMenu: toggler=>dispatch(updateMenu(toggler))
 })
