@@ -6,17 +6,33 @@ import Page from './../Containers/Page/page';
 import Blog from './../Containers/Blog/blog';
 import CreatePage from './../Containers/Page/createPage/createPage';
 import UpdatePage from './../Containers/Page/updatePage/updatePage';
+import User from './../Containers/User/user';
+import Auth from './../Containers/Auth/auth';
 
 
-const routes=(
-    <Switch>
-        <Route path="/admin/" exact component={Main} />
-        <Route path="/admin/blog" component={Blog} />
-        <Route path="/admin/create" component={CreatePage} /> 
-        <Route path="/admin/update/:id/" component={UpdatePage} /> 
-        {/* <Route path="/pages/" component={Page} /> */}
-        <Route path="/admin/page/:ids" component={Page} />
-    </Switch>
-)
+const Routes=(props)=>{
+    
+    return(
+        <>
+            {
+                props.isAuth ?
+                <Switch>
+                    <Route path="/admin/" exact component={Main} />
+                    <Route path="/admin/blog" component={Blog} />
+                    <Route path="/admin/create" component={CreatePage} /> 
+                    <Route path="/admin/update/:id/" component={UpdatePage} /> 
+                    <Route path="/admin/page/:ids" component={Page} />
+                    <Route path="/admin/user" component={User} />
+                </Switch>
+                :
+                <Switch> 
+                    <Route path="/admin/login" component={Auth} />
+                </Switch>
+            }
+        </>
+    )
+}
 
-export default routes
+
+
+export default Routes

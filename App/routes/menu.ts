@@ -3,7 +3,7 @@ import { getFullmenu } from './../controller/menu';
 
 const menu = express.Router()
 
-menu.get('/',getFullmenu)
+menu.get('/' ,getFullmenu)
 
 
 export default menu

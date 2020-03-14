@@ -14,13 +14,6 @@ class Layout extends React.Component<IProps>{
         this.toogleSidebar=this.toogleSidebar.bind(this)
     }
 
-    componentDidMount(){
-        // setTimeout(()=>{
-        //     this.props.load()
-        // },2000)
-    }
-
-
     toogleSidebar(e:any){
         e.preventDefault()   
         this.props.toggleSideBarAction(this.props.sideBarShow)    

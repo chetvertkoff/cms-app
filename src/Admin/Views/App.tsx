@@ -5,17 +5,22 @@ import Layout from './hoc/Layout';
 // types variable
 import { IProps } from './Types';
 //routes
-import routes from './routes/routes';
+import Routes from './routes/routes';
+import useAuth from './hooks/auth.hook';
 
-class App extends React.Component<IProps>{
+const App = (props:IProps)=>{
+    const {isAuth} = useAuth()
 
-    render(){
-        return(
-            <Layout>
-                {routes}
-            </Layout>
-        )
-    }
+    return(
+        <React.Fragment>
+            {isAuth ?
+                <Layout>
+                    <Routes isAuth={isAuth} />
+                </Layout>
+            : <Routes isAuth={isAuth} />}
+        </React.Fragment>
+    )
 }
+
 export default withRouter(App)
 

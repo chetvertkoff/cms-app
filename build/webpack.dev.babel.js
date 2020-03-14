@@ -19,7 +19,7 @@ const devWebpackConfig = merge(common, {
     },
     proxy: { "/api/**": { target: 'http://localhost:5000', secure: false }  },
     setup (app) {
-      app.use('/upload/',
+      app.use('/uploads/',
         express.static(path.join(__dirname, '../uploads')));
     }
   },

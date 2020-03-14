@@ -63,8 +63,11 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.6.0",
     "@babel/register": "^7.6.2",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "express-validator": "^6.4.0",
     "jodit-react": "^1.0.26",
+    "jsonwebtoken": "^8.5.1",
     "react-froala-wysiwyg": "^3.1.0",
     "webpack-dev-server": "^3.8.1",
     "wysiwyg-editor-node-sdk": "^3.1.0"

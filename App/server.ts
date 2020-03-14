@@ -6,6 +6,7 @@ import parentPages from './routes/parentPages';
 import pages from './routes/pages';
 import cors from 'cors'
 import upload from './routes/upload'
+import user from './routes/user';
 
 dotenv.config()
 const app:any = express()
@@ -15,10 +16,12 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended":true}));
 
-// app.use("/uploads",express.static("uploads"));
-// app.use(express.static('public'))
+
+app.use("/uploads",express.static("uploads", { redirect : false }));
+app.use(express.static('public', { redirect : false }))
 // app.use(bodyParser.json()); 
 // app.use('/getMenu', menu)
+app.use('/api/user/', user)
 app.use('/api/parentPage/', parentPages)
 app.use('/api/page/', pages)
 app.use('/api/menu/', menu)

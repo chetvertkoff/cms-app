@@ -23,7 +23,7 @@ export const getPagesByParentId = (id:number, limit: number, callback)=>{
                 .find(
                     {$or: [ { parent:id }, { id: id } ]}
                 )
-                .limit(limit+1)
+                .limit(limit)
                 .toArray((err, data)=>{   
                     pages = data
                     resolve()

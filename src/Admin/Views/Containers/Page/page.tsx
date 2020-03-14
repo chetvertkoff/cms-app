@@ -43,12 +43,11 @@ class Page extends Component<IProps, IState>{
             }else{
                 this.props.fetchParentPageById(this.props.match.params.ids)
             }
-        
-            setTimeout(() => {
-                this.setState({
-                    arr: this.props.pages
-                })
-            }, 0);
+    
+            this.setState({
+                arr: this.props.pages
+            })
+
             return true
         }
         return false
@@ -158,16 +157,20 @@ class Page extends Component<IProps, IState>{
     } 
 
     handleScroll():void{
-        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
-        const body = document.body;
-        const html = document.documentElement;
-        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        const windowBottom = windowHeight + window.pageYOffset;
-        const diff = docHeight-windowBottom 
-        if(diff <=120 && diff < 50){
+        const scrollTop =
+        (document.documentElement && document.documentElement.scrollTop) ||
+        document.body.scrollTop;
+      const scrollHeight =
+        (document.documentElement && document.documentElement.scrollHeight) ||
+        document.body.scrollHeight;
+      const clientHeight =
+        document.documentElement.clientHeight || window.innerHeight;
+      const scrolledToBottom =
+        Math.ceil(scrollTop + clientHeight+50) >= scrollHeight;
+
+        if(scrolledToBottom && !this.props.loading){
             const currentLimit:number = this.state.pageLimit
             const pageCount:number = this.props.pagesLength
-            console.log(currentLimit+15);
             
             if(currentLimit < pageCount || currentLimit == pageCount){
                 this.setState({
@@ -190,7 +193,6 @@ class Page extends Component<IProps, IState>{
                 return e.parent === parent
             })
         }
-        console.log(pages.length);
         
         return (
             <React.Fragment >
@@ -206,7 +208,6 @@ class Page extends Component<IProps, IState>{
                             <div style={{paddingTop:'10px'}} className="tile-body col-md-12">
                                 <div className="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                                     <div className="row">
-                                        <Select />
                                         <Search  handleChange={this.handleChange} />
                                     </div>
                                     <div className="row">

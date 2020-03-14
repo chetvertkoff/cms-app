@@ -5,15 +5,24 @@ export const getSomeParentPageById = async (req,res)=>{
         const parId:number= +req.params.id
         var limit:number | any
 
-        if(req.query.limit) limit = +req.query.limit
+        if(req.query.limit) limit = +req.query.limit+1
         else limit = 0
 
-        await getPagesByParentId(parId, limit, (err, data, count)=>{            
-            const newData:any = {}
-            newData.length = count
-            newData.data = data
-            if (!data && !data.length) res.status(404).send('Can not find page')
-            return res.send(newData)   
+        await getPagesByParentId(parId, limit, (err, data, count)=>{      
+            new Promise((resolve, reject)=>{
+                const newData:any = {}
+                newData.length = count
+                newData.data = data
+                if (!data && !data.length) reject()
+                resolve(newData)
+            })
+             .then((pages)=>{
+                res.send(pages)   
+             })
+             .catch(()=>{
+                res.status(404).send('Can not find page')
+             })
+
         })
     } catch (error) {
         res.status(400).send('Incorrect query')

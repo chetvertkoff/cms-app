@@ -2,7 +2,7 @@ import React from 'react';
 
 const Search = (props) => {
     return (
-        <div className="col-sm-12 col-md-6">
+        <div className="col-sm-12 col-md-12">
             <div className="dataTables_filter">
                 <label>
                     Поиск:

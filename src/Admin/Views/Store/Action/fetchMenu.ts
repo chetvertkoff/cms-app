@@ -4,7 +4,7 @@ import xhr from './../../lib/xhr';
 export const fetchMenu = ()=>dispatch=>{
     dispatch(dfetchMenuStart())
     new Promise((resolve, reject)=>{
-        setTimeout(()=>resolve(), 500)
+        setTimeout(()=>resolve(), 100)
     }).then(()=>{
         xhr('GET', `/api/menu`, null)
         .then(data=>dispatch(dfetchMenu(data)))
@@ -13,8 +13,6 @@ export const fetchMenu = ()=>dispatch=>{
 
 
 export const fetchMenuItemsById =(idn:number)=>(dispatch):void=>{
-
-    
     xhr('GET',`/api/parentPage/${idn}`, null)
      .then(data=>{
         dispatch(dfetchMenuItemsById(data.data))

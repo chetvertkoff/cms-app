@@ -99,7 +99,7 @@ class Menu extends Component<IProps, IState>{
             })
             setTimeout(() => {
                 this.props.fetchMenuItemsById(id)
-            }, 0);
+            }, 0)
         }
     }
 
@@ -143,7 +143,6 @@ class Menu extends Component<IProps, IState>{
                         )
                     }) : <Preloader />
                 }
-                
             </ul>
         );
     }

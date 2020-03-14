@@ -100,9 +100,7 @@ class CreatePage  extends React.Component<IProps, IState>{
                         this.props.updateMenu(true)
                     },0);
                 }
-               
                 this.props.history.push(`/admin/update/${JSON.parse(data.response).id}/?create=success`)
-    
              })
         } catch (error) {
             return error

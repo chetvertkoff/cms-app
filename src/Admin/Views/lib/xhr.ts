@@ -1,10 +1,15 @@
-const xhr = (reqType:string, url:string, data:any)=>{
+const xhr = (reqType:string, url:string, data?:any, headers?:object={})=>{
     const xhr = new XMLHttpRequest()
 
     switch (reqType) {
         case 'GET':
           return  new Promise<string>((resolve,reject)=>{
                 xhr.open(reqType, url, true)
+                if(headers){
+                    for(let[key,value] of Object.entries(headers)){
+                        xhr.setRequestHeader(key, value)
+                    }
+                }
                 xhr.onload = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {

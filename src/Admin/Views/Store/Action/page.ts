@@ -12,13 +12,11 @@ export const fetchParentPageById =(id:number, limit?:number)=>dispatch=>{
     
     dispatch(dfetchPageStart())
     new Promise((resolve, reject)=>{
-        setTimeout(() =>resolve(), 500)
+        setTimeout(() =>resolve(), 100)
     })
      .then(()=>{
         xhr('GET',`/api/parentPage/${id}${query}`, null)
         .then(data=>{
-            console.log(data.length);
-            
             dispatch(dfetchPageById(data))
         })
      })
