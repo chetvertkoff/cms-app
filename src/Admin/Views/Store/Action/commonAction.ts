@@ -1,4 +1,4 @@
-import { IS_DROP_DOWN_SHOW, IS_TOGGLE_SIDEBAR,IS_LOADED, MENU_TOGGLE, NEW_PAGE_OPTIONS } from '../Types/types'
+import { IS_DROP_DOWN_SHOW, IS_TOGGLE_SIDEBAR,IS_LOADED, NEW_PAGE_OPTIONS } from '../Types/types'
 import { IProps } from '../../Types/index'
 
 export const toggleDropDown = (bool:boolean):IProps=>({
@@ -16,9 +16,5 @@ export const load = (bool:boolean):IProps=>({
     payload:bool
 })
 
-export const toggleMenuItem = (bool:boolean)=>({
-    type:MENU_TOGGLE,
-    payload:bool
-})
 
 

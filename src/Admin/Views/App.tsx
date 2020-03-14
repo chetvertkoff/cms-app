@@ -10,11 +10,12 @@ import useAuth from './hooks/auth.hook';
 
 const App = (props:IProps)=>{
     const {isAuth} = useAuth()
+console.log(isAuth);
 
     return(
         <React.Fragment>
             {isAuth ?
-                <Layout>
+                <Layout isAuth={isAuth}>
                     <Routes isAuth={isAuth} />
                 </Layout>
             : <Routes isAuth={isAuth} />}

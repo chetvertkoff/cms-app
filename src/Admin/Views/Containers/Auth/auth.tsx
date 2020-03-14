@@ -39,7 +39,6 @@ const Auth = (props) => {
           const token = JSON.parse(res.response)     
           setUthPreloader(false)      
           successLogin(token.token)
-
         }
       }) 
   }

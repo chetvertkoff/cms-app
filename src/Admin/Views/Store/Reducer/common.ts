@@ -1,4 +1,4 @@
-import { IS_DROP_DOWN_SHOW, IS_TOGGLE_SIDEBAR,IS_LOADED, MENU_TOGGLE, NEW_PAGE_OPTIONS } from '../Types/types';
+import { IS_DROP_DOWN_SHOW, IS_TOGGLE_SIDEBAR,IS_LOADED, NEW_PAGE_OPTIONS } from '../Types/types';
 import { IProps, Common } from '../../Types/index'
 
 const initialState:Common={
@@ -19,11 +19,6 @@ const commonReducer=(state=initialState,action:IProps)=>{
             return{
                 ...state,
                 sideBarShow: !action.payload
-            }
-        case MENU_TOGGLE:
-            return{
-                ...state,
-                toggleMenu: !action.payload
             }
         case IS_LOADED:
             return{

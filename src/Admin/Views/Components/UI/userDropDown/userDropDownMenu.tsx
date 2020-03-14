@@ -17,7 +17,7 @@ const UserDropDownMenu = (props:IProps) => {
                 <i className="fa fa-user fa-lg"></i>
             </a>
             <ul className={classesUl.join(' ')}>
-                <MenuItems />
+                <MenuItems toggleMenu={props.toggleMenu} />
             </ul>
         </li>
     );

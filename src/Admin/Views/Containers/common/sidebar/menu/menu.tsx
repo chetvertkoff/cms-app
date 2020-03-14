@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleMenuItem } from '../../../../Store/Action/commonAction';
 import { IProps, IState } from './../../../../Types/index.d';
 import Preloader from '../../../../Components/UI/preloader/preloader'
 
@@ -9,35 +8,34 @@ import MenuItem from './menuItems/menuItem/menuItem';
 import { fetchMenu, fetchMenuItemsById, updateMenu } from './../../../../Store/Action/fetchMenu';
 
 class Menu extends Component<IProps, IState>{
-
     constructor(props:IProps){
         super(props)
 
         this.state={
             memory: [],
             arr:null, 
-            unClicked: false
+            unClicked: false,
+            showMenu:false
         }
         this.menuToggler= this.menuToggler.bind(this)
     }
 
     componentDidMount(){ 
         this.props.fetchMenuItemsById(0)  
-        setImmediate(()=>{
-            this.props.fetchMenu()
-        })
+        this.props.fetchMenu()
+ 
     }
 
-    componentDidUpdate(prevProps){    
+    componentDidUpdate(prevProps){  
         if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages) 
-        && this.props.menu.pages[0]){ 
+        && this.props.menu.pages[0] 
+        ){ 
+
             const parent = this.props.menu.pages[0].id
             const pages = this.props.menu.pages.filter(e=>{
                 return e.parent === parent
             })
-            
             if (this.props.update) {
-                
                 this.setState({
                     arr: pages,
                     memory:[],
@@ -47,7 +45,6 @@ class Menu extends Component<IProps, IState>{
             }
 
             if(this.state.arr==null){
-                
                 setTimeout(()=>{
                     this.setState({
                         arr: pages
@@ -68,7 +65,6 @@ class Menu extends Component<IProps, IState>{
         return false
     }
 
-
     filterOb =(arr,id:number | string, putted)=>{    
         arr.map(item=>{
             if(item.id != item.parent){
@@ -85,14 +81,13 @@ class Menu extends Component<IProps, IState>{
         return arr
     }
 
-    menuToggler(){
-        this.props.toggleMenuItem(this.props.toggleMenu)
+    menuToggler():void{
+        this.setState({showMenu: !this.state.showMenu})
     }
 
-    getPageMenu=(id)=>{
+    getPageMenu=(id:number):void=>{
         
         if( !this.state.memory.find((item)=>item==id)){
-            console.log('вызван');
             
             this.setState({
                 memory: [...this.state.memory, id]
@@ -105,9 +100,10 @@ class Menu extends Component<IProps, IState>{
 
     render() {   
         const classes=["treeview"]
-        if(this.props.toggleMenu){
+        if(this.state.showMenu){
             classes.push('is-expanded')
         }
+
         return (
             <ul className="app-menu">
                 {
@@ -124,7 +120,7 @@ class Menu extends Component<IProps, IState>{
                                         ></i>
                                     </NavLink>
                                     <ul className="treeview-menu" style={{paddingLeft:"0px"}}>
-                                        {   this.props.toggleMenu && this.state.arr[0].alias && !this.state.unClicked ? 
+                                        {   this.state.showMenu && this.state.arr[0].alias && !this.state.unClicked ? 
                                             this.state.arr.map((page)=>(
                                                 <MenuItem page={page} collapsed={this.state.unClicked} key={page.id} getPageMenu={this.getPageMenu}/>
                                             )) : null
@@ -151,13 +147,11 @@ class Menu extends Component<IProps, IState>{
 const mapStateToProps=(state)=>({
         loading: state.fetchMenu.loading,
         pages: state.fetchMenuItemsById,
-        toggleMenu: state.commonReducer.toggleMenu,
         menu: state.fetchMenu,
         update: state.fetchMenu.toggler
 })
 
 const mapDispatchToProps = (dispatch)=>({
-    toggleMenuItem: bool=>dispatch(toggleMenuItem(bool)),
     fetchMenuItemsById: id=>dispatch(fetchMenuItemsById(id)),
     fetchMenu: ()=>dispatch(fetchMenu()),
     updateMenu: toggler=>dispatch(updateMenu(toggler))

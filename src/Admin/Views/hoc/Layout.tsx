@@ -24,7 +24,7 @@ class Layout extends React.Component<IProps>{
             <div id="Layout" className={`app sidebar-mini rtl pace-done ${this.props.sideBarShow ? 'sidenav-toggled' : null}`}>
                 {/* <Preloader loading={this.props.loading}/> */}
                 <Header toggleSide={this.toogleSidebar} />
-                <SideBar />
+                <SideBar isAuth={this.props.isAuth} />
                 <AlertProvider>
                     <main className="app-content">
                         {this.props.children}
