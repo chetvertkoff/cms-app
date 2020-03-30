@@ -61,12 +61,12 @@ export const getPageById = (id:number, callback)=>{
 }
 
 
-export const insertPage=(page)=>{    
+export const insertPage=(page, callback)=>{    
     if(page){
-        console.log(page);
         db
          .collection('pages')
          .insertOne(page)
+         .then(data=>callback(data))
     }
 }
 
@@ -120,9 +120,9 @@ export const findChild=(id:number, callback)=>{
     }
 }
 
-export const getMaxID=(callback)=>(
+export const getMaxID=(collection:string,callback)=>(
     db
-     .collection('pages')
+     .collection(collection)
      .find()
      .sort({'id':-1})
      .project({id:1, _id: 0})
@@ -132,7 +132,7 @@ export const getMaxID=(callback)=>(
      })
 )
 
-export const updateElemProp=(id, props)=>{
+export const updateElemProp=(id, props, callback)=>{
     if(id && props){
         db
         .collection('pages')
@@ -140,6 +140,7 @@ export const updateElemProp=(id, props)=>{
             {id: id},
             {$set:{...props}}
         )
+        .then(data=>callback(data))
     }
 }
 

@@ -36,13 +36,12 @@ const Auth = (props) => {
           setErr('Пользователь с такими данными не найден')
         }
         if(res.status == 200){   
-          const token = JSON.parse(res.response)     
-          setUthPreloader(false)      
-          successLogin(token.token)
+          const result = JSON.parse(res.response)    
+          setUthPreloader(false)                
+          successLogin(result)
         }
       }) 
   }
-
 
   return (
     <React.Fragment>
@@ -78,5 +77,7 @@ const Auth = (props) => {
     </React.Fragment>
   )
 }
+
+
 
 export default Auth

@@ -2682,4 +2682,59 @@ be a descendant of the grid when it is being dragged.
   text-security: disc;
   -webkit-text-security: disc;
 }
+.users .user{
+  display: block;
+  text-align: center;
+}
+.users .user img, .avatar img{
+  width: 30%;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+.avatar img{
+  width: 30%;
+  border-radius: 50%;
+  margin-bottom: 30px;
+  position: absolute;
+}
+.users .tile.user  h4{
+  color: #009688;
+}
+.users .tile.user .fa-edit{
+  margin-left: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.bold{
+  font-weight: bold;
+}
+.file-input{
+  cursor: pointer;
+}
+.file-input input{
+  width: 100%;
+  opacity: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  cursor: pointer;
+}
+.avatar p{
+  margin-bottom: .5rem;
+}
+
+.inputError{
+  color: #dc3545;
+  position: absolute;
+}
+
+.deleteUser{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #dc3545;
+  cursor: pointer;
+}
 

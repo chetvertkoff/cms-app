@@ -1,4 +1,6 @@
-const xhr = (reqType:string, url:string, data?:any, headers?:object={})=>{
+import e from "express"
+
+const xhr = (reqType:string, url:string, data?:any, headers?:object | boolean)=>{
     const xhr = new XMLHttpRequest()
 
     switch (reqType) {
@@ -30,7 +32,15 @@ const xhr = (reqType:string, url:string, data?:any, headers?:object={})=>{
             return new Promise<string>((resolve,reject)=>{
                 
                 xhr.open(reqType, url)
-                xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                if(headers){
+                    for(let[key,value] of Object.entries(headers)){
+                        xhr.setRequestHeader(key, value)
+                    }
+                }else{
+                    if(headers !== false){
+                        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+                    }
+                }
                 xhr.onerror = function () {
                     reject(xhr.statusText);
                 };
@@ -38,7 +48,11 @@ const xhr = (reqType:string, url:string, data?:any, headers?:object={})=>{
                 xhr.onload =()=>{
                     resolve(xhr)
                 }
-                xhr.send(JSON.stringify(data));
+                if(data instanceof FormData){
+                    xhr.send(data);
+                }else{
+                    xhr.send(JSON.stringify(data));
+                }
             }).then(data=>data)
         case 'DELETE':
             return new Promise<string>((resolve,reject)=>{

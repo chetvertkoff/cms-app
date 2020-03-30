@@ -48,7 +48,7 @@ const TextInput = (props:IProps) => {
                 }
                 {
                     props.required && props.isInvalid ? 
-                        <div style={{color: '#dc3545'}}>
+                        <div className="inputError">
                             Поле пустое или заполнено некорректно
                         </div>
                     :

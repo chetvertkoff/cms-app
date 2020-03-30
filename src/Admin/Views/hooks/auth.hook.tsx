@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import {useHistory} from 'react-router-dom'
 import xhr from './../lib/xhr'
+import { User } from '../Types'
 
 const useAuth = () => {
   const history = useHistory()
@@ -16,14 +17,21 @@ const useAuth = () => {
 
   },[])
 
-  const successLogin = useCallback((newToken)=>{
-    localStorage.setItem('jwt',newToken)
+  const successLogin = useCallback((result)=>{
+    localStorage.setItem('jwt',result.token)
+    localStorage.setItem('user', JSON.stringify(result.user))
     setToken(token)
     history.push('/admin')
   },[])
 
+  const getUserInfo = ():User=>{
+    const user:User = JSON.parse(localStorage.getItem('user')) 
+    return user
+  }
+
   const logOut = useCallback(()=>{
     localStorage.removeItem('jwt')
+    localStorage.removeItem('user')
     setAuth(null)
     setToken(null)
     return history.push(`/admin/login`)
@@ -49,7 +57,7 @@ const useAuth = () => {
 
   })
 
-  return {token,isAuth, successLogin,logOut}
+  return {token,isAuth, successLogin,logOut, getUserInfo}
 }
 
 export default useAuth

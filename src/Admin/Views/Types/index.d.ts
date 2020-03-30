@@ -163,6 +163,15 @@ type Fields={
     metaDescription?: string
 }
 
+type User={
+    _id?: string,
+    id?: number,
+    login:string,
+    password: string,
+    name?:string,
+    role?: string,
+    avatar?: string
+}
 
 
 

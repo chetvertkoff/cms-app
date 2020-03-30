@@ -31,7 +31,7 @@ const Body = (props:IProps) => {
                 tag='textarea'
                 onModelChange = {(text)=>{handleModel(text)}}
                 config={{
-                    imageUploadURL: '/api/upload_image'
+                    imageUploadURL: '/api/upload/image'
                   }}
             />
             <br/>

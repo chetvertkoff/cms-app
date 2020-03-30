@@ -46,7 +46,7 @@ export const addNewPage = async (req,res)=>{
     try {
         const page = req.body
         new Promise((resolve, reject)=>{
-            getMaxID((data)=>{
+            getMaxID('pages',(data)=>{
                 if (!data && !data.length) res.status(404).send('Can not find page')
                 resolve(data[0].id)
             })
@@ -68,13 +68,17 @@ export const addNewPage = async (req,res)=>{
                 hasChild: false
             }
         })
-         .then(async data=>{
-            res.setHeader('Content-Type', 'application/json');
-            res.send({id: data.id});
-            await insertPage(data)
-            if(data.parent){
-                await updateElemProp(data.parent, {hasChild: true})
-            }
+         .then(data=>{
+            res.setHeader('Content-Type', 'application/json')
+            insertPage(data, insertResult=>{
+                if(data.parent){
+                    updateElemProp(data.parent, {hasChild: true}, updateResult=>{
+                        res.send({id: data.id})   
+                    })
+                }else{
+                    res.send({id: data.id})
+                }
+            })
          })
         
     } catch (error) {
@@ -109,7 +113,7 @@ export const deleteSomePageById=(req,res)=>{
                         findElemsByProps({parent: data[0].parent}, data=>{
                             // if element counts is equal 1 then this element parent hasnt childs
                             if(data[0].parent && data.length == 1){
-                                updateElemProp(data[0].parent,{hasChild: false} )   
+                                updateElemProp(data[0].parent,{hasChild: false}, null)   
                             }
                             resolve(id)
                         }, 2)
