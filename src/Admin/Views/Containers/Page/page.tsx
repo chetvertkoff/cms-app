@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import Select from './parts/select/select';
 import Search from './parts/search';
 import PageItem from './parts/pageItem';
 import Title from './../common/title/title';
@@ -10,8 +9,6 @@ import { fetchParentPageById } from './../../Store/Action/page';
 import xhr from './../../lib/xhr';
 import { fetchMenuItemsById } from '../../Store/Action/fetchMenu';
 import { updateMenu } from './../../Store/Action/fetchMenu';
-import { AlertContext } from './../../Context/alert-context';
-import Preloader from '../../Components/UI/preloader/preloader';
 import PageLoadPreloader from './../../Components/UI/preloader/pageLoadPreloader';
 
 class Page extends Component<IProps, IState>{

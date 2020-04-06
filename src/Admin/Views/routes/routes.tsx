@@ -3,7 +3,6 @@ import {Route, Switch, withRouter} from 'react-router-dom'
 //components
 import Main from './../Containers/main/main';
 import Page from './../Containers/Page/page';
-import Blog from './../Containers/Blog/blog';
 import CreatePage from './../Containers/Page/createPage/createPage';
 import UpdatePage from './../Containers/Page/updatePage/updatePage';
 import User from './../Containers/User/user';
@@ -18,7 +17,6 @@ const Routes=(props)=>{
                 props.isAuth ?
                 <Switch>
                     <Route path="/admin/" exact component={Main} />
-                    <Route path="/admin/blog" component={Blog} />
                     <Route path="/admin/create" component={CreatePage} /> 
                     <Route path="/admin/update/:id/" component={UpdatePage} /> 
                     <Route path="/admin/page/:ids" component={Page} />

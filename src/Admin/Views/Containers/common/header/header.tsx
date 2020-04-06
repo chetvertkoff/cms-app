@@ -4,10 +4,9 @@ import { NavLink } from "react-router-dom"
 import { connect } from 'react-redux';
 //Components and types
 import UserDropDownMenu from './../../../Components/UI/userDropDown/userDropDownMenu';
-import { IProps } from 'Admin/Views/Types';
 import { toggleDropDown } from './../../../Store/Action/commonAction';
 
-const Header = (props:IProps)=>{
+const Header = (props)=>{
     const toggleUsermenu = (e)=>{
         e.preventDefault()
         props.toggleDropDown(props.dropDownShow)
@@ -26,7 +25,7 @@ const Header = (props:IProps)=>{
         </header>
     )   
 }
-export const mapStateToProps = (state:IProps)=>({
+export const mapStateToProps = (state)=>({
     dropDownShow: state.commonReducer.dropDownShow
 })
 

@@ -55,13 +55,15 @@ export interface IProps{
     defaultValue?: string,
     updateMenu?:(e:boolean)=>void,
     deletePage?: (e: number)=>void,
-    id?: number | any
+    id?: number | any,
+    update?: boolean,
+    pagesLength?: number
 }
 
 export interface IState{
     memory?: Array<number>,
     arr?: Tree,
-    pageLimit: number,
+    pageLimit?: number,
     collapsed?: boolean,
     search?: Tree,
     url?: string,
@@ -76,7 +78,10 @@ export interface IState{
     metaKeywords?: string,
     metaDescription?: string,
     isInvalid?: boolean,
-    fields?: Fields
+    fields?: Fields,
+    unClicked?: boolean,
+    showMenu?: boolean,
+    limit?: number
 }
 
 // reducer states
@@ -139,7 +144,8 @@ export interface Tree{
     map?:any,
     length?:number,
     _id?:string,
-    filter?: (e:any)=>Tree
+    filter?: (e:any)=>Tree,
+    data?: Fields
 }
 
 type Options={

@@ -35,6 +35,8 @@ class Menu extends Component<IProps, IState>{
             const pages = this.props.menu.pages.filter(e=>{
                 return e.parent === parent
             })
+            console.log(pages);
+            
             if (this.props.update) {
                 this.setState({
                     arr: pages,
@@ -145,10 +147,10 @@ class Menu extends Component<IProps, IState>{
 }
 
 const mapStateToProps=(state)=>({
-        loading: state.fetchMenu.loading,
-        pages: state.fetchMenuItemsById,
-        menu: state.fetchMenu,
-        update: state.fetchMenu.toggler
+    loading: state.fetchMenu.loading,
+    pages: state.fetchMenuItemsById,
+    menu: state.fetchMenu,
+    update: state.fetchMenu.toggler
 })
 
 const mapDispatchToProps = (dispatch)=>({
