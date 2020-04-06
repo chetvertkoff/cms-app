@@ -35,7 +35,6 @@ class Menu extends Component<IProps, IState>{
             const pages = this.props.menu.pages.filter(e=>{
                 return e.parent === parent
             })
-            console.log(pages);
             
             if (this.props.update) {
                 this.setState({

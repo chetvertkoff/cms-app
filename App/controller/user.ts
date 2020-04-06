@@ -18,13 +18,11 @@ export const login = (req, res)=>{
     const login:string = req.body.login
     const pass:string = req.body.password
     if(!login || !pass) return res.status(400).send('Incorrect query')
-    console.log(req.body);
     
     getUser(login,async (user:User)=>{
       if(!user) return res.status(400).send('Cannot find user')
       
       const matchPass = await bcrypt.compare(pass, user.password)
-      console.log(matchPass);
       
       if(!matchPass) return res.status(400).send('Incorrect password')
 
@@ -47,8 +45,6 @@ export const login = (req, res)=>{
 export const getUsers = (req,res)=>{
   try {
     findUsers((data)=>{
-      console.log(data);
-      
       res.send(data)
     }) 
   } catch (error) {
