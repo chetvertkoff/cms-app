@@ -6,7 +6,7 @@ import sha256 from 'sha256'
 
 const storage = multer.diskStorage({
    destination: function(req, file, cb) {
-      cb(null, `${path.resolve()}/uploads/avatar/`);
+      cb(null, `${path.resolve()}/uploads/avatar/`)
     },
    filename: function (req, file, cb) {
     const name = sha256(file.originalname.replace(/([A-Za-zа-яА-Я.0-9-]+)(\.[pngPNGjpgJPGjpegJPEG]+)/gm, '$1'))
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
    }
 })
 
-const uploading = multer({ storage: storage });
+const uploading = multer({ storage: storage })
 
 const upload = express.Router()
 
