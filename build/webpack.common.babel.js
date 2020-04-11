@@ -6,6 +6,8 @@ import ManifestPlugin from 'webpack-manifest-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import PurgecssPlugin from 'purgecss-webpack-plugin'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import CompressionPlugin from 'compression-webpack-plugin'
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -22,12 +24,12 @@ export default {
     app: PATHS.src,
     // module: `${PATHS.src}/your-module.js`,
   },
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   output: {
     filename: `${PATHS.assets}js/[name].[hash].js`,
     path: PATHS.dist,
     publicPath: '/',
-    sourceMapFilename: 'bundle.map'
+    // sourceMapFilename: 'bundle.map'
   },
   optimization: {
     splitChunks: {
@@ -55,7 +57,7 @@ export default {
         MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader',
-          options: { sourceMap: true }
+          options: { sourceMap: false }
         }, {
           loader: 'postcss-loader',
           options: { sourceMap: false, config: { path: `./build/postcss.config.js` } }
@@ -95,13 +97,21 @@ export default {
     new ManifestPlugin(),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/Admin/static/`, to: `` }
-    ])
-    // new PurgecssPlugin({
-    //   paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    // })
+    ]),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    }),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
     // new ImageminPlugin({
     //   pngquant: ({quality: 50}),
     //   plugins: [imageminMozjpeg({quality: 50})]
     // })
+  //  new BundleAnalyzerPlugin(),
   ],
 }

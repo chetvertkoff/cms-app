@@ -4,32 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config ./build/webpack.prod.babel.js",
     "start": "node Web/server.js"
   },
   "author": "kirill",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cyrillic-to-translit-js": "^3.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "jodit-react": "^1.0.26",
     "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.2",
-    "react-froala-wysiwyg": "^3.1.0",
-    "sha256": "^0.2.0",
-    "webpack-dev-server": "^3.8.1",
-    "wysiwyg-editor-node-sdk": "^3.1.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "cyrillic-to-translit-js": "^3.0.1",
     "mongodb": "^3.3.3",
+    "multer": "^1.4.2",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
+    "react-froala-wysiwyg": "^3.1.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sha256": "^0.2.0",
+    "webpack-dev-server": "^3.8.1",
+    "wysiwyg-editor-node-sdk": "^3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -39,6 +40,8 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@babel/register": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "@types/express": "^4.17.1",
     "@types/node": "^12.12.3",
@@ -47,10 +50,9 @@
     "@types/react-helmet": "^5.0.11",
     "@types/react-redux": "^7.1.4",
     "@types/react-router-dom": "^5.1.0",
-    "@babel/preset-typescript": "^7.6.0",
-    "@babel/register": "^7.6.2",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^3.1.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "css-mqpacker": "^7.0.0",
@@ -68,12 +70,13 @@
     "ts-node": "^8.4.1",
     "typescript": "^3.6.3",
     "webpack": "^4.41.6",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.9",
     "webpack-manifest-plugin": "^2.1.2",
     "webpack-merge": "^4.2.2"
   },
-  "engines": { 
-    "node": "13.8.0" 
-   },
+  "engines": {
+    "node": "13.8.0"
+  },
   "proxy": "http://localhost:5000"
 }
