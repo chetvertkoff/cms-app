@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var express_1 = tslib_1.__importDefault(require("express"));
+var pages_1 = require("../controller/pages");
+var pages = express_1.default.Router();
+pages.get('/:id', pages_1.getSomePagesById);
+pages.post('/', pages_1.addNewPage);
+pages.delete('/:id', pages_1.deleteSomePageById);
+exports.default = pages;

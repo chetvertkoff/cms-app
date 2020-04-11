@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon App/server.ts"
+    "start": "node Web/server.js"
   },
   "author": "kirill",
   "license": "MIT",
