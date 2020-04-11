@@ -2,8 +2,8 @@
 node_modules
 
 # bundle
-# /public
-# /uploads
+/public
+/uploads
 
 #dev
 .vscode

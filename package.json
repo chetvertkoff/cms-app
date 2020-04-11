@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --config ./build/webpack.dev.babel.js",
-    "build": "webpack --config ./build/webpack.prod.babel.js",
-    "start": " nodemon App/server.ts"
+    "start": "nodemon App/server.ts"
   },
   "author": "kirill",
   "license": "MIT",
