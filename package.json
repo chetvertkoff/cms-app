@@ -74,5 +74,6 @@
     "webpack-manifest-plugin": "^2.1.2",
     "webpack-merge": "^4.2.2"
   },
+  "homepage": ".",
   "proxy": "http://localhost:5000"
 }
