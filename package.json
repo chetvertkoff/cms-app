@@ -74,8 +74,5 @@
     "webpack-manifest-plugin": "^2.1.2",
     "webpack-merge": "^4.2.2"
   },
-  "engines": {
-    "node": "13.8.0"
-  },
   "proxy": "http://localhost:5000"
 }
