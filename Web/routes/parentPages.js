@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = require("tslib");
+var express_1 = tslib_1.__importDefault(require("express"));
+var pages_1 = require("../controller/pages");
+var parentPages = express_1.default.Router();
+parentPages.get('/:id', pages_1.getSomeParentPageById);
+parentPages.post('/', pages_1.addNewPage);
+parentPages.put('/', pages_1.updatePage);
+exports.default = parentPages;

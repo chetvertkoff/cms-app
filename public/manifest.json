@@ -1,0 +1,19 @@
+{
+  "app.css": "/assets/css/app.css",
+  "app.js": "/assets/js/app.7218e2683c1357ac0aff.js",
+  "vendor.css": "/assets/css/vendor.css",
+  "vendor.js": "/assets/js/vendor.7218e2683c1357ac0aff.js",
+  "./index.html": "/./index.html",
+  "font-awesome/css/font-awesome.min.css": "/font-awesome/css/font-awesome.min.css",
+  "font-awesome/fonts/FontAwesome.otf": "/font-awesome/fonts/FontAwesome.otf",
+  "font-awesome/fonts/fontawesome-webfont.eot": "/font-awesome/fonts/fontawesome-webfont.eot",
+  "font-awesome/fonts/fontawesome-webfont.svg": "/font-awesome/fonts/fontawesome-webfont.svg",
+  "font-awesome/fonts/fontawesome-webfont.ttf": "/font-awesome/fonts/fontawesome-webfont.ttf",
+  "font-awesome/fonts/fontawesome-webfont.woff": "/font-awesome/fonts/fontawesome-webfont.woff",
+  "font-awesome/fonts/fontawesome-webfont.woff2": "/font-awesome/fonts/fontawesome-webfont.woff2",
+  "fonts/Lato-Regular.eot": "/fonts/Lato-Regular.eot",
+  "fonts/Lato-Regular.ttf": "/fonts/Lato-Regular.ttf",
+  "fonts/Lato-Regular.woff": "/fonts/Lato-Regular.woff",
+  "fonts/Niconne-Regular.ttf": "/fonts/Niconne-Regular.ttf",
+  "icons/no-avatar.png": "/icons/no-avatar.png"
+}

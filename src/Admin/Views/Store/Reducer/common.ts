@@ -1,0 +1,37 @@
+import { IS_DROP_DOWN_SHOW, IS_TOGGLE_SIDEBAR,IS_LOADED, NEW_PAGE_OPTIONS } from '../Types/types';
+import { IProps, Common } from '../../Types/index'
+
+const initialState:Common={
+    dropDownShow: false,
+    sideBarShow: false,
+    isLoaded:true,
+    toggleMenu: false
+}
+
+const commonReducer=(state=initialState,action:IProps)=>{
+    switch(action.type){
+        case IS_DROP_DOWN_SHOW:
+            return{
+                ...state,
+                dropDownShow: !action.payload
+            }
+        case IS_TOGGLE_SIDEBAR:
+            return{
+                ...state,
+                sideBarShow: !action.payload
+            }
+        case IS_LOADED:
+            return{
+                ...state,
+                isLoaded: false
+            }
+        case NEW_PAGE_OPTIONS:
+            return{
+                options: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export default commonReducer
