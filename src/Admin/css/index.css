@@ -2687,12 +2687,9 @@ be a descendant of the grid when it is being dragged.
   text-align: center;
 }
 .users .user img, .avatar img{
-  width: 56px;
-  height: 56px;
+  width: 30%;
   border-radius: 50%;
   margin-bottom: 30px;
-  object-position: center;
-  object-fit: cover;
 }
 .avatar img{
   width: 30%;
