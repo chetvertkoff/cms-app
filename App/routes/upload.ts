@@ -6,11 +6,7 @@ import sha256 from 'sha256'
 
 const storage = multer.diskStorage({
    destination: function(req, file, cb) {
-    if(process.env.MODE = 'prod'){
-      cb(null, `${path.resolve()}/public/uploads/avatar/`)
-    }else{
       cb(null, `${path.resolve()}/uploads/avatar/`)
-    }
   },
    filename: function (req, file, cb) {
     const name = sha256(file.originalname.replace(/([A-Za-zа-яА-Я.0-9-]+)(\.[pngPNGjpgJPGjpegJPEG]+)/gm, '$1'))
@@ -30,12 +26,9 @@ upload.post('/image', (req,res)=>{
   }
 
   let currentPath = {path:''}
-  if(process.env.MODE = 'prod') {
-    currentPath.path = '../public/uploads/'
-  }
-  else {
+
     currentPath.path = '../uploads/'
-  }
+
   try {
     FroalaEditor.Image.upload(req, currentPath.path , function(err, data) {
       if (err){
