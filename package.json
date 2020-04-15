@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server --open --config ./build/webpack.dev.babel.js",
+    "startDev": "nodemon App/server.ts",
     "build": "webpack --config ./build/webpack.prod.babel.js",
     "start": "node Web/server.js"
   },

@@ -773,7 +773,11 @@ button.bg-light:focus {
 }
 
  .app-sidebar__user-avatar {
-  border-radius: 50% !important;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
 }
 
 .text-center {
