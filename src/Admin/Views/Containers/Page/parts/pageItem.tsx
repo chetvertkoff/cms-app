@@ -53,7 +53,7 @@ const PageItem = (props:IProps) => {
                         }
                     </div>
                     <div className="col-md-3">
-                        <div className="btn-group pull-right">
+                        <div className="btn-group pull-right page-item-control">
                             <NavLink className="btn btn-primary" to={'/admin/update/'+props.item.id}>
                                 <i className="fa fa-lg fa-edit"></i>
                             </NavLink>

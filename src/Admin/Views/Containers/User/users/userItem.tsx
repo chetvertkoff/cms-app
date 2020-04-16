@@ -7,7 +7,7 @@ const UserItem = (props) => {
   
   const deleteUser = ():void=>{
     try {
-      xhr('DELETE',`/api/user/deleteUser/${user.id}`)
+      xhr('DELETE',`http://localhost:5000/api/user/deleteUser/${user.id}`)
        .then(res=>{
          if(res.status == 200){
           props.fetchUsers()  

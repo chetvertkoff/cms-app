@@ -27,14 +27,14 @@ class Menu extends Component<IProps, IState>{
     }
 
     componentDidUpdate(prevProps){  
+        const parent = this.props.menu.pages[0].id
+        const pages = this.props.menu.pages.filter(e=>{
+            return e.parent === parent
+        })
+
         if(JSON.stringify(prevProps.menu.pages) !== JSON.stringify(this.props.menu.pages) 
         && this.props.menu.pages[0] 
         ){ 
-
-            const parent = this.props.menu.pages[0].id
-            const pages = this.props.menu.pages.filter(e=>{
-                return e.parent === parent
-            })
             
             if (this.props.update) {
                 this.setState({
@@ -50,17 +50,26 @@ class Menu extends Component<IProps, IState>{
                     this.setState({
                         arr: pages
                     })
-                    
                 },0)     
             }
             setTimeout(() => {
-                
                 this.setState({
                     arr: this.filterOb(this.state.arr, pages[0].parent, pages),
                     unClicked: false
                 })
 
             }, 0);
+            console.log('не пуст');
+            return true
+        }
+        if(this.state.arr == null
+        && pages[0]._id !== ''
+            ){
+            console.log('Пуст');
+            
+            this.setState({
+                arr: pages
+            })
             return true
         }
         return false

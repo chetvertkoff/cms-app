@@ -7,7 +7,7 @@ export const SideBar=(props)=>{
     return (
         <aside className="app-sidebar">
             <UserInfo />
-            <Menu  />
+            <Menu />
         </aside>
     );
 }

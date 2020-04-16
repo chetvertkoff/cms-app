@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from './../../../../hooks/auth.hook';
+import { connect } from 'react-redux';
+import { updateMenu } from './../../../../Store/Action/fetchMenu';
 
 const MenuItems = (props) => {
     const {logOut} = useAuth()
@@ -8,6 +10,7 @@ const MenuItems = (props) => {
     const exit = (e):void=>{
         e.preventDefault()
         logOut()
+        props.updateMenu(true)
     }
 
     return (
@@ -28,4 +31,8 @@ const MenuItems = (props) => {
     );
 }
 
-export default MenuItems;
+const mapDispatchToProps = (dispatch)=>({
+    updateMenu: toggler=>dispatch(updateMenu(toggler))
+})
+
+export default connect(null,mapDispatchToProps)(MenuItems)

@@ -57,7 +57,8 @@ export interface IProps{
     deletePage?: (e: number)=>void,
     id?: number | any,
     update?: boolean,
-    pagesLength?: number
+    pagesLength?: number,
+    isAuth?:boolean
 }
 
 export interface IState{

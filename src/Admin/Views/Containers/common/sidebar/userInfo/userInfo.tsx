@@ -10,13 +10,12 @@ const UserInfo = () => {
         const user:User = getUserInfo()
         setUser(user)
     },[])
-    console.log(user);
     
     return (
         <div className="app-sidebar__user">
             <img 
                 className="app-sidebar__user-avatar" 
-                src={user  ? user.profile.avatar : '/icons/no-avatar.png'}
+                src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"  
                 alt=""
             />
             <div>
