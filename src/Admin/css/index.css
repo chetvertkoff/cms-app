@@ -1651,7 +1651,6 @@ be a descendant of the grid when it is being dragged.
       -ms-flex-align: center;
           align-items: center;
   padding: 10px;
-  margin-bottom: 20px;
   color: #fff;
 }
 
@@ -1660,6 +1659,12 @@ be a descendant of the grid when it is being dragged.
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   margin-right: 15px;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
 }
 
 .app-sidebar__user-name {
@@ -2687,14 +2692,14 @@ be a descendant of the grid when it is being dragged.
   text-align: center;
 }
 .users .user img, .avatar img{
-  width: 30%;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   margin-bottom: 30px;
+  object-position: center;
+  object-fit: cover;
 }
 .avatar img{
-  width: 30%;
-  border-radius: 50%;
-  margin-bottom: 30px;
   position: absolute;
 }
 .users .tile.user  h4{

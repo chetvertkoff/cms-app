@@ -15,7 +15,7 @@ const UserInfo = () => {
         <div className="app-sidebar__user">
             <img 
                 className="app-sidebar__user-avatar" 
-                src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg"  
+                src={user && user.profile.avatar}  
                 alt=""
             />
             <div>
