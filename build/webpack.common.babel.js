@@ -98,16 +98,16 @@ export default {
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/Admin/static/`, to: `` }
     ]),
-    // new PurgecssPlugin({
-    //   paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    // }),
-    // new CompressionPlugin({
-    //   filename: '[path].gz[query]',
-    //   algorithm: 'gzip',
-    //   test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
-    //   threshold: 10240,
-    //   minRatio: 0.8,
-    // }),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    }),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
     // new ImageminPlugin({
     //   pngquant: ({quality: 50}),
     //   plugins: [imageminMozjpeg({quality: 50})]
