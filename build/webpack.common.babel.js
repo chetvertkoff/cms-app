@@ -98,9 +98,9 @@ export default {
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/Admin/static/`, to: `` }
     ]),
-    new PurgecssPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
-    }),
+    // new PurgecssPlugin({
+    //   paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+    // }),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',
