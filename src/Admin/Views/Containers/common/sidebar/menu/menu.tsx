@@ -59,14 +59,11 @@ class Menu extends Component<IProps, IState>{
                 })
 
             }, 0);
-            console.log('не пуст');
             return true
         }
         if(this.state.arr == null
         && pages[0]._id !== ''
             ){
-            console.log('Пуст');
-            
             this.setState({
                 arr: pages
             })

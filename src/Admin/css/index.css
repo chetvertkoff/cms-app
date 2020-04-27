@@ -2746,3 +2746,7 @@ be a descendant of the grid when it is being dragged.
 .page-item-control > a{
   margin-right: 10px;
 }
+
+.fr-wrapper > div:first-child{
+  display:none !important; 
+}
