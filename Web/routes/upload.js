@@ -9,7 +9,6 @@ var sha256_1 = tslib_1.__importDefault(require("sha256"));
 var storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path_1.default.resolve() + "/uploads/avatar/");
-
     },
     filename: function (req, file, cb) {
         var name = sha256_1.default(file.originalname.replace(/([A-Za-zа-яА-Я.0-9-]+)(\.[pngPNGjpgJPGjpegJPEG]+)/gm, '$1'));
@@ -21,9 +20,7 @@ var uploading = multer_1.default({ storage: storage });
 var upload = express_1.default.Router();
 upload.post('/image', function (req, res) {
     var currentPath = { path: '' };
-
-        currentPath.path = '../uploads/';
-
+    currentPath.path = '../uploads/';
     try {
         froalaEditor_js_1.default.Image.upload(req, currentPath.path, function (err, data) {
             if (err) {

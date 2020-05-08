@@ -7,10 +7,15 @@ import pages from './routes/pages';
 import cors from 'cors'
 import upload from './routes/upload'
 import user from './routes/user'
+import compression from 'compression'
 
 dotenv.config()
 const app:any = express()
 const port:number|string = process.env.PORT || 5000
+
+if(process.env.MODE = 'prod'){
+  app.use(compression())
+}
 
 app.use(cors())
 app.use(bodyParser.json());
