@@ -13,9 +13,9 @@ dotenv.config()
 const app:any = express()
 const port:number|string = process.env.PORT || 5000
 
-// if(process.env.MODE = 'prod'){
-//   app.use(compression())
-// }
+if(process.env.MODE = 'prod'){
+  app.use(compression())
+}
 
 app.use(cors())
 app.use(bodyParser.json());

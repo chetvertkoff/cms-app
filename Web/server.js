@@ -9,8 +9,12 @@ var pages_1 = tslib_1.__importDefault(require("./routes/pages"));
 var cors_1 = tslib_1.__importDefault(require("cors"));
 var upload_1 = tslib_1.__importDefault(require("./routes/upload"));
 var user_1 = tslib_1.__importDefault(require("./routes/user"));
+var compression_1 = tslib_1.__importDefault(require("compression"));
 var app = express_1.default();
 var port = process.env.PORT || 5000;
+if (process.env.MODE = 'prod') {
+    app.use(compression_1.default());
+}
 app.use(cors_1.default());
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ limit: '10mb', extended: true }));

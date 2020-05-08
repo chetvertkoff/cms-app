@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var mongodb_1 = require("mongodb");
-
 var dbName = 'CRUD';
 var db;
 mongodb_1.MongoClient(process.env.URL, { useUnifiedTopology: true })
