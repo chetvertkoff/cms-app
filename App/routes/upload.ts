@@ -3,6 +3,7 @@ import express from 'express'
 import FroalaEditor from '../lib/froalaEditor.js'
 import multer from 'multer'
 import sha256 from 'sha256'
+import settings from '../settings'
 
 const storage = multer.diskStorage({
    destination: function(req, file, cb) {
@@ -36,7 +37,7 @@ upload.post('/image', (req,res)=>{
       }
       
       data.link = data.link.slice(2)
-      if (process.env.MODE = 'prod') {
+      if (settings.MODE = 'prod') {
         data.link = data.link.replace(/\/public/,'')
       }
       res.send(data)

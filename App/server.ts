@@ -8,12 +8,13 @@ import cors from 'cors'
 import upload from './routes/upload'
 import user from './routes/user'
 import compression from 'compression'
+import settings from './settings'
 
 dotenv.config()
 const app:any = express()
-const port:number|string = process.env.PORT || 5000
+const port:number|string = settings.PORT || 5000
 
-if(process.env.MODE = 'prod'){
+if(settings.MODE = 'prod'){
   app.use(compression())
 }
 
@@ -31,7 +32,7 @@ app.use('/api/page/', pages)
 app.use('/api/menu/', menu)
 app.use('/api/upload/', upload);
 
-if(process.env.MODE = 'prod'){
+if(settings.MODE = 'prod'){
   app.get ('*', (req, res) => { 
       res.sendFile('index.html', { root: 'public' }); 
   })

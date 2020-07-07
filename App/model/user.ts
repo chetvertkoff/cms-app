@@ -1,6 +1,7 @@
 import {MongoClient} from 'mongodb'
 import dotenv from 'dotenv'
 import { getMaxID } from './pages'
+import settings from '../settings'
 
 type User={
   _id?: string,
@@ -17,7 +18,7 @@ const dbName = 'CRUD'
 var db
 
 //DB Connect
-MongoClient(process.env.URL,{ useUnifiedTopology: true })
+MongoClient(settings.URL,{ useUnifiedTopology: true })
  .connect((err, client)=>{
      db = client.db(dbName)
  })

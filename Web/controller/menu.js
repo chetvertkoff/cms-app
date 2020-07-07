@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getFullmenu = void 0;
 var menu_1 = require("../model/menu");
 exports.getFullmenu = function (req, res) {
     try {

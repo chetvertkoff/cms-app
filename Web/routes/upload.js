@@ -6,6 +6,7 @@ var express_1 = tslib_1.__importDefault(require("express"));
 var froalaEditor_js_1 = tslib_1.__importDefault(require("../lib/froalaEditor.js"));
 var multer_1 = tslib_1.__importDefault(require("multer"));
 var sha256_1 = tslib_1.__importDefault(require("sha256"));
+var settings_1 = tslib_1.__importDefault(require("../settings"));
 var storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path_1.default.resolve() + "/uploads/avatar/");
@@ -27,7 +28,7 @@ upload.post('/image', function (req, res) {
                 return res.send(JSON.stringify(err));
             }
             data.link = data.link.slice(2);
-            if (process.env.MODE = 'prod') {
+            if (settings_1.default.MODE = 'prod') {
                 data.link = data.link.replace(/\/public/, '');
             }
             res.send(data);

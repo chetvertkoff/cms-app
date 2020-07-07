@@ -1,9 +1,9 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteSomePageById = exports.updatePage = exports.addNewPage = exports.getSomePagesById = exports.getSomeParentPageById = void 0;
 var tslib_1 = require("tslib");
 var pages_1 = require("./../model/pages");
-exports.getSomeParentPageById = function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+exports.getSomeParentPageById = function (req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var parId, limit, error_1;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -41,7 +41,7 @@ exports.getSomeParentPageById = function (req, res) { return tslib_1.__awaiter(_
         }
     });
 }); };
-exports.getSomePagesById = function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+exports.getSomePagesById = function (req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var id, error_2;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -64,7 +64,7 @@ exports.getSomePagesById = function (req, res) { return tslib_1.__awaiter(_this,
         }
     });
 }); };
-exports.addNewPage = function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+exports.addNewPage = function (req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var page_1;
     return tslib_1.__generator(this, function (_a) {
         try {
@@ -113,7 +113,7 @@ exports.addNewPage = function (req, res) { return tslib_1.__awaiter(_this, void 
         return [2];
     });
 }); };
-exports.updatePage = function (req, res) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+exports.updatePage = function (req, res) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
     var page, error_3;
     return tslib_1.__generator(this, function (_a) {
         switch (_a.label) {
@@ -162,7 +162,7 @@ exports.deleteSomePageById = function (req, res) {
                 res.status(500).send('Something went wrong');
             }
         })
-            .then(function (id) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+            .then(function (id) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:

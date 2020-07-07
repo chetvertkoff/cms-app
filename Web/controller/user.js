@@ -1,6 +1,6 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteUser = exports.addNewUser = exports.getUserByLogin = exports.getUsers = exports.login = void 0;
 var tslib_1 = require("tslib");
 var bcryptjs_1 = tslib_1.__importDefault(require("bcryptjs"));
 var jsonwebtoken_1 = tslib_1.__importDefault(require("jsonwebtoken"));
@@ -11,7 +11,7 @@ exports.login = function (req, res) {
         var pass_1 = req.body.password;
         if (!login_1 || !pass_1)
             return res.status(400).send('Incorrect query');
-        user_1.getUser(login_1, function (user) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+        user_1.getUser(login_1, function (user) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
             var matchPass, token;
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
@@ -73,7 +73,7 @@ exports.addNewUser = function (req, res) {
         user_1.getUser(login_3, function (user) {
             if (user)
                 return res.status(409).send('User already exists');
-            user_1.writeNewUser(tslib_1.__assign({}, req.body, { password: bcryptjs_1.default.hashSync(password_1) }), function (result) {
+            user_1.writeNewUser(tslib_1.__assign(tslib_1.__assign({}, req.body), { password: bcryptjs_1.default.hashSync(password_1) }), function (result) {
                 if (result.ops[0].id) {
                     res.send({ status: 'ok' });
                 }
