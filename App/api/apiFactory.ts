@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import User from './user';
+import User from '../modules/users/users.service';
 
 class Factory {
   private api = [

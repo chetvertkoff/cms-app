@@ -9,7 +9,7 @@ export type userLoginData = {
   password: string
 }
 
-export default class User{
+export default class User {
   private readonly route: Router = Router()
   private appRouter: Router
 

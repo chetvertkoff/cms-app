@@ -30,7 +30,7 @@ export default class DBConnect {
   public async initConnect(): Promise<void> {
     try {
       this.connectDB()
-    } finally {      
+    } finally {    
       await this._client.close()
     }
   }
