@@ -11,7 +11,6 @@ declare global {
 export type DBCollections = 'users'|'pages'|'menu'
 
 export default class DBConnect {
-
   private readonly dbName = 'CRUD'
   private readonly URL = process.env.URL
   private static instance: DBConnect
@@ -35,8 +34,8 @@ export default class DBConnect {
     }
   }
 
-  public async connectDB (): Promise<MongoDB> {
-    await this._client.connect()
+  public async connectDB (): Promise<MongoDB> {    
+    await this._client.connect()        
     const client = this._client.db(this.dbName)
     return client
   }

@@ -2,18 +2,17 @@ import { Router } from 'express';
 import User from '../modules/users/users.service';
 
 class Factory {
-  private api = [
+  private readonly route: Router = Router()
+  private controllers = [
     User
   ]
 
   public init(): Router {
-    const route = Router()
-    this.api.forEach(Api => {
-      new Api(route).init()
+    this.controllers.forEach(Controller => {
+      new Controller(this.route).init()
     })
-    return route;
+    return this.route;
   }
-
 }
 
 const apiFactory = (): Router => {  

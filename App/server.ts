@@ -1,6 +1,6 @@
 import express, {Application} from 'express'
 import dotenv from 'dotenv'
-import DBConnect from './model/DBConnect';
+import DBConnect from './helper/DBConnect';
 import api from './api/index';
 
 declare global {
