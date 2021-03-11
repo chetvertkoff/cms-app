@@ -15,7 +15,8 @@ export default class DBConnect {
   private readonly URL = process.env.URL
   private static instance: DBConnect
   private static exists: boolean
-  private _client: MongoClient
+  private _client: MDBClient
+  private _connection: MongoDB
 
   constructor() {
     if (DBConnect.exists) {
@@ -23,26 +24,26 @@ export default class DBConnect {
     }
     DBConnect.instance = this
     DBConnect.exists = true
-    this._client = new MongoClient(this.URL, {useUnifiedTopology:true})
+    this._client = new MongoClient(this.URL, { useUnifiedTopology: true })
   }
+
+  public get connection (): MongoDB {return this._connection}
 
   public async initConnect(): Promise<void> {
     try {
-      this.connectDB()
-    } finally {    
-      await this._client.close()
+      await this.connectDB()
+    } catch(e) {    
+      await this.closeDB()
     }
   }
 
-  public async connectDB (): Promise<MongoDB> {    
+  public async connectDB (): Promise<void> {    
     await this._client.connect()        
-    const client = this._client.db(this.dbName)
-    return client
+    this._connection = this._client.db(this.dbName)
   }
 
-  public closeDB (): void {
-    this._client.close()
+  public async closeDB (): Promise<void> {    
+    await this._client.close()
   }
-
 }
 
