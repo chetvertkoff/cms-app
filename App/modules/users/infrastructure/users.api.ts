@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
-import AbstractAPI from '../AbstractAPI';
-import Users, {IUsers} from './Users';
+import AbstractAPI from '../../AbstractAPI';
+import Users, {IUsers} from '../Users';
 import UsersMiddleware from './users.middleware';
 
 abstract class AbstractUsersAPI extends AbstractAPI {

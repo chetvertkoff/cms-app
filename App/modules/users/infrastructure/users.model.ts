@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import DBConnect, { DBCollections } from "../../helper/DBConnect";
+import DBConnect, { DBCollections } from "../../../helper/DBConnect";
 
 export interface IUserModel extends IUserLoginData{ // Модель пользователя
   profile: {
@@ -19,13 +19,11 @@ export interface IUserLoginData{
   password: string
 }
 
-type userLoginData = keyof IUserLoginData
-
 export default class UserModel {
   private readonly dataBase:DBConnect = new DBConnect()
   private readonly collection: DBCollections = 'users'
 
-  public async getUserLoginData ({login}: userLoginData): Promise<userLoginData> {
+  public async getUserLoginData ({login}: IUserLoginData): Promise<IUserLoginData> {
     const db = this.dataBase.connection    
     try {      
       return await db

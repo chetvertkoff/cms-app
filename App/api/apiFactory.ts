@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import UsersAPI from '../modules/users/users.api';
+import UsersAPI from '../modules/users/infrastructure/users.api';
 
 class Factory {
   private readonly route: Router = Router()

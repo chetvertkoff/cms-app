@@ -1,4 +1,4 @@
-import UserModel, {IUserLoginData} from "./users.model"
+import UserModel, {IUserLoginData} from "./infrastructure/users.model"
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -11,8 +11,8 @@ export default class Users implements IUsers {
     if(!login || !password) throw {code: 400, message: 'Incorrect request'}
 
     const user: IUserLoginData = await new UserModel().getUserLoginData(body)  
+    
     if(!user._id) throw {code: 404, message: 'User not founded'}
-    console.log(user);
     
     const matchPassword = await bcrypt.compare(password, user.password)
     if(!matchPassword) throw {code: 401, message: 'Incorrect password'}
