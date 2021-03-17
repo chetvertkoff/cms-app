@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import UsersAPI from '../modules/users/infrastructure/users.api';
+import UsersController from '../modules/users/infrastructure/users.controller';
 
 class Factory {
   private readonly route: Router = Router()
   private controllers = [
-    UsersAPI
+    UsersController
   ]
 
   public init(): Router {

@@ -1,14 +1,14 @@
 import { Router, Request, Response } from 'express'
-import AbstractAPI from '../../AbstractAPI';
+import AbstractController from '../../AbstractController';
 import Users, {IUsers} from '../Users';
 import UsersMiddleware from './users.middleware';
 
-abstract class AbstractUsersAPI extends AbstractAPI {
+abstract class AbstractUsersController extends AbstractController {
   protected abstract login (req: Request, res: Response): Promise<Response>
   protected abstract registration (req: Request, res: Response): Promise<Response>
 }
 
-export default class UsersAPI extends AbstractUsersAPI{
+export default class UsersController extends AbstractUsersController{
   private readonly route: Router = Router()
   private appRouter: Router
   private users: IUsers
