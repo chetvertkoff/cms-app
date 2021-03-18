@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import menu from './routes/menu';
 import parentPages from './routes/parentPages';
 import pages from './routes/pages';
-import cors from 'cors'
+import cors from '../App/application/api/node_modules/cors'
 import upload from './routes/upload'
 import user from './routes/user';
 import multer from 'multer'

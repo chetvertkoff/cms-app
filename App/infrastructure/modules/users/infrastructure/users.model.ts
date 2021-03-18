@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import DBConnect, { DBCollections } from "../../../helper/DBConnect";
+import DBConnect, { DBCollections } from "../../../infrastructure/helper/DBConnect";
 
 export interface IUserModel extends IUserLoginData{ // Модель пользователя
   profile: {
