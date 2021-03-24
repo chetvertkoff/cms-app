@@ -8,7 +8,7 @@ declare global {
   type MongoDB = Db
 }
 
-export type DBCollections = 'users'|'pages'|'menu'
+export type DBCollections = 'users'|'pages'
 
 export default class DBConnect {
   private readonly dbName = 'CRUD'

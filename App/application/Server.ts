@@ -14,7 +14,9 @@ dotenv.config()
 const controllers = [AuthController]
 
 export default class Server {
+
     private static port = process.env.PORT
+
     public static async runServer(): Promise<void> {
         const app: ExpressApp = createExpressServer({
             controllers, 
@@ -26,4 +28,5 @@ export default class Server {
         app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
         app.listen(Server.port, () => console.log(`Server running on ${Server.port}`))
     }
+
 }
