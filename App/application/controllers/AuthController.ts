@@ -1,7 +1,7 @@
-import { Body, Controller, Post } from "routing-controllers"
+import { Body, Controller, Post, UseBefore  } from "routing-controllers"
 import AuthService from "../auth/AuthService"
-import UserLogin from '../auth/ports/in/UserLoginIn'
-import UserJwtToken from "../auth/ports/out/UserJwtTokenOut"
+import UserLogin from '../auth/type/UserLoginIn'
+import UserJwtToken from "../auth/type/UserJwtTokenOut"
 
 @Controller('/auth')
 export default class AuthController {
@@ -10,6 +10,7 @@ export default class AuthController {
     ){}
 
     @Post('/login')
+    @UseBefore(HttpAuthLocalGuard)
     public async login (@Body() body: UserLogin): Promise<UserJwtToken> {
         const JwtToken = await this._authService.login(body)            
         return UserJwtToken.model(JwtToken)

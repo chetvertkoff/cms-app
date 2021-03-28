@@ -1,5 +1,5 @@
-import { UserLoginInPort } from "./ports/in/UserLoginIn"
-import { UserJwtTokenOutPort } from "./ports/out/UserJwtTokenOut"
+import { UserLoginInPort } from "./type/UserLoginIn"
+import { UserJwtTokenOutPort } from "./type/UserJwtTokenOut"
 import User from "../../core/users/entities/User";
 
 export default class AuthService {
