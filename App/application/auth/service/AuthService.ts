@@ -1,6 +1,6 @@
-import { UserLoginInPort } from "./type/UserLoginIn"
-import { UserJwtTokenOutPort } from "./type/UserJwtTokenOut"
-import User from "../../core/users/entities/User";
+import { UserLoginInPort } from "../type/UserLoginIn"
+import { UserJwtTokenOutPort } from "../type/UserJwtTokenOut"
+import User from "../../../core/users/entities/User";
 
 export default class AuthService {
     constructor(
@@ -8,8 +8,8 @@ export default class AuthService {
         private readonly _jwtService,
         private readonly _bcryptService
     ){}
-    
-    public async login (userInput: UserLoginInPort): Promise<UserJwtTokenOutPort> {
+
+    public async validateUser(userInput: UserLoginInPort): Promise<User> {
         const {login, password} = userInput
         if(!login || !password) throw {code: 400, message: 'Incorrect request'}
 
@@ -20,8 +20,12 @@ export default class AuthService {
         const matchPassword = await this._bcryptService.compare(password, user.password)
         if(!matchPassword) throw {code: 401, message: 'Incorrect password'}
 
+        return user
+    }
+    
+    public async login (userInput: UserLoginInPort): Promise<UserJwtTokenOutPort> {
         return this._jwtService.sign (
-            { userId: user.id },
+            { userId: userInput.login },
             'mern',
             { expiresIn: '1h' }
         )

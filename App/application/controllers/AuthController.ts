@@ -1,7 +1,8 @@
 import { Body, Controller, Post, UseBefore  } from "routing-controllers"
-import AuthService from "../auth/AuthService"
+import AuthService from "../auth/service/AuthService"
 import UserLogin from '../auth/type/UserLoginIn'
 import UserJwtToken from "../auth/type/UserJwtTokenOut"
+import {HttpAuthLocalGuard} from "../auth/guard/HttpAuthLocalGuard"
 
 @Controller('/auth')
 export default class AuthController {
