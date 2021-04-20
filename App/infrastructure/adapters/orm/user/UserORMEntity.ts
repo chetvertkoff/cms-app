@@ -17,8 +17,6 @@ export class UserORMEntity {
 
 }
 
-
-
 export class UserProfile {
 
     @Column()

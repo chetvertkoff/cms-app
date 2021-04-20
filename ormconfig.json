@@ -1,0 +1,8 @@
+{
+  "name": "default",
+  "type": "mongodb",
+  "host": "cluster0-ku1lt.mongodb.net",
+  "username": "admin",
+  "password": "lambargini",
+  "database": "test"
+}

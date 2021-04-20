@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import {inject, injectable} from "inversify"
 import { UserLogin } from "../model/UserLogin"
 import { UserJwtToken } from "../model/UserJwtToken"
-import User from "../../../core/user/entity/User"
+import {User} from "../../../core/user/entity/User"
 import {TYPES} from "../../di/Types"
 import {JwtService} from "./JwtService";
 import {BcryptService} from "./BcryptService";
