@@ -1,5 +1,5 @@
 
-// Test if a file is valid based on its extension and mime type.
+// Test if a file is valid based on its extension and mime model.
 function isFileValid(filename, mimetype, allowedExts, allowedMimeTypes) {
 
   if (!allowedExts || ! allowedMimeTypes) {

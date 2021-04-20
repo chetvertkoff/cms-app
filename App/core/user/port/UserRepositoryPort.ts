@@ -1,4 +1,4 @@
-import User from "../entities/User";
+import User from "../entity/User";
 import {OptionsRepositoriy} from "../../common/entities/OptionsRepositoriy";
 
 export interface UserRepositoryPort {

@@ -3,7 +3,7 @@ import Entity from "../../Entity";
 
 export type userID = string|number|ObjectId
 
-export default class User extends Entity {
+export class User extends Entity {
   constructor(
     private readonly _login: string,
     private readonly _password: string,
